@@ -1,0 +1,11 @@
+DateTimeFormatter.ofPattern("dd/MM/yyyy") ---> LocalDate
+DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm") ---> LocalDateTime
+
+utenti.txt
+0		 1
+username|password|'P' / 'C' / 'A'|id utente|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|numero tessera|punti|ultimo aggiornamento|codice id personal trainer  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+orariIngressoUscita.txt
+0		 1
+idUtente|data ingresso|data uscita
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 

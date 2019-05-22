@@ -86,10 +86,11 @@ class ServerThread extends Thread {
 
 				while ((richiesta = inSock.readUTF()) != null) {
 					System.out.println("ServerThread: ricevuto " + richiesta);
-					String[] campi = richiesta.split("|");
+					String[] campi = new String[2000];
+					campi = richiesta.split("|");
 					// Elaborazione risposta
 					switch(campi[0]) {
-					case "login": login(campi, inSock, outSock);
+					case "login": login(campi, inSock, outSock); // richiesta = login username password
 						break;
 					default:
 					}
@@ -122,7 +123,31 @@ class ServerThread extends Thread {
 	}
 
 	private void login(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
-		
+		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
+		String line;
+		boolean found = false;
+		try {
+			while((line = bf_utenti.readLine()) != null && !found) {
+				
+				String[] utente = new String[100];
+				utente = line.split("|");
+				
+				//confronto username e password arrivati con username e password nel file
+				if(campi[1].equals(utente[0]) && campi[2].equals(utente[1])) {
+					found = true;
+					if(!utente[2].equals("C"))	//se non è cliente
+						outSock.writeUTF(line);
+					else {
+						BufferedReader bf_orari = Utilities.apriFile("orariIngressoUscita.txt");
+						
+					}
+				}
+			}
+			if(!found) //segnalo errore passando una stringa di null, così qualunque campo letto non è valido
+				outSock.writeUTF("null|null|null|null|null|null|null|null|null|null|null|null");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 }

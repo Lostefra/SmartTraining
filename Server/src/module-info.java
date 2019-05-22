@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author lorenzo
- *
- */
-module server {
-}

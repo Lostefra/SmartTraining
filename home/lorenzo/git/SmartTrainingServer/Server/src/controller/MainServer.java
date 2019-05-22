@@ -121,7 +121,7 @@ class ServerThread extends Thread {
 	}
 
 	private void login(String[] campi) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 }

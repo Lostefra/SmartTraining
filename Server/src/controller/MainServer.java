@@ -100,16 +100,26 @@ class ServerThread extends Thread {
 						break;
 					case "log": log(campi, inSock, outSock); // richiesta = log
 						break;
-					case "registrazione": registrazione(campi, inSock, outSock); // richiesta = registrazione|username|password|'P' / 'C' / 'A'|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|codice id personal trainer  
+					case "registrazione": registrazione(campi, inSock, outSock); // richiesta = registrazione|username|password|'P' / 'C'|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|codice id personal trainer  
 						break;
 					case "visualizzaStoricoCliente": visualizzaStoricoCliente(campi, inSock, outSock); //richiesta = visualizzaStoricoCliente|idCliente
 						break;
 					case "visualizzaStoricoPT": visualizzaStoricoPT(campi, inSock, outSock); //richiesta = visualizzaStoricoPT
 						break;
-					case "visualizzaAttuali": visualizzaAttuali(campi, inSock, outSock); //rihiesta = visualizzaAttuali|idCliente
+					case "visualizzaAttuali": visualizzaAttuali(campi, inSock, outSock); //richiesta = visualizzaAttuali|idCliente
 						break;
 						//bisogna ricordarsi di invalidare richieste dopo inserimento
-					case "visualizzaRichieste": visualizzaRichieste(campi, inSock, outSock); //rihiesta = visualizzaRichieste|idPersonalTrainer
+					case "visualizzaRichieste": visualizzaRichieste(campi, inSock, outSock); //richiesta = visualizzaRichieste|idPersonalTrainer
+						break;
+					case "gestioneAccount": gestioneAccount(campi, inSock, outSock);
+						break;
+					case "creazioneID": creazioneID(campi, inSock, outSock);
+						break;
+					case "acquisto": acquisto(campi, inSock, outSock);
+						break;
+					case "richiediScheda": richiediScheda(campi, inSock, outSock);
+						break;
+					case "inserisciScheda": inserisciScheda(campi, inSock, outSock);
 						break;
 					default:
 						System.out.println("wua wua wua wuaaaaaaa..");
@@ -141,6 +151,31 @@ class ServerThread extends Thread {
 		}
 	}
 	
+	private void inserisciScheda(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void richiediScheda(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void acquisto(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void creazioneID(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void gestioneAccount(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	//richiesta = visualizzaRichieste|idPersonalTrainer
 	private void visualizzaRichieste(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
 		BufferedReader bf_richieste = Utilities.apriFile("richieste.txt");
@@ -244,7 +279,7 @@ class ServerThread extends Thread {
 		
 	}
 
-	// richiesta = registrazione|username|password|'P' / 'C' / 'A'|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|codice id personal trainer  
+	// richiesta = registrazione|username|password|'P' / 'C'|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|codice id personal trainer  
 	private void registrazione(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
 		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
 		String line;

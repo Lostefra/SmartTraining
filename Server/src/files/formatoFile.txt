@@ -1,7 +1,7 @@
 Data:		DateTimeFormatter.ofPattern("dd/MM/yyyy") ---> LocalDate
 Data Ora:	DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm") ---> LocalDateTime
 Giorno:		DayOfWeek.of(1) ----> DayOfWeek
-Ora			DateTimeFormatter.ofPattern("mm:ss") ---> LocalTime
+Ora:			DateTimeFormatter.ofPattern("mm:ss") ---> LocalTime
 
 utenti.txt
 0		 1

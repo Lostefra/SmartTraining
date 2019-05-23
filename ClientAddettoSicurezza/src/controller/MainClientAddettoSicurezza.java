@@ -10,7 +10,6 @@ public class MainClientAddettoSicurezza {
 		int port = 10101;
 
 		
-
 		// Creazione socket di I/O
 		Socket socket = null;
 		DataInputStream inSock = null;

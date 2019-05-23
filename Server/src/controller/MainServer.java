@@ -82,20 +82,22 @@ class ServerThread extends Thread {
 		try {
 			try {
 				String richiesta;
-				String risposta="";
-
 				while ((richiesta = inSock.readUTF()) != null) {
 					System.out.println("ServerThread: ricevuto " + richiesta);
 					String[] campi = new String[2000];
 					campi = richiesta.split("|");
 					// Elaborazione risposta
 					switch(campi[0]) {
-					case "login": login(campi, inSock, outSock); // richiesta = login username password
+					case "login": login(campi, inSock, outSock); // richiesta = login|username|password
 						break;
+					case "log": log(campi, inSock, outSock); // richiesta = log
+						break;
+					case "registrazione": registrazione(campi, inSock, outSock); // richiesta = registrazione|username|password|'P' / 'C' / 'A'|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|codice id personal trainer  
+						break;
+					case "visualizzaStoricoCliente": visualizzaStoricoCliente(campi, inSock, outSock);
 					default:
 					}
-					outSock.writeUTF(risposta);
-					System.out.println("ServerThread: mandato " + risposta);
+					
 				}
 			} catch (EOFException eof) {
 				System.out.println("Raggiunta la fine delle ricezioni, chiudo...");
@@ -121,6 +123,55 @@ class ServerThread extends Thread {
 			System.exit(3);
 		}
 	}
+	
+	private void visualizzaStoricoCliente(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	// richiesta = registrazione|username|password|'P' / 'C' / 'A'|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|codice id personal trainer  
+	private void registrazione(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
+		String line;
+		try {
+			while((line = bf_utenti.readLine()) != null) {
+				
+				String[] utente = new String[100];
+				utente = line.split("|");
+				
+				//confronto username, email e codice fiscale, che devono essere univoche nel sistema
+				if(campi[1].equals(utente[0])) {
+					outSock.writeUTF("username");
+					return;
+				}
+				if(campi[6].equals(utente[6])) {
+					outSock.writeUTF("email");
+					return;
+				}
+				if(campi[7].contentEquals(utente[7])) {
+					outSock.writeUTF("cf");
+					return;
+				}
+
+			}
+		}	
+			catch(Exception e) {
+				
+			}
+		
+	}
+
+	private void log(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		BufferedReader bf_log = Utilities.apriFile("log.txt");
+		String line;
+		try {
+			while((line = bf_log.readLine()) != null) {
+				outSock.writeUTF(line);	//viene passato al client ogni stringa contenuta nel log
+			}
+		} catch (IOException e) {
+			}
+		
+	}
 
 	private void login(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
 		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
@@ -135,7 +186,7 @@ class ServerThread extends Thread {
 				//confronto username e password arrivati con username e password nel file
 				if(campi[1].equals(utente[0]) && campi[2].equals(utente[1])) {
 					found = true;
-					if(!utente[2].equals("C"))	//se non è cliente
+					if(!utente[2].equals("C"))	//se non è cliente, passo direttamente la stringa che rappresenta l'utente 
 						outSock.writeUTF(line);
 					else {
 						BufferedReader bf_orari = Utilities.apriFile("orariIngressoUscita.txt");

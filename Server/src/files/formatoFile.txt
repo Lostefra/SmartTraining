@@ -1,5 +1,7 @@
-DateTimeFormatter.ofPattern("dd/MM/yyyy") ---> LocalDate
-DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm") ---> LocalDateTime
+Data:		DateTimeFormatter.ofPattern("dd/MM/yyyy") ---> LocalDate
+Data Ora:	DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm") ---> LocalDateTime
+Giorno:		DayOfWeek.of(1) ----> DayOfWeek
+Ora			DateTimeFormatter.ofPattern("mm:ss") ---> LocalTime
 
 utenti.txt
 0		 1
@@ -9,3 +11,14 @@ orariIngressoUscita.txt
 0		 1
 idUtente|data ingresso|data uscita
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+log.txt
+0       1
+dataOra|messaggio/attività|idUtente (OPZIONALE, PRIMA DI ACCEDERE VA CONTROLLATA DIMENSIONE ARRAY DOPO AVER FATTO SPLIT)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+schede.txt
+0		 1
+idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+eserciziAlimenti.txt
+0        1
+idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero

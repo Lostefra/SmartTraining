@@ -22,3 +22,7 @@ idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettima
 eserciziAlimenti.txt
 0        1
 idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+richieste.txt
+0	  		1
+idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni

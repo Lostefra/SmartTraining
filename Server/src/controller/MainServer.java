@@ -1,8 +1,16 @@
 package controller;
 
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MainServer {
 
@@ -94,8 +102,17 @@ class ServerThread extends Thread {
 						break;
 					case "registrazione": registrazione(campi, inSock, outSock); // richiesta = registrazione|username|password|'P' / 'C' / 'A'|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|codice id personal trainer  
 						break;
-					case "visualizzaStoricoCliente": visualizzaStoricoCliente(campi, inSock, outSock);
+					case "visualizzaStoricoCliente": visualizzaStoricoCliente(campi, inSock, outSock); //richiesta = visualizzaStoricoCliente|idCliente
+						break;
+					case "visualizzaStoricoPT": visualizzaStoricoPT(campi, inSock, outSock); //richiesta = visualizzaStoricoPT
+						break;
+					case "visualizzaAttuali": visualizzaAttuali(campi, inSock, outSock); //rihiesta = visualizzaAttuali|idCliente
+						break;
+						//bisogna ricordarsi di invalidare richieste dopo inserimento
+					case "visualizzaRichieste": visualizzaRichieste(campi, inSock, outSock); //rihiesta = visualizzaRichieste|idPersonalTrainer
+						break;
 					default:
+						System.out.println("wua wua wua wuaaaaaaa..");
 					}
 					
 				}
@@ -124,8 +141,106 @@ class ServerThread extends Thread {
 		}
 	}
 	
+	//richiesta = visualizzaRichieste|idPersonalTrainer
+	private void visualizzaRichieste(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		BufferedReader bf_richieste = Utilities.apriFile("richieste.txt");
+		String line;
+		try {
+			while((line = bf_richieste.readLine()) != null) {
+				String[] richiesta = new String[100];
+				richiesta = line.split("|");
+				if(richiesta[2].equals(campi[1])) {	//idPersonalTrainer uguale in richiesta e campo passato
+					outSock.writeUTF(line);	//viene passato al clientPT la scheda 
+				}		
+			}
+		} catch (IOException e) {
+			}
+		
+
+	}
+
+	private void visualizzaAttuali(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
+		String line;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		try {
+			while((line = bf_schede.readLine()) != null) {
+				String[] scheda = new String[100];
+				scheda = line.split("|");
+				LocalDate dataFineValidita = LocalDate.parse(scheda[5], formatter).plusWeeks(Integer.parseInt(scheda[6]));
+				
+				//facendo così le schede che terminano la validita' oggi compaiono tra le attuali
+				boolean dataNONok = dataFineValidita.isBefore(LocalDate.now());
+				if(scheda[1].equals(campi[1]) && !dataNONok) {	//idcliente uguale in scheda e campo passato
+					outSock.writeUTF(line);	//viene passato al client la scheda 
+					BufferedReader bf_inner = Utilities.apriFile("eserciziAlimenti.txt");
+					String temp;
+					while((temp = bf_inner.readLine()) != null) {
+						String[] esercizioAlimento = new String[100];
+						esercizioAlimento = temp.split("|");
+						if(scheda[0].contentEquals(esercizioAlimento[0])) {
+							outSock.writeUTF(temp);	//viene passato al client l'esercizio/alimento associato alla scheda
+						}
+					}
+					
+				}
+			}
+		} catch (IOException e) {
+			}
+		
+	}
+
+	//OSSERVAZIONE: lato Client si può capire quando arriva l'ultimo esercizio/alimento usando lenght. Scheda e pasto alimenti hanno lunghezza differente
+	//richiesta = visualizzaStoricoPT
+	private void visualizzaStoricoPT(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
+		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
+		String line;
+		try {
+			while((line = bf_schede.readLine()) != null) {
+				String[] scheda = new String[100];
+				scheda = line.split("|");
+				outSock.writeUTF(line);	//viene passato al clientPT ogni scheda una per volta 
+				BufferedReader bf_inner = Utilities.apriFile("eserciziAlimenti.txt");
+				String temp;
+				while((temp = bf_inner.readLine()) != null) {
+					String[] esercizioAlimento = new String[100];
+					esercizioAlimento = temp.split("|");
+					if(scheda[0].contentEquals(esercizioAlimento[0])) {
+						outSock.writeUTF(temp);	//viene passato al client l'esercizio/alimento associato alla scheda
+					}
+			
+				}
+			}
+		} catch (IOException e) {
+		
+		}
+	}
+
+	//OSSERVAZIONE: lato Client si può capire quando arriva l'ultimo esercizio/alimento usando lenght. Scheda e pasto alimenti hanno lunghezza differente
+	//richiesta = visualizzaStoricoCliente|idCliente
 	private void visualizzaStoricoCliente(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
-		// TODO Auto-generated method stub
+		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
+		String line;
+		try {
+			while((line = bf_schede.readLine()) != null) {
+				String[] scheda = new String[100];
+				scheda = line.split("|");
+				if(scheda[1].equals(campi[1])) {	//idcliente uguale in scheda e campo passato
+					outSock.writeUTF(line);	//viene passato al client la scheda 
+					BufferedReader bf_inner = Utilities.apriFile("eserciziAlimenti.txt");
+					String temp;
+					while((temp = bf_inner.readLine()) != null) {
+						String[] esercizioAlimento = new String[100];
+						esercizioAlimento = temp.split("|");
+						if(scheda[0].contentEquals(esercizioAlimento[0])) {
+							outSock.writeUTF(temp);	//viene passato al client l'esercizio/alimento associato alla scheda
+						}
+					}
+					
+				}
+			}
+		} catch (IOException e) {
+			}
 		
 	}
 
@@ -189,7 +304,7 @@ class ServerThread extends Thread {
 					if(!utente[2].equals("C"))	//se non è cliente, passo direttamente la stringa che rappresenta l'utente 
 						outSock.writeUTF(line);
 					else {
-						BufferedReader bf_orari = Utilities.apriFile("orariIngressoUscita.txt");
+						//BufferedReader bf_orari = Utilities.apriFile("orariIngressoUscita.txt");
 						
 					}
 				}

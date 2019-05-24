@@ -112,18 +112,18 @@ class ServerThread extends Thread {
 //					case "visualizzaAttuali": visualizzaAttuali(campi, inSock, outSock); //richiesta = visualizzaAttuali|idCliente
 //						break;
 						//bisogna ricordarsi di invalidare richieste dopo inserimento
-					case "visualizzaRichieste": visualizzaRichieste(campi, inSock, outSock); //richiesta = visualizzaRichieste|idPersonalTrainer
-						break;
+//					case "visualizzaRichieste": visualizzaRichieste(campi, inSock, outSock); //richiesta = visualizzaRichieste|idPersonalTrainer
+//						break;
 					case "gestioneAccount": gestioneAccount(campi, inSock, outSock);
 						break;
 					case "creazioneID": creazioneID(campi, inSock, outSock);
 						break;
 					case "acquisto": acquisto(campi, inSock, outSock);
 						break;
-					case "richiediScheda": richiediScheda(campi, inSock, outSock);
-						break;
-					case "inserisciScheda": inserisciScheda(campi, inSock, outSock);
-						break;
+//					case "richiediScheda": richiediScheda(campi, inSock, outSock);
+//						break;
+//					case "inserisciScheda": inserisciScheda(campi, inSock, outSock);
+//						break;
 					default:
 						System.out.println("wua wua wua wuaaaaaaa..");
 					}
@@ -154,11 +154,13 @@ class ServerThread extends Thread {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void inserisciScheda(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@SuppressWarnings("unused")
 	private void richiediScheda(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
 		// TODO Auto-generated method stub
 		
@@ -180,6 +182,7 @@ class ServerThread extends Thread {
 	}
 
 	//richiesta = visualizzaRichieste|idPersonalTrainer
+	@SuppressWarnings("unused")
 	private void visualizzaRichieste(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
 		BufferedReader bf_richieste = Utilities.apriFile("richieste.txt");
 		String line;

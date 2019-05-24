@@ -310,6 +310,8 @@ public class SchedeController {
 						e.getEsercizio().getNumeroSerie()+"|"+e.getEsercizio().getNumeroRipetizioni()+"|"+
 						e.getEsercizio().getTempoRecupero().format(formatterOra);
 				pw_esercizi.write(esercizio);
+
+				res=true; //la scheda contiene almeno un esercizio
 			}
 			pw_esercizi.close();
 			
@@ -355,6 +357,8 @@ public class SchedeController {
 					String esercizio = codice+"|"+ a.getGiorno().getValue() +"|"+a.getOra().format(formatterOra)+"|"+ 
 							a.getAlimento().getNome()+"|"+ a.getAlimento().getPeso()+"|null|null|null";
 					pw_alimenti.write(esercizio);
+					
+					res=true; //la scheda contiene almeno un alimento
 				}
 				pw_alimenti.close();
 				

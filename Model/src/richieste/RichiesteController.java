@@ -17,6 +17,11 @@ public class RichiesteController {
 	private DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 	private DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
+	/**
+	 * 
+	 * @param p personal trainer del quale si vogliono vedere le richieste
+	 * @return richieste
+	 */
 	public List<Richiesta> visualizzaRichieste(PersonalTrainer p) {
 		BufferedReader bf_richieste = Utilities.apriFile("richieste.txt");
 		String line;
@@ -62,6 +67,16 @@ public class RichiesteController {
 
 	}
 	
+	/**
+	 * 
+	 * @param c cliente
+	 * @param p personal trainer
+	 * @param dataInizio data inizio validita
+	 * @param durataSettimane
+	 * @param note
+	 * @param numeroAllenamentiSettimanali
+	 * @return true se inserimento riuscito, false altrimenti
+	 */
 	public boolean inserisciRichiestaSchedaAllenamento(Cliente c, PersonalTrainer p, LocalDate dataInizio, int durataSettimane, 
 				String note, int numeroAllenamentiSettimanali) {
 		boolean res = false, codiceEsiste = false; 
@@ -89,6 +104,7 @@ public class RichiesteController {
 				richiesta.append("|"+ note+ "|A|" + numeroAllenamentiSettimanali+"|null|null|null");
 			pw_richieste.write(richiesta.toString());
 			pw_richieste.close();
+			res = true;
 		
 		} catch(Exception e) {
 			
@@ -96,44 +112,57 @@ public class RichiesteController {
 		return res;
 	}
 	
+	/**
+	 * 
+	 * @param c cliente
+	 * @param p personal trainer
+	 * @param dataInizio data inizio validita
+	 * @param durataSettimane
+	 * @param note
+	 * @param altezza
+	 * @param peso
+	 * @param elencoAllergeni
+	 * @return true se inserimento riuscito, false altrimenti
+	 */
 	public boolean inserisciRichiestaPianoNutrizionale(Cliente c, PersonalTrainer p, LocalDate dataInizio, int durataSettimane, 
 			String note, int altezza, int peso, String elencoAllergeni) {
-	boolean res = false, codiceEsiste = false; 
-	String codice, line;
-	BufferedReader bf_schede = Utilities.apriFile("richieste.txt");
-	try {
-		do {
-			codice = Utilities.generaID("RICH", 3);
-			while((line = bf_schede.readLine()) != null && !codiceEsiste) {
-				String[] campi = new String[100];
-				campi = line.split("|");
-				if(campi[0].equals(codice))
-					codiceEsiste = true;
-			}
-		}while(codiceEsiste == true);
-		bf_schede.close();
-		//CODICE OK
-		//idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
-		PrintWriter pw_richieste = Utilities.apriFileAppend("richieste.txt");
-		StringBuilder richiesta = new StringBuilder(codice+ "|"+ c.getId()+ "|"+p.getId()+ "|");
-		richiesta.append(LocalDateTime.now().format(formatterDataOra)+ "|"+ dataInizio.format(formatterData)+ "|"+durataSettimane);
-		if(note == null)
-			richiesta.append("|null|P|null|" + altezza +"|"+ peso+"|");
-		else
-			richiesta.append("|"+ note+ "|P|null|" + altezza +"|"+ peso+"|");
-		if(elencoAllergeni == null)
-			richiesta.append("null");
-		else
-			richiesta.append(elencoAllergeni);
+		boolean res = false, codiceEsiste = false; 
+		String codice, line;
+		BufferedReader bf_schede = Utilities.apriFile("richieste.txt");
+		try {
+			do {
+				codice = Utilities.generaID("RICH", 3);
+				while((line = bf_schede.readLine()) != null && !codiceEsiste) {
+					String[] campi = new String[100];
+					campi = line.split("|");
+					if(campi[0].equals(codice))
+						codiceEsiste = true;
+				}
+			}while(codiceEsiste == true);
+			bf_schede.close();
+			//CODICE OK
+			//idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
+			PrintWriter pw_richieste = Utilities.apriFileAppend("richieste.txt");
+			StringBuilder richiesta = new StringBuilder(codice+ "|"+ c.getId()+ "|"+p.getId()+ "|");
+			richiesta.append(LocalDateTime.now().format(formatterDataOra)+ "|"+ dataInizio.format(formatterData)+ "|"+durataSettimane);
+			if(note == null)
+				richiesta.append("|null|P|null|" + altezza +"|"+ peso+"|");
+			else
+				richiesta.append("|"+ note+ "|P|null|" + altezza +"|"+ peso+"|");
+			if(elencoAllergeni == null)
+				richiesta.append("null");
+			else
+				richiesta.append(elencoAllergeni);
+			
+			pw_richieste.write(richiesta.toString());
+			pw_richieste.close();
+			res = true;
 		
-		pw_richieste.write(richiesta.toString());
-		pw_richieste.close();
-	
-	} catch(Exception e) {
-		
+		} catch(Exception e) {
+			
+		}
+		return res;
 	}
-	return res;
-}
 }
 
 

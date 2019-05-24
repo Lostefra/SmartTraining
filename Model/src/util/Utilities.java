@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
-import Attori.Cliente;
-import Attori.PersonalTrainer;
-import Attori.TesseraSocio;
+import model.Cliente;
+import model.PersonalTrainer;
+import model.TesseraSocio;
 
 
 public class Utilities {		

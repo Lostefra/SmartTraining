@@ -1,12 +1,10 @@
-package richieste;
+package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import Attori.Cliente;
-import Attori.PersonalTrainer;
+public abstract class Scheda {
 
-public abstract class Richiesta {
 	private String id;
 	private Cliente cliente;
 	private PersonalTrainer personalTrainer;
@@ -15,12 +13,12 @@ public abstract class Richiesta {
 	private int durataSettimane;
 	private String note;
 	
-	public Richiesta(String id, Cliente idCliente, PersonalTrainer idPersonalTrainer, LocalDateTime dataOra, LocalDate dateInizio,
-			int durataSettimane, String note) {
+	public Scheda(String id, Cliente cliente, PersonalTrainer personalTrainer, LocalDateTime dataOra,
+			LocalDate dateInizio, int durataSettimane, String note) {
 		super();
 		this.id = id;
-		this.cliente = idCliente;
-		this.personalTrainer = idPersonalTrainer;
+		this.cliente = cliente;
+		this.personalTrainer = personalTrainer;
 		this.dataOra = dataOra;
 		this.dateInizio = dateInizio;
 		this.durataSettimane = durataSettimane;
@@ -31,11 +29,11 @@ public abstract class Richiesta {
 		return id;
 	}
 
-	public Cliente getIdCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public PersonalTrainer getIdPersonalTrainer() {
+	public PersonalTrainer getPersonalTrainer() {
 		return personalTrainer;
 	}
 
@@ -54,6 +52,7 @@ public abstract class Richiesta {
 	public String getNote() {
 		return note;
 	}
+	
 	
 	
 }

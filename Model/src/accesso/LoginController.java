@@ -34,7 +34,7 @@ public class LoginController {
 			
 			if(username.equals(utente[0]) && password.equals(utente[1])) {
 				found = true;
-				if(!utente[2].equals("C"))
+				if(utente[2].equals("C"))
 					result = "C";
 				else 
 					result = "P";

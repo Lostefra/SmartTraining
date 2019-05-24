@@ -9,8 +9,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import Attori.Cliente;
-import Attori.PersonalTrainer;
+import model.Cliente;
+import model.PersonalTrainer;
+import model.Richiesta;
+import model.RichiestaPianoNutrizionale;
+import model.RichiestaSchedaAllenamento;
 import util.Utilities;
 
 public class RichiesteController {

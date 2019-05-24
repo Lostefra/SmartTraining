@@ -1,4 +1,4 @@
-package Attori;
+package model;
 import java.time.LocalDate;
 
 public class PersonalTrainer extends Utente {

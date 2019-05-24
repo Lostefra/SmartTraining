@@ -1,4 +1,4 @@
-package Acquisto;
+package model;
 
 import java.time.LocalDateTime;
 

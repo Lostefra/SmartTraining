@@ -1,10 +1,7 @@
-package richieste;
+package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import Attori.Cliente;
-import Attori.PersonalTrainer;
 
 public class RichiestaPianoNutrizionale extends Richiesta {
 	private int altezza;

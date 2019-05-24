@@ -1,13 +1,9 @@
-package schede;
+package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import Attori.Cliente;
-import Attori.PersonalTrainer;
-
-public abstract class Scheda {
-
+public abstract class Richiesta {
 	private String id;
 	private Cliente cliente;
 	private PersonalTrainer personalTrainer;
@@ -16,12 +12,12 @@ public abstract class Scheda {
 	private int durataSettimane;
 	private String note;
 	
-	public Scheda(String id, Cliente cliente, PersonalTrainer personalTrainer, LocalDateTime dataOra,
-			LocalDate dateInizio, int durataSettimane, String note) {
+	public Richiesta(String id, Cliente idCliente, PersonalTrainer idPersonalTrainer, LocalDateTime dataOra, LocalDate dateInizio,
+			int durataSettimane, String note) {
 		super();
 		this.id = id;
-		this.cliente = cliente;
-		this.personalTrainer = personalTrainer;
+		this.cliente = idCliente;
+		this.personalTrainer = idPersonalTrainer;
 		this.dataOra = dataOra;
 		this.dateInizio = dateInizio;
 		this.durataSettimane = durataSettimane;
@@ -32,11 +28,11 @@ public abstract class Scheda {
 		return id;
 	}
 
-	public Cliente getCliente() {
+	public Cliente getIdCliente() {
 		return cliente;
 	}
 
-	public PersonalTrainer getPersonalTrainer() {
+	public PersonalTrainer getIdPersonalTrainer() {
 		return personalTrainer;
 	}
 
@@ -55,7 +51,6 @@ public abstract class Scheda {
 	public String getNote() {
 		return note;
 	}
-	
 	
 	
 }

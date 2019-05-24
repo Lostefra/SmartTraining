@@ -1,8 +1,11 @@
 package util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,6 +29,29 @@ public class Utilities {
 	 */
 	public static BufferedReader apriFile(String filename) {
 		return new BufferedReader(new InputStreamReader(Utilities.class.getResourceAsStream("C:/SmartTrainingFiles/" + filename)));
+	}
+	
+	public static PrintWriter apriFileAppend(String filename) {
+		FileWriter fw;
+		try {
+			fw = new FileWriter("C:/SmartTrainingFiles/" + filename,true);
+			return new PrintWriter(new BufferedWriter(fw)); //Wrapper vari per fare la println, più comoda
+		} catch (IOException e) {
+			
+		} //Apertura in append con flag true
+		return null;
+	}
+	
+	public static PrintWriter apriFileOverwrite(String filename) {
+		FileWriter fw;
+		try {
+			fw = new FileWriter("C:/SmartTrainingFiles/" + filename, false);
+			return new PrintWriter(new BufferedWriter(fw)); //Wrapper vari per fare la println, più comoda
+		} catch (IOException e) {
+	
+		} //Apertura in overWrite con flag false
+		return null;
+		
 	}
 
 	public static Cliente leggiCliente(String id) {
@@ -68,6 +94,7 @@ public class Utilities {
 		} catch (IOException e) {
 			
 		}
-		return null;	}
+		return null;	
+	}
 
 }

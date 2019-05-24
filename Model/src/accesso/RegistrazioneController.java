@@ -43,7 +43,7 @@ public class RegistrazioneController {
 		String cognome, String email, String codiceFiscale, LocalDate dataNascita,
 		String luogoNascita, String indirizzoResidenza, String numeroTelefono, String codiceID) throws IOException {
 		
-		File inputFile = new File("C:/SmartTraining/utenti.txt");
+		File inputFile = new File("C:/SmartTrainingFiles/utenti.txt");
 		
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		
@@ -86,7 +86,7 @@ public class RegistrazioneController {
 		
 		/* Aggiugnta PersonalTrainer nel DB */
 		if(pt) {
-			File tempFile = new File("C:/SmartTraining/temp.txt");
+			File tempFile = new File("C:/SmartTrainingFiles/temp.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 			reader = new BufferedReader(new FileReader(inputFile));
 			

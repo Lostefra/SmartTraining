@@ -1,12 +1,9 @@
-package schede;
+package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import Attori.Cliente;
-import Attori.PersonalTrainer;
 
 public class SchedaAllenamento extends Scheda {
 

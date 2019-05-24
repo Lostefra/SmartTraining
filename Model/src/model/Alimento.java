@@ -1,4 +1,4 @@
-package schede;
+package model;
 
 public class Alimento {
 	private String nome;

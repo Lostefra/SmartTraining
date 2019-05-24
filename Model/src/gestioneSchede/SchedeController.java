@@ -1,4 +1,4 @@
-package schede;
+package gestioneSchede;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +11,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import Attori.Cliente;
-import Attori.PersonalTrainer;
+import model.Alimento;
+import model.Cliente;
+import model.Esercizio;
+import model.EsercizioAlimento;
+import model.Pasto;
+import model.PersonalTrainer;
+import model.PianoNutrizionale;
+import model.Scheda;
+import model.SchedaAllenamento;
+import model.Sessione;
 import util.Utilities;
 
 public class SchedeController {

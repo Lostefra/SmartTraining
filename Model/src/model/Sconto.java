@@ -1,4 +1,4 @@
-package Acquisto;
+package model;
 
 public class Sconto {
 	private float valore;

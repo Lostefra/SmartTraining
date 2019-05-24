@@ -1,10 +1,14 @@
-package Acquisto;
+package acquisto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Attori.Cliente;
-import Attori.TesseraSocio;
+import model.Cliente;
+import model.ProdottiPalestra;
+import model.Prodotto;
+import model.ScontiPalestra;
+import model.Sconto;
+import model.TesseraSocio;
 
 public class AcquistoController {
 	private ProdottiPalestra prodotti;

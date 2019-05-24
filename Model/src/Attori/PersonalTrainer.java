@@ -11,5 +11,14 @@ public class PersonalTrainer extends Utente {
 		super(nome, cognome, email, codiceFiscale,
 				dataDiNascita, luogoNascita, indirizzoResidenza, numTelefono);
 	}
+	
+	public PersonalTrainer(String nome, String cognome,
+			String email, String codiceFiscale,
+			LocalDate dataDiNascita, String luogoNascita,
+			String indirizzoResidenza, String numTelefono, String id) {
+		
+		super(nome, cognome, email, codiceFiscale,
+				dataDiNascita, luogoNascita, indirizzoResidenza, numTelefono, id);
+	}
 
 }

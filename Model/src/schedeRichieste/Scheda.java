@@ -3,22 +3,25 @@ package schedeRichieste;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import Attori.Cliente;
+import Attori.PersonalTrainer;
+
 public abstract class Scheda {
 
 	private String id;
-	private String idCliente;
-	private String idPersonalTrainer;
+	private Cliente cliente;
+	private PersonalTrainer personalTrainer;
 	private LocalDateTime dataOra;
 	private LocalDate dateInizio;
 	private int durataSettimane;
 	private String note;
 	
-	public Scheda(String id, String cliente, String personalTrainer, LocalDateTime dataOra,
+	public Scheda(String id, Cliente cliente, PersonalTrainer personalTrainer, LocalDateTime dataOra,
 			LocalDate dateInizio, int durataSettimane, String note) {
 		super();
 		this.id = id;
-		this.idCliente = cliente;
-		this.idPersonalTrainer = personalTrainer;
+		this.cliente = cliente;
+		this.personalTrainer = personalTrainer;
 		this.dataOra = dataOra;
 		this.dateInizio = dateInizio;
 		this.durataSettimane = durataSettimane;
@@ -29,12 +32,12 @@ public abstract class Scheda {
 		return id;
 	}
 
-	public String getCliente() {
-		return idCliente;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public String getPersonalTrainer() {
-		return idPersonalTrainer;
+	public PersonalTrainer getPersonalTrainer() {
+		return personalTrainer;
 	}
 
 	public LocalDateTime getDataOra() {

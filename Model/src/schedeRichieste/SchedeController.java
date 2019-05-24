@@ -36,10 +36,13 @@ public class SchedeController {
 				BufferedReader bf_inner = Utilities.apriFile("eserciziAlimenti.txt");
 				String temp;
 				
+				Cliente c = Utilities.leggiCliente(campi[1]);
+				PersonalTrainer p = Utilities.leggiPersonalTrainer(campi[2]);
+				
 				//se scheda allenamento
 				if(campi[7].equals("A")) {
 					Sessione sessione;
-					sa = new SchedaAllenamento(campi[0], campi[1], campi[2], LocalDateTime.parse(campi[3], formatterDataOra), 
+					sa = new SchedaAllenamento(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 							LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 					//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 					while((temp = bf_inner.readLine()) != null) {
@@ -62,7 +65,7 @@ public class SchedeController {
 				//se piano nutrizionale
 				else {
 					Pasto pasto;
-					pn = new PianoNutrizionale(campi[0], campi[1], campi[2], LocalDateTime.parse(campi[3], formatterDataOra), 
+					pn = new PianoNutrizionale(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 							LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 					//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 					while((temp = bf_inner.readLine()) != null) {
@@ -105,11 +108,13 @@ public class SchedeController {
 				BufferedReader bf_inner = Utilities.apriFile("eserciziAlimenti.txt");
 				String temp;
 				
+				PersonalTrainer p = Utilities.leggiPersonalTrainer(campi[2]);
+				
 				if(campi[1].equals(c.getId())) { //se scheda è del cliente in questione
 					//se scheda allenamento
 					if(campi[7].equals("A")) {
 						Sessione sessione;
-						sa = new SchedaAllenamento(campi[0], campi[1], campi[2], LocalDateTime.parse(campi[3], formatterDataOra), 
+						sa = new SchedaAllenamento(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 						//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 						while((temp = bf_inner.readLine()) != null) {
@@ -132,7 +137,7 @@ public class SchedeController {
 					//se piano nutrizionale
 					else {
 						Pasto pasto;
-						pn = new PianoNutrizionale(campi[0], campi[1], campi[2], LocalDateTime.parse(campi[3], formatterDataOra), 
+						pn = new PianoNutrizionale(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 						//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 						while((temp = bf_inner.readLine()) != null) {
@@ -180,11 +185,13 @@ public class SchedeController {
 				//facendo così le schede che terminano la validita' oggi compaiono tra le attuali
 				boolean dataNONok = dataFineValidita.isBefore(LocalDate.now());
 				
+				PersonalTrainer p = Utilities.leggiPersonalTrainer(campi[2]);
+				
 				if(campi[1].equals(c.getId()) && !dataNONok) { //se scheda è del cliente in questione ed e' attuale
 					//se scheda allenamento
 					if(campi[7].equals("A")) {
 						Sessione sessione;
-						sa = new SchedaAllenamento(campi[0], campi[1], campi[2], LocalDateTime.parse(campi[3], formatterDataOra), 
+						sa = new SchedaAllenamento(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 						//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 						while((temp = bf_inner.readLine()) != null) {
@@ -207,7 +214,7 @@ public class SchedeController {
 					//se piano nutrizionale
 					else {
 						Pasto pasto;
-						pn = new PianoNutrizionale(campi[0], campi[1], campi[2], LocalDateTime.parse(campi[3], formatterDataOra), 
+						pn = new PianoNutrizionale(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 						//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 						while((temp = bf_inner.readLine()) != null) {
@@ -240,7 +247,7 @@ public class SchedeController {
 			String cognomePersonalTrainer, LocalDate dataInizio, LocalDate dataFine, String tipologia){
 		List<Scheda> res = new ArrayList<Scheda>();
 		for(Scheda s : schede) {
-			
+			//TODO
 		}
 		return res;
 	}

@@ -11,6 +11,13 @@ public class TesseraSocio {
 		this.saldoPunti = 0;
 		ultimoAggiornamento = LocalDateTime.now();
 	}
+	
+	//serve quando si istanzia un cliente gia' esistente e quindi gia' in possesso di una tessera socio
+	public TesseraSocio(int num, int saldo, LocalDateTime ultimoAggiornamento) {
+		this.numero = num;
+		this.saldoPunti = saldo;
+		this.ultimoAggiornamento = ultimoAggiornamento;
+	}
 
 	public int getNumero() {
 		return numero;

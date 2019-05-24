@@ -33,6 +33,22 @@ public abstract class Utente {
 		this.id = generaID();
 	}
 	
+
+	public Utente(String nome, String cognome, 
+			String email, String codiceFiscale, LocalDate dataDiNascita,
+			String luogoNascita, String indirizzoResidenza, String numTelefono, String id) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.codiceFiscale = codiceFiscale;
+		this.dataDiNascita = dataDiNascita;
+		this.luogoNascita = luogoNascita;
+		this.indirizzoResidenza = indirizzoResidenza;
+		this.numTelefono = numTelefono;
+		this.id = id;
+	}
+	
+	
 	private String generaID() {
 		Random r = new Random();
 		StringBuilder result = new StringBuilder();

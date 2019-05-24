@@ -14,6 +14,15 @@ public class Cliente extends Utente {
 		this.tes = tesSoc;
 	}
 
+	public Cliente(String nome, String cognome,
+			String email, String codiceFiscale, LocalDate dataDiNascita,
+			String luogoNascita, String indirizzoResidenza,
+			String numTelefono, TesseraSocio tesSoc, String id) {
+		
+		super(nome, cognome, email, codiceFiscale, dataDiNascita, luogoNascita, indirizzoResidenza, numTelefono, id);
+		this.tes = tesSoc;
+	}
+	
 	public TesseraSocio getTes() {
 		return tes;
 	}

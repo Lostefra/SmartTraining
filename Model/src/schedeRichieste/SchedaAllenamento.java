@@ -5,11 +5,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import Attori.Cliente;
+import Attori.PersonalTrainer;
+
 public class SchedaAllenamento extends Scheda {
 
 	private List<Sessione> sessioni;
 	
-	public SchedaAllenamento(String id, String cliente, String personalTrainer, LocalDateTime dataOra,
+	public SchedaAllenamento(String id, Cliente cliente, PersonalTrainer personalTrainer, LocalDateTime dataOra,
 			LocalDate dateInizio, int durataSettimane, String note) {
 		super(id, cliente, personalTrainer, dataOra, dateInizio, durataSettimane, note);
 		

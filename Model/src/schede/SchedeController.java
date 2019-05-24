@@ -2,6 +2,7 @@ package schede;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,9 +17,9 @@ import util.Utilities;
 
 public class SchedeController {
 	
-	DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-	DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
+	private DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	private DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
 	
 	
 	public List<Scheda> visualizzaStoricoPT(){
@@ -275,12 +276,93 @@ public class SchedeController {
 	//idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
 	//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 	public boolean inserisciSchedaAllenamento(Cliente c, PersonalTrainer p, LocalDate dataInizio, int durataSettimane, 
-			String note) {
-		boolean res = false;
+			String note, List<EsercizioAlimento> esercizi) {
+		boolean res = false, codiceEsiste = false; 
+		String codice, line;
+		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
+		try {
+			do {
+				codice = Utilities.generaID("SCHEDA", 3);
+				while((line = bf_schede.readLine()) != null && !codiceEsiste) {
+					String[] campi = new String[100];
+					campi = line.split("|");
+					if(campi[0].equals(codice))
+						codiceEsiste = true;
+				}
+			}while(codiceEsiste == true);
+			//codice buono
+			bf_schede.close();
+			PrintWriter pw_schede = Utilities.apriFileAppend("schede.txt");
+			String scheda; 
+			if(note != null)
+				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
+						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|P";
+			else
+				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
+						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|P";
 		
-		
+			pw_schede.write(scheda);
+			pw_schede.close();
+			PrintWriter pw_esercizi = Utilities.apriFileAppend("eserciziAlimenti.txt");
+			for(EsercizioAlimento e : esercizi) {
+				//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
+				String esercizio = codice+"|"+ e.getGiorno().getValue() +"|null|"+ e.getEsercizio().getNome()+"|null|"+
+						e.getEsercizio().getNumeroSerie()+"|"+e.getEsercizio().getNumeroRipetizioni()+"|"+
+						e.getEsercizio().getTempoRecupero().format(formatterOra);
+				pw_esercizi.write(esercizio);
+			}
+			pw_esercizi.close();
+			
+		} catch(Exception e) {
+			
+		}
 		return res;
 	}
+	
+	//idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
+		//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
+		public boolean inserisciPianoNutrizionale(Cliente c, PersonalTrainer p, LocalDate dataInizio, int durataSettimane, 
+				String note, List<EsercizioAlimento> alimenti) {
+			boolean res = false, codiceEsiste = false; 
+			String codice, line;
+			BufferedReader bf_schede = Utilities.apriFile("schede.txt");
+			try {
+				do {
+					codice = Utilities.generaID("SCHEDA", 3);
+					while((line = bf_schede.readLine()) != null && !codiceEsiste) {
+						String[] campi = new String[100];
+						campi = line.split("|");
+						if(campi[0].equals(codice))
+							codiceEsiste = true;
+					}
+				}while(codiceEsiste == true);
+				//codice buono
+				bf_schede.close();
+				PrintWriter pw_schede = Utilities.apriFileAppend("schede.txt");
+				String scheda;
+				if(note != null)
+					scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
+							dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|A";
+				else
+					scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
+							dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|A";
+			
+				pw_schede.write(scheda);
+				pw_schede.close();
+				PrintWriter pw_alimenti = Utilities.apriFileAppend("eserciziAlimenti.txt");
+				for(EsercizioAlimento a : alimenti) {
+					//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
+					String esercizio = codice+"|"+ a.getGiorno().getValue() +"|"+a.getOra().format(formatterOra)+"|"+ 
+							a.getAlimento().getNome()+"|"+ a.getAlimento().getPeso()+"|null|null|null";
+					pw_alimenti.write(esercizio);
+				}
+				pw_alimenti.close();
+				
+			} catch(Exception e) {
+				
+			}
+			return res;
+		}
 }
 
 

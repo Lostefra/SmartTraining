@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 import Attori.Cliente;
 import Attori.PersonalTrainer;
@@ -17,9 +18,13 @@ import Attori.TesseraSocio;
 
 public class Utilities {		
 
-	static DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-	static DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private static DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	private static DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	static DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
+	private static String alphaNumericCharacters = "abcdefghijklmnopqrstuvwxyz"
+												+ "ABCDEFGHIJLMNOPQRSTUVWXYZ"
+												+ "1234567890";
+
 	
 	/*
 	 * 
@@ -96,5 +101,16 @@ public class Utilities {
 		}
 		return null;	
 	}
+	
+	public static String generaID(String prefix, int max) {
+		Random r = new Random();
+		StringBuilder result = new StringBuilder(prefix);
+		
+		for (int i =0; i < max ; i++) 
+			result.append(alphaNumericCharacters.charAt(r.nextInt(alphaNumericCharacters.length())));
+	    
+		return result.toString();
+	}
+
 
 }

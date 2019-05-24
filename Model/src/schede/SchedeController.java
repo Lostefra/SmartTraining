@@ -1,4 +1,4 @@
-package schedeRichieste;
+package schede;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -85,8 +85,9 @@ public class SchedeController {
 					schede.add(pn);
 				}
 				
-				
+				bf_inner.close();
 			}
+			bf_schede.close();
 		} catch (IOException e) {
 		
 		}
@@ -157,8 +158,9 @@ public class SchedeController {
 						schede.add(pn);
 					}
 				}
-				
+				bf_inner.close();
 			}
+			bf_schede.close();
 		} catch (IOException e) {
 		
 		}
@@ -234,21 +236,49 @@ public class SchedeController {
 						schede.add(pn);
 					}
 				}
-				
+				bf_inner.close();
 			}
+			bf_schede.close();
 		} catch (IOException e) {
 		
 		}
 		return schede;
 	}
 	
-	//i parametri in input messi a null => non si filtra per quel paramentro
+	//i parametri in input messi a null => non si filtra per quel paramentro, TIPOLOGIA: 'A' / 'P'
 	public List<Scheda> applicaFiltro(List<Scheda> schede, String nomeCliente, String cognomeCliente, String nomePersonalTrainer,
 			String cognomePersonalTrainer, LocalDate dataInizio, LocalDate dataFine, String tipologia){
 		List<Scheda> res = new ArrayList<Scheda>();
 		for(Scheda s : schede) {
-			//TODO
+			boolean tipoOK = false;
+			if(tipologia != null) {
+				if(tipologia.equals("A")) {
+					tipoOK = s instanceof SchedaAllenamento;
+				}
+				else if(tipologia.equals("P")){
+					tipoOK = s instanceof PianoNutrizionale;
+				}
+			}
+			if((nomeCliente == null || s.getCliente().getNome().contains(nomeCliente)) &&
+					(cognomeCliente == null || s.getCliente().getCognome().contains(cognomeCliente)) &&
+					(nomePersonalTrainer == null || s.getPersonalTrainer().getNome().contains(nomePersonalTrainer)) &&
+					(cognomePersonalTrainer == null || s.getPersonalTrainer().getCognome().contains(cognomePersonalTrainer)) &&
+					(dataInizio == null || !s.getDateInizio().plusWeeks(s.getDurataSettimane()).isBefore(dataInizio)) &&
+					(dataFine == null || !s.getDateInizio().isAfter(dataFine)) && 
+					(tipologia == null || tipoOK)) {
+				schede.add(s);
+			}			
 		}
+		return res;
+	}
+	
+	//idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
+	//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
+	public boolean inserisciSchedaAllenamento(Cliente c, PersonalTrainer p, LocalDate dataInizio, int durataSettimane, 
+			String note) {
+		boolean res = false;
+		
+		
 		return res;
 	}
 }

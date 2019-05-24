@@ -1,4 +1,4 @@
-package schedeRichieste;
+package schede;
 
 public class Alimento {
 	private String nome;

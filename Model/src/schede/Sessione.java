@@ -1,4 +1,4 @@
-package schedeRichieste;
+package schede;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;

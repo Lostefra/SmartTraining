@@ -1,4 +1,4 @@
-package schedeRichieste;
+package richieste;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

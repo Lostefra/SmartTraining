@@ -111,6 +111,11 @@ public class Utilities {
 	    
 		return result.toString();
 	}
+	
+	public static int generaIntero() {
+		Random r = new Random();
+		return r.nextInt();
+	}
 
 
 }

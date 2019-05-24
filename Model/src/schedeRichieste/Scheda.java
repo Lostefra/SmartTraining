@@ -1,23 +1,24 @@
-package inserimentoScheda;
+package schedeRichieste;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public abstract class Scheda {
-	String id;
-	String idCliente;
-	String idPersonalTrainer;
-	LocalDateTime dataOra;
-	LocalDate dateInizio;
-	int durataSettimane;
-	String note;
+
+	private String id;
+	private String idCliente;
+	private String idPersonalTrainer;
+	private LocalDateTime dataOra;
+	private LocalDate dateInizio;
+	private int durataSettimane;
+	private String note;
 	
-	public Scheda(String id, String idCliente, String idPersonalTrainer, LocalDateTime dataOra, LocalDate dateInizio,
-			int durataSettimane, String note) {
+	public Scheda(String id, String cliente, String personalTrainer, LocalDateTime dataOra,
+			LocalDate dateInizio, int durataSettimane, String note) {
 		super();
 		this.id = id;
-		this.idCliente = idCliente;
-		this.idPersonalTrainer = idPersonalTrainer;
+		this.idCliente = cliente;
+		this.idPersonalTrainer = personalTrainer;
 		this.dataOra = dataOra;
 		this.dateInizio = dateInizio;
 		this.durataSettimane = durataSettimane;
@@ -28,11 +29,11 @@ public abstract class Scheda {
 		return id;
 	}
 
-	public String getIdCliente() {
+	public String getCliente() {
 		return idCliente;
 	}
 
-	public String getIdPersonalTrainer() {
+	public String getPersonalTrainer() {
 		return idPersonalTrainer;
 	}
 
@@ -51,6 +52,7 @@ public abstract class Scheda {
 	public String getNote() {
 		return note;
 	}
+	
 	
 	
 }

@@ -1,14 +1,17 @@
-package inserimentoScheda;
+package schedeRichieste;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class PianoNutrizionale extends Scheda {
-	int altezza;
-	int peso;
-	String ElencoAllergeni;
+import Attori.Cliente;
+import Attori.PersonalTrainer;
+
+public class RichiestaPianoNutrizionale extends Richiesta {
+	private int altezza;
+	private int peso;
+	private String ElencoAllergeni;
 	
-	public PianoNutrizionale(String id, String idCliente, String idPersonalTrainer, LocalDateTime dataOra,
+	public RichiestaPianoNutrizionale(String id, Cliente idCliente, PersonalTrainer idPersonalTrainer, LocalDateTime dataOra,
 			LocalDate dateInizio, int durataSettimane, String note, int altezza, int peso, String elencoAllergeni) {
 		super(id, idCliente, idPersonalTrainer, dataOra, dateInizio, durataSettimane, note);
 		this.altezza = altezza;

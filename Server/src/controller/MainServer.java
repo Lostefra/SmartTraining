@@ -95,6 +95,9 @@ class ServerThread extends Thread {
 					String[] campi = new String[2000];
 					campi = richiesta.split("|");
 					// Elaborazione risposta
+					
+//COMMENTI PER INDICARE FUNZIONI IMPLEMENTATE GIA NEI CONTROLLER
+					
 					switch(campi[0]) {
 					case "login": login(campi, inSock, outSock); // richiesta = login|username|password
 						break;
@@ -102,12 +105,12 @@ class ServerThread extends Thread {
 						break;
 					case "registrazione": registrazione(campi, inSock, outSock); // richiesta = registrazione|username|password|'P' / 'C'|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|codice id personal trainer  
 						break;
-					case "visualizzaStoricoCliente": visualizzaStoricoCliente(campi, inSock, outSock); //richiesta = visualizzaStoricoCliente|idCliente
-						break;
-					case "visualizzaStoricoPT": visualizzaStoricoPT(campi, inSock, outSock); //richiesta = visualizzaStoricoPT
-						break;
-					case "visualizzaAttuali": visualizzaAttuali(campi, inSock, outSock); //richiesta = visualizzaAttuali|idCliente
-						break;
+//					case "visualizzaStoricoCliente": visualizzaStoricoCliente(campi, inSock, outSock); //richiesta = visualizzaStoricoCliente|idCliente
+//						break;
+//					case "visualizzaStoricoPT": visualizzaStoricoPT(campi, inSock, outSock); //richiesta = visualizzaStoricoPT
+//						break;
+//					case "visualizzaAttuali": visualizzaAttuali(campi, inSock, outSock); //richiesta = visualizzaAttuali|idCliente
+//						break;
 						//bisogna ricordarsi di invalidare richieste dopo inserimento
 					case "visualizzaRichieste": visualizzaRichieste(campi, inSock, outSock); //richiesta = visualizzaRichieste|idPersonalTrainer
 						break;
@@ -194,6 +197,7 @@ class ServerThread extends Thread {
 
 	}
 
+	@SuppressWarnings("unused")
 	private void visualizzaAttuali(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
 		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
 		String line;
@@ -227,6 +231,7 @@ class ServerThread extends Thread {
 
 	//OSSERVAZIONE: lato Client si può capire quando arriva l'ultimo esercizio/alimento usando lenght. Scheda e pasto alimenti hanno lunghezza differente
 	//richiesta = visualizzaStoricoPT
+	@SuppressWarnings("unused")
 	private void visualizzaStoricoPT(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
 		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
 		String line;
@@ -253,6 +258,7 @@ class ServerThread extends Thread {
 
 	//OSSERVAZIONE: lato Client si può capire quando arriva l'ultimo esercizio/alimento usando lenght. Scheda e pasto alimenti hanno lunghezza differente
 	//richiesta = visualizzaStoricoCliente|idCliente
+	@SuppressWarnings("unused")
 	private void visualizzaStoricoCliente(String[] campi, DataInputStream inSock, DataOutputStream outSock) {
 		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
 		String line;

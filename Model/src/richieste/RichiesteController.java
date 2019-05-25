@@ -102,9 +102,9 @@ public class RichiesteController {
 			StringBuilder richiesta = new StringBuilder(codice+ "|"+ c.getId()+ "|"+p.getId()+ "|");
 			richiesta.append(LocalDateTime.now().format(formatterDataOra)+ "|"+ dataInizio.format(formatterData)+ "|"+durataSettimane);
 			if(note== null)
-				richiesta.append("|null|A|" + numeroAllenamentiSettimanali +"|null|null|null");
+				richiesta.append("|null|A|" + numeroAllenamentiSettimanali +"|null|null|null\n");
 			else
-				richiesta.append("|"+ note+ "|A|" + numeroAllenamentiSettimanali+"|null|null|null");
+				richiesta.append("|"+ note+ "|A|" + numeroAllenamentiSettimanali+"|null|null|null\n");
 			pw_richieste.write(richiesta.toString());
 			pw_richieste.close();
 			res = true;
@@ -153,9 +153,9 @@ public class RichiesteController {
 			else
 				richiesta.append("|"+ note+ "|P|null|" + altezza +"|"+ peso+"|");
 			if(elencoAllergeni == null)
-				richiesta.append("null");
+				richiesta.append("null\n");
 			else
-				richiesta.append(elencoAllergeni);
+				richiesta.append(elencoAllergeni + '\n');
 			
 			pw_richieste.write(richiesta.toString());
 			pw_richieste.close();
@@ -166,6 +166,103 @@ public class RichiesteController {
 		}
 		return res;
 	}
+	
+	/**
+	 * 
+	 * @param idRichiesta
+	 * @return esito rimozione
+	 */
+	public boolean eliminaRichiesta(String id) {
+		boolean res = false;
+		
+		BufferedReader bf_richieste = Utilities.apriFile("richieste.txt");
+		String line;
+		int index = 0;
+		try {
+			
+			//idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
+			while((line = bf_richieste.readLine()) != null) {
+				
+				String[] richiesta = new String[100];
+				richiesta = line.split("|");
+				if(richiesta[0].equals(id)) {	//idRichiesta individuato
+					bf_richieste.close();
+					Utilities.riscriviTranneRiga("richieste.txt", index);
+					res = true;
+					break;
+				}
+				index++;
+					
+			}
+			bf_richieste.close();
+			
+		} catch (IOException e) {
+		
+		}		
+		return res;
+	}
+	
+	/**
+	 * 
+	 * @param r richiesta
+	 * @return esito rimozione
+	 */
+	public boolean eliminaRichiesta(Richiesta r) {
+		boolean res = false;
+		
+		BufferedReader bf_richieste = Utilities.apriFile("richieste.txt");
+		String line;
+		int index = 0;
+		try {
+			
+			//idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
+			while((line = bf_richieste.readLine()) != null) {
+				
+				String[] richiesta = new String[100];
+				richiesta = line.split("|");
+				if(richiesta[0].equals(r.getId())) {	//idRichiesta individuato
+					bf_richieste.close();
+					Utilities.riscriviTranneRiga("richieste.txt", index);
+					res = true;
+					break;
+				}
+				index++;
+					
+			}
+			bf_richieste.close();
+			
+		} catch (IOException e) {
+		
+		}		
+		return res;
+	}
+	
+	/**
+	 * 
+	 * @return lista personal trainer
+	 */
+	public List<PersonalTrainer> getElencoPersonalTrainer(){
+		List<PersonalTrainer> lista = new ArrayList<PersonalTrainer>();	
+		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
+		String line;
+		try {	
+			//username|password|'P' / 'C' / 'A'|id utente|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|numero tessera|punti|ultimo aggiornamento|codice id personal trainer  
+			while((line = bf_utenti.readLine()) != null) {		
+				String[] richiesta = new String[100];
+				richiesta = line.split("|");
+				if(richiesta[2].equals("P")) {	//utente e' PersonalTrainer 
+					PersonalTrainer p = Utilities.leggiPersonalTrainer(richiesta[3]);
+					lista.add(p);
+				}		
+				
+			}
+			bf_utenti.close();
+		} catch (IOException e) {
+		
+		}
+		return lista;
+	}
+
 }
 
 

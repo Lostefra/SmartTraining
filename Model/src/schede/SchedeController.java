@@ -340,10 +340,10 @@ public class SchedeController {
 			String scheda; 
 			if(note != null)
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
-						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|P";
+						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|P\n";
 			else
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
-						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|P";
+						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|P\n";
 		
 			pw_schede.write(scheda);
 			pw_schede.close();
@@ -352,7 +352,7 @@ public class SchedeController {
 				//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 				String esercizio = codice+"|"+ e.getGiorno().getValue() +"|null|"+ e.getEsercizio().getNome()+"|null|"+
 						e.getEsercizio().getNumeroSerie()+"|"+e.getEsercizio().getNumeroRipetizioni()+"|"+
-						e.getEsercizio().getTempoRecupero().format(formatterOra);
+						e.getEsercizio().getTempoRecupero().format(formatterOra) + '\n';
 				pw_esercizi.write(esercizio);
 
 				res=true; //la scheda contiene almeno un esercizio
@@ -401,7 +401,7 @@ public class SchedeController {
 						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|A";
 			else
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
-						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|A";
+						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|A\n";
 		
 			pw_schede.write(scheda);
 			pw_schede.close();
@@ -409,7 +409,7 @@ public class SchedeController {
 			for(EsercizioAlimento a : alimenti) {
 				//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 				String esercizio = codice+"|"+ a.getGiorno().getValue() +"|"+a.getOra().format(formatterOra)+"|"+ 
-						a.getAlimento().getNome()+"|"+ a.getAlimento().getPeso()+"|null|null|null";
+						a.getAlimento().getNome()+"|"+ a.getAlimento().getPeso()+"|null|null|null\n";
 				pw_alimenti.write(esercizio);
 				
 				res=true; //la scheda contiene almeno un alimento

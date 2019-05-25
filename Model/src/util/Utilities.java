@@ -2,6 +2,7 @@ package util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,16 +27,26 @@ public class Utilities {
 												+ "1234567890";
 
 	
-	/*
+	/**
 	 * 
-	 *  Il file deve essere inserito nel package "files" per essere letto,
+	 *  Il file deve essere inserito nella cartella C:/SmartTrainingFiles/ per essere letto,
 	 *  la funzione ritorna un BufferedReader che punta al file che deve essere letto
-	 *    
+	 * 
+	 * @param filename
+	 * @return bufferedReader
 	 */
 	public static BufferedReader apriFile(String filename) {
 		return new BufferedReader(new InputStreamReader(Utilities.class.getResourceAsStream("C:/SmartTrainingFiles/" + filename)));
 	}
 	
+	/**
+	 * 
+	 * Il file deve essere inserito nella cartella C:/SmartTrainingFiles/ per essere scritto in append,
+	 *  la funzione ritorna un PrintWriter che punta al file che deve essere scritto in append
+	 * 
+	 * @param filename
+	 * @return printWriter
+	 */
 	public static PrintWriter apriFileAppend(String filename) {
 		FileWriter fw;
 		try {
@@ -47,6 +58,14 @@ public class Utilities {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * Il file deve essere inserito nella cartella C:/SmartTrainingFiles/ per essere scritto da zero,
+	 *  la funzione ritorna un PrintWriter che punta al file che deve essere scritto da zero
+	 * 
+	 * @param filename
+	 * @return printWriter
+	 */
 	public static PrintWriter apriFileOverwrite(String filename) {
 		FileWriter fw;
 		try {
@@ -58,7 +77,41 @@ public class Utilities {
 		return null;
 		
 	}
+	
+	/**
+	 * 
+	 * @param filename
+	 * @param lineToRemove (numero linea, la prima e' 0, poi 1 ect)
+	 * @return operazione di rename completata
+	 */
+	public static boolean riscriviTranneRiga(String filename, int lineToRemove) {
+		
+		File tempFile = new File("C:/SmartTrainingFiles/tmp.txt");
+		PrintWriter pw = apriFileOverwrite("C:/SmartTrainingFiles/tmp.txt");
+		BufferedReader reader = apriFile("C:/SmartTrainingFiles/" + filename);
+		String currentLine;
+		try {
+			int i = 0;
+			while ((currentLine = reader.readLine()) != null) {
+				if (i != lineToRemove)
+					pw.write(currentLine+"\n");
+			}
+			pw.close();
+			reader.close();
+			File inputFile = new File("C:/SmartTrainingFiles/" + filename);
+			return  tempFile.renameTo(inputFile);
+			}
+		catch(Exception e) {
+			
+		}
+		return false;
+	}
 
+	/**
+	 * 
+	 * @param id cliente
+	 * @return cliente associato ad id
+	 */
 	public static Cliente leggiCliente(String id) {
 		BufferedReader bf = apriFile("utenti.txt");
 		String line;
@@ -81,6 +134,11 @@ public class Utilities {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param id personal trainer
+	 * @return PersonalTrainer associato a id
+	 */
 	public static PersonalTrainer leggiPersonalTrainer(String id) {
 		BufferedReader bf = apriFile("utenti.txt");
 		String line;
@@ -102,6 +160,12 @@ public class Utilities {
 		return null;	
 	}
 	
+	/**
+	 * 
+	 * @param prefix del codice generato
+	 * @param max caratteri random da inserire nel codice
+	 * @return codice
+	 */
 	public static String generaID(String prefix, int max) {
 		Random r = new Random();
 		StringBuilder result = new StringBuilder(prefix);
@@ -112,6 +176,10 @@ public class Utilities {
 		return result.toString();
 	}
 	
+	/**
+	 * 
+	 * @return numero random
+	 */
 	public static int generaIntero() {
 		Random r = new Random();
 		return r.nextInt();

@@ -76,6 +76,11 @@ public class LogController {
 		return res;
 	}
 	
+	/**
+	 * 
+	 * @param m entryMessaggio
+	 * @return scrittura avvenuta
+	 */
 	public boolean scriviMessaggio(EntryMessaggio m) {
 		PrintWriter pw = Utilities.apriFileAppend("log.txt");
 		pw.write(m.getDataOra() +"|"+m.getMessaggio()+'\n');
@@ -83,6 +88,13 @@ public class LogController {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param dataOra
+	 * @param messaggio
+	 * 
+	 * @return scrittura avvenuta
+	 */
 	public boolean scriviMessaggio(LocalDateTime dataOra, String messaggio) {
 		PrintWriter pw = Utilities.apriFileAppend("log.txt");
 		pw.write(dataOra.format(formatterDataOra) +"|"+messaggio +'\n');
@@ -90,6 +102,11 @@ public class LogController {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param o entryOperazione
+	 * @return scrittura avvenuta
+	 */
 	public boolean scriviOperazione(EntryOperazione o) {
 		PrintWriter pw = Utilities.apriFileAppend("log.txt");
 		pw.write(o.getDataOra() +"|"+o.getAttivita()+"|"+o.getIdUtente()+'\n');
@@ -97,6 +114,13 @@ public class LogController {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param dataOra
+	 * @param attivita
+	 * @param idUtente
+	 * @return scrittura avvenuta
+	 */
 	public boolean scriviOperazione(LocalDateTime dataOra, String attivita, String idUtente) {
 		PrintWriter pw = Utilities.apriFileAppend("log.txt");
 		pw.write(dataOra.format(formatterDataOra) +"|"+attivita+"|"+idUtente +'\n');

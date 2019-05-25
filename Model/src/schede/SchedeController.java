@@ -38,7 +38,6 @@ public class SchedeController {
 		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
 		String line;
 		try {
-			//idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
 			while((line = bf_schede.readLine()) != null) {
 				String[] campi = new String[100];
 				campi = line.split("|");
@@ -56,7 +55,6 @@ public class SchedeController {
 					Sessione sessione;
 					sa = new SchedaAllenamento(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 							LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
-					//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 					while((temp = bf_inner.readLine()) != null) {
 						String[] esercizio = new String[100];
 						esercizio = temp.split("|");					
@@ -79,7 +77,6 @@ public class SchedeController {
 					Pasto pasto;
 					pn = new PianoNutrizionale(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 							LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
-					//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 					while((temp = bf_inner.readLine()) != null) {
 						String[] alimento = new String[100];
 						alimento = temp.split("|");					
@@ -116,7 +113,6 @@ public class SchedeController {
 		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
 		String line;
 		try {
-			//idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
 			while((line = bf_schede.readLine()) != null) {
 				String[] campi = new String[100];
 				campi = line.split("|");
@@ -134,7 +130,6 @@ public class SchedeController {
 						Sessione sessione;
 						sa = new SchedaAllenamento(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
-						//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 						while((temp = bf_inner.readLine()) != null) {
 							String[] esercizio = new String[100];
 							esercizio = temp.split("|");					
@@ -157,7 +152,6 @@ public class SchedeController {
 						Pasto pasto;
 						pn = new PianoNutrizionale(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
-						//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 						while((temp = bf_inner.readLine()) != null) {
 							String[] alimento = new String[100];
 							alimento = temp.split("|");					
@@ -194,7 +188,6 @@ public class SchedeController {
 		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
 		String line;
 		try {
-			//idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
 			while((line = bf_schede.readLine()) != null) {
 				String[] campi = new String[100];
 				campi = line.split("|");
@@ -217,7 +210,6 @@ public class SchedeController {
 						Sessione sessione;
 						sa = new SchedaAllenamento(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
-						//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 						while((temp = bf_inner.readLine()) != null) {
 							String[] esercizio = new String[100];
 							esercizio = temp.split("|");					
@@ -240,7 +232,6 @@ public class SchedeController {
 						Pasto pasto;
 						pn = new PianoNutrizionale(campi[0], c, p, LocalDateTime.parse(campi[3], formatterDataOra), 
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
-						//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 						while((temp = bf_inner.readLine()) != null) {
 							String[] alimento = new String[100];
 							alimento = temp.split("|");					
@@ -307,8 +298,6 @@ public class SchedeController {
 		return res;
 	}
 	
-	//idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
-	//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 	/**
 	 * 
 	 * @param c cliente
@@ -349,7 +338,6 @@ public class SchedeController {
 			pw_schede.close();
 			PrintWriter pw_esercizi = Utilities.apriFileAppend("eserciziAlimenti.txt");
 			for(EsercizioAlimento e : esercizi) {
-				//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 				String esercizio = codice+"|"+ e.getGiorno().getValue() +"|null|"+ e.getEsercizio().getNome()+"|null|"+
 						e.getEsercizio().getNumeroSerie()+"|"+e.getEsercizio().getNumeroRipetizioni()+"|"+
 						e.getEsercizio().getTempoRecupero().format(formatterOra) + '\n';
@@ -365,8 +353,6 @@ public class SchedeController {
 		return res;
 	}
 	
-	//idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
-		//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 	/**
 	 * 
 	 * @param c cliente
@@ -407,7 +393,6 @@ public class SchedeController {
 			pw_schede.close();
 			PrintWriter pw_alimenti = Utilities.apriFileAppend("eserciziAlimenti.txt");
 			for(EsercizioAlimento a : alimenti) {
-				//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 				String esercizio = codice+"|"+ a.getGiorno().getValue() +"|"+a.getOra().format(formatterOra)+"|"+ 
 						a.getAlimento().getNome()+"|"+ a.getAlimento().getPeso()+"|null|null|null\n";
 				pw_alimenti.write(esercizio);

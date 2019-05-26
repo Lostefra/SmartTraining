@@ -23,13 +23,17 @@ import model.SchedaAllenamento;
 import model.Sessione;
 import util.Utilities;
 
+@Deprecated	//versione aggiornata in schede
 public class SchedeController {
 	
 	private DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 	private DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
 	
-	
+	/**
+	 * 
+	 * @return schede
+	 */
 	public List<Scheda> visualizzaStoricoPT(){
 		List<Scheda> schede = new ArrayList<Scheda>();
 		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
@@ -103,6 +107,11 @@ public class SchedeController {
 		return schede;
 	}
 	
+	/**
+	 * 
+	 * @param c cliente
+	 * @return schede
+	 */
 	public List<Scheda> visualizzaStoricoCliente(Cliente c){
 		List<Scheda> schede = new ArrayList<Scheda>();
 		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
@@ -176,6 +185,11 @@ public class SchedeController {
 		return schede;
 	}
 	
+	/**
+	 * 
+	 * @param c cliente
+	 * @return schede attuali
+	 */
 	public List<Scheda> visualizzaAttuali(Cliente c){
 		List<Scheda> schede = new ArrayList<Scheda>();
 		BufferedReader bf_schede = Utilities.apriFile("schede.txt");
@@ -254,7 +268,20 @@ public class SchedeController {
 		return schede;
 	}
 	
-	//i parametri in input messi a null => non si filtra per quel paramentro, TIPOLOGIA: 'A' / 'P'
+	/**
+	 * //i parametri in input messi a null => non si filtra per quel paramentro 
+	 *
+	 *
+	 * @param schede
+	 * @param nomeCliente
+	 * @param cognomeCliente
+	 * @param nomePersonalTrainer
+	 * @param cognomePersonalTrainer
+	 * @param dataInizio
+	 * @param dataFine
+	 * @param tipologia: 'A' / 'P'
+	 * @return schede
+	 */
 	public List<Scheda> applicaFiltro(List<Scheda> schede, String nomeCliente, String cognomeCliente, String nomePersonalTrainer,
 			String cognomePersonalTrainer, LocalDate dataInizio, LocalDate dataFine, String tipologia){
 		List<Scheda> res = new ArrayList<Scheda>();
@@ -283,6 +310,16 @@ public class SchedeController {
 	
 	//idScheda|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'
 	//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
+	/**
+	 * 
+	 * @param c cliente
+	 * @param p personal trainer
+	 * @param dataInizio
+	 * @param durataSettimane
+	 * @param note
+	 * @param esercizi
+	 * @return true inserime
+	 */
 	public boolean inserisciSchedaAllenamento(Cliente c, PersonalTrainer p, LocalDate dataInizio, int durataSettimane, 
 			String note, List<EsercizioAlimento> esercizi) {
 		boolean res = false, codiceEsiste = false; 

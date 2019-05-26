@@ -31,15 +31,12 @@ public class RichiesteController {
 		List<Richiesta> richieste = new ArrayList<Richiesta>();
 		try {
 			
-			//idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
 			while((line = bf_richieste.readLine()) != null) {
 				
 				String[] richiesta = new String[100];
 				richiesta = line.split("|");
 				if(richiesta[2].equals(p.getId())) {	//idPersonalTrainer uguale in richiesta e campo passato
 					if(richiesta[7].contentEquals("A")) {
-						//String id, Cliente idCliente, PersonalTrainer idPersonalTrainer, LocalDateTime dataOra,
-						//LocalDate dateInizio, int durataSettimane, String note, int numeroAllenamentiSettimanali
 						RichiestaSchedaAllenamento r = new RichiestaSchedaAllenamento(richiesta[0],
 								Utilities.leggiCliente(richiesta[1]), Utilities.leggiPersonalTrainer(richiesta[2]),
 										LocalDateTime.parse(richiesta[3], formatterDataOra),
@@ -50,8 +47,6 @@ public class RichiesteController {
 								
 					}
 					else {
-						//String id, Cliente idCliente, PersonalTrainer idPersonalTrainer, LocalDateTime dataOra,
-						//LocalDate dateInizio, int durataSettimane, String note, int altezza, int peso, String elencoAllergeni
 						RichiestaPianoNutrizionale r = new RichiestaPianoNutrizionale(richiesta[0],
 								Utilities.leggiCliente(richiesta[1]), Utilities.leggiPersonalTrainer(richiesta[2]),
 										LocalDateTime.parse(richiesta[3], formatterDataOra),
@@ -97,7 +92,6 @@ public class RichiesteController {
 			}while(codiceEsiste == true);
 			bf_schede.close();
 			//CODICE OK
-			//idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
 			PrintWriter pw_richieste = Utilities.apriFileAppend("richieste.txt");
 			StringBuilder richiesta = new StringBuilder(codice+ "|"+ c.getId()+ "|"+p.getId()+ "|");
 			richiesta.append(LocalDateTime.now().format(formatterDataOra)+ "|"+ dataInizio.format(formatterData)+ "|"+durataSettimane);
@@ -144,7 +138,6 @@ public class RichiesteController {
 			}while(codiceEsiste == true);
 			bf_schede.close();
 			//CODICE OK
-			//idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
 			PrintWriter pw_richieste = Utilities.apriFileAppend("richieste.txt");
 			StringBuilder richiesta = new StringBuilder(codice+ "|"+ c.getId()+ "|"+p.getId()+ "|");
 			richiesta.append(LocalDateTime.now().format(formatterDataOra)+ "|"+ dataInizio.format(formatterData)+ "|"+durataSettimane);
@@ -180,7 +173,6 @@ public class RichiesteController {
 		int index = 0;
 		try {
 			
-			//idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
 			while((line = bf_richieste.readLine()) != null) {
 				
 				String[] richiesta = new String[100];
@@ -215,7 +207,6 @@ public class RichiesteController {
 		int index = 0;
 		try {
 			
-			//idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
 			while((line = bf_richieste.readLine()) != null) {
 				
 				String[] richiesta = new String[100];
@@ -246,7 +237,6 @@ public class RichiesteController {
 		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
 		String line;
 		try {	
-			//username|password|'P' / 'C' / 'A'|id utente|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|numero tessera|punti|ultimo aggiornamento|codice id personal trainer  
 			while((line = bf_utenti.readLine()) != null) {		
 				String[] richiesta = new String[100];
 				richiesta = line.split("|");

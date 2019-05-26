@@ -81,7 +81,7 @@ public class Utilities {
 	/**
 	 * 
 	 * @param filename
-	 * @param lineToRemove (numero linea, la prima e' 0, poi 1 ect)
+	 * @param lineToRemove (numero linea, la prima e' 1, poi 2 ect)
 	 * @return operazione di rename completata
 	 */
 	public static boolean riscriviTranneRiga(String filename, int lineToRemove) {
@@ -91,7 +91,7 @@ public class Utilities {
 		BufferedReader reader = apriFile("C:/SmartTrainingFiles/" + filename);
 		String currentLine;
 		try {
-			int i = 0;
+			int i = 1;
 			while ((currentLine = reader.readLine()) != null) {
 				if (i != lineToRemove)
 					pw.write(currentLine+"\n");

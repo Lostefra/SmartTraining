@@ -9,16 +9,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
+	static public Stage stage;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			stage = primaryStage;
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
 			Scene scene = new Scene(root,900,600);
-			primaryStage.setTitle("Smart Training - Addetto alla Sicurezza");
+			stage.setTitle("Smart Training - Addetto alla Sicurezza");
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
+			stage.setScene(scene);
 			System.out.println("launched");
-			primaryStage.show();
+			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

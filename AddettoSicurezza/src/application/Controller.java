@@ -5,8 +5,11 @@ import java.io.IOException;
 import accesso.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.UserType;
@@ -34,6 +37,14 @@ public class Controller {
 			}
 			//se sei qui l'addetto alla sicurezza è autenticato
 			// da qui bisogna caricare fxml della home
+			
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeAddettoSicurezza.fxml"));
+			Scene scene = new Scene(root,900,600);
+			Main.stage.setTitle("Smart Training - Addetto alla Sicurezza");
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Main.stage.setScene(scene);		
+			Main.stage.show();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

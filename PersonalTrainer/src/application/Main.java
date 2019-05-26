@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
+	static public Stage stage;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {

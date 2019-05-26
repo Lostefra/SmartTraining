@@ -22,7 +22,7 @@ public class Controller {
 	@FXML
     public void loginCliente(ActionEvent event)
     {
-		if(username.getText().length() == 0 || password.getText().length() == 0)
+		if(username == null || username.getText().length() == 0 || password == null || password.getText().length() == 0)
 			return;
 		LoginController lc = new LoginController();
 		UserType result;

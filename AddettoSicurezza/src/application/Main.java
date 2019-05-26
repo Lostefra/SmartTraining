@@ -2,8 +2,8 @@ package application;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
@@ -12,7 +12,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
 			Scene scene = new Scene(root,900,600);
 			primaryStage.setTitle("Smart Training - Addetto alla Sicurezza");
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -27,4 +27,5 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
 }

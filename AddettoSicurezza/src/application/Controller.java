@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model.UserType;
 
 //questo controller e' visto interamento dal fxml (deve essere interno al progetto)
 public class Controller {
@@ -24,10 +25,10 @@ public class Controller {
 		if(username.getText().length() == 0 || password.getText().length() == 0)
 			return;
 		LoginController lc = new LoginController();
-		String result;
+		UserType result;
 		try {
 			result = lc.verificaCredenziali(username.getText(), password.getText());
-			if (result == null || !result.contentEquals("A")) {
+			if (result == null || !result.equals(UserType.Amministratore)) {
 				alert("Errore","", "Le credenziali inserite non sono valide");
 				return;
 			}
@@ -53,6 +54,7 @@ public class Controller {
 		alert.showAndWait();
 	}
 
+	@SuppressWarnings("unused")
 	private static void inform(String title, String headerMessage, String contentMessage) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(title);

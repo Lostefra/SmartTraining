@@ -10,9 +10,9 @@ public class Main {
 	public static void main(String[] args) {
 		Email email = EmailBuilder.startingBlank()
 						.from("provamailz25@gmail.com")
-						.to("gfy00634@cndps.com")
-						.withSubject("ProvaMeiiil")
-						.withPlainText("Pierogaaaayyy")
+						.to("tizio.caio@gmail.com")
+						.withSubject("Oggetto")
+						.withPlainText("Testo mail2")
 						//.withAttachment("fotoprova", new FileDataSource("C:\\Users\\Davide\\eclipse-workspace\\ProvaMail\\eskere.jfif"))
 						.buildEmail();
 		

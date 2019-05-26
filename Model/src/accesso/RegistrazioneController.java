@@ -11,10 +11,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import util.Utilities;
 
 public class RegistrazioneController {
@@ -98,23 +94,25 @@ public class RegistrazioneController {
 			while ((currentLine = reader.readLine()) != null) {
 				if (!(currentLine.equals(lineToRemove)))
 					writer.write(currentLine+"\n");
-			}
-			//username|password|'P' / 'C' / 'A'|id utente|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|numero tessera|
-			//punti|ultimo aggiornamento|codice id personal trainer  
+			}			
+			reader.close();
 			
+			reader = new BufferedReader(new FileReader(inputFile));
 			
-			writer.write(username+"|"+password+"|P|"+Utilities.generaID("P", 5)+"|"+nome+"|"+cognome+"|"+email+"|"
+			writer.write(username+"|"+password+"|P|"+generateID(reader, "P")+"|"+nome+"|"+cognome+"|"+email+"|"
 					+codiceFiscale+"|"+dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"|"+luogoNascita
 					+"|"+indirizzoResidenza+"|"+numeroTelefono+"|null|null|null|"+codiceID+"\n");
+			reader.close();
 			boolean t = tempFile.renameTo(inputFile);
 			writer.close();
+			
 			if (t)
 				return "T";
 			else
 				return "Errore: errore scrittura nel database";
 		}
 		
-		/*Creazione tessera socio*/
+		/* Creazione tessera socio */
 		int codice;
 		boolean codiceEsiste = false;
 		reader = Utilities.apriFile("C:/SmartTrainingFiles/utenti.txt");
@@ -127,17 +125,38 @@ public class RegistrazioneController {
 					codiceEsiste = true;
 			}
 		}while(codiceEsiste == true);
+		reader.close();
 		
 		/* Aggiunta Cliente al DB */
-		PrintWriter writer = Utilities.apriFileAppend("utenti.txt");
+		reader = new BufferedReader(new FileReader(inputFile));
 		
-		//username|password|'P' / 'C' / 'A'|id utente|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|numero tessera|
-		//punti|ultimo aggiornamento|codice id personal trainer  
-		writer.write(username+"|"+password+"|C|"+Utilities.generaID("C", 5)+nome+"|"+cognome+"|"+email+"|"
+		
+		PrintWriter writer = Utilities.apriFileAppend("utenti.txt");
+		String id;
+		
+		writer.write(username+"|"+password+"|C|"+generateID(reader, "C")+nome+"|"+cognome+"|"+email+"|"
 				+codiceFiscale+"|"+dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"|"+luogoNascita
 				+"|"+indirizzoResidenza+"|"+numeroTelefono+"|"+ codice+"|0|" + 
 				LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))+ "|null/n");
 		
+		reader.close();
+		writer.close();
 		return "T";
+	}
+	
+	private String generateID (BufferedReader bf, String type) throws IOException{
+		String currentLine;
+		String[] user;
+		String id;
+		boolean ok = true;
+		do {
+			id = Utilities.generaID(type, 5);
+			while ((currentLine=bf.readLine()) != null) {
+				user = currentLine.split("|");
+				if (id.equals(user[2]))
+					ok = false;
+			}
+		} while (!ok);
+		return id;
 	}
 }

@@ -21,8 +21,8 @@ import model.TesseraSocio;
 
 public class Utilities {		
 
-	private static DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-	private static DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	public static DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	public static DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	static DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
 	private static String alphaNumericCharacters = "abcdefghijklmnopqrstuvwxyz"
 												+ "ABCDEFGHIJLMNOPQRSTUVWXYZ"
@@ -191,6 +191,5 @@ public class Utilities {
 		Random r = new Random();
 		return r.nextInt();
 	}
-
 
 }

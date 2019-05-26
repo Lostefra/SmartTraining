@@ -18,7 +18,7 @@ public class LoginController {
 	 * 
 	 * @param username
 	 * @param password
-	 * @return "A" = Amministratore, "C" = Cliente, "P" = PersoanlTrainer, "null" = username not found
+	 * @return UserType
 	 * @throws IOException
 	 */
 	
@@ -56,7 +56,7 @@ public class LoginController {
 	 * dall'ultimo aggiornamento dei punti della tessera socio del cliente
 	 * 
 	 * @param cliente
-	 * @return List<OrarioIngressoUscita>
+	 * @return List OrarioIngressoUscita
 	 * @throws IOException
 	 */
 	public List<OrarioIngressoUscita> getOrariIngressoUscita(Cliente cliente) throws IOException {
@@ -64,7 +64,7 @@ public class LoginController {
 		BufferedReader reader = Utilities.apriFile("orariIngressoUscita.txt");
 		
 		String currentLine;
-		String[] user;
+		String[] user = new String[200];
 		
 		List<OrarioIngressoUscita> result = new ArrayList<>();
 		

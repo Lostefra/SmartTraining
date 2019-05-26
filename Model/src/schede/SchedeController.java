@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import model.Alimento;
 import model.Cliente;
@@ -40,7 +41,7 @@ public class SchedeController {
 		try {
 			while((line = bf_schede.readLine()) != null) {
 				String[] campi = new String[100];
-				campi = line.split("|");
+				campi = line.split(Pattern.quote("|"));
 				SchedaAllenamento sa;
 				PianoNutrizionale pn;
 				
@@ -57,7 +58,7 @@ public class SchedeController {
 							LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 					while((temp = bf_inner.readLine()) != null) {
 						String[] esercizio = new String[100];
-						esercizio = temp.split("|");					
+						esercizio = temp.split(Pattern.quote("|"));					
 						if(sa.getId().equals(esercizio[0])) { //se esercizio associato alla scheda in questione
 							sessione = new Sessione(DayOfWeek.of(Integer.parseInt(esercizio[1])));
 							//se sessione già presente, rimuovo da lista la salvo nella variabile locale sessione
@@ -79,7 +80,7 @@ public class SchedeController {
 							LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 					while((temp = bf_inner.readLine()) != null) {
 						String[] alimento = new String[100];
-						alimento = temp.split("|");					
+						alimento = temp.split(Pattern.quote("|"));					
 						if(pn.getId().equals(alimento[0])) { //se alimento associato alla scheda in questione
 							pasto = new Pasto(DayOfWeek.of(Integer.parseInt(alimento[1])), LocalTime.parse(alimento[2], formatterOra));
 							//se pasto già presente, rimuovo da lista la salvo nella variabile locale pasto
@@ -115,7 +116,7 @@ public class SchedeController {
 		try {
 			while((line = bf_schede.readLine()) != null) {
 				String[] campi = new String[100];
-				campi = line.split("|");
+				campi = line.split(Pattern.quote("|"));
 				SchedaAllenamento sa;
 				PianoNutrizionale pn;
 				
@@ -132,7 +133,7 @@ public class SchedeController {
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 						while((temp = bf_inner.readLine()) != null) {
 							String[] esercizio = new String[100];
-							esercizio = temp.split("|");					
+							esercizio = temp.split(Pattern.quote("|"));					
 							if(sa.getId().equals(esercizio[0])) { //se esercizio associato alla scheda in questione
 								sessione = new Sessione(DayOfWeek.of(Integer.parseInt(esercizio[1])));
 								//se sessione già presente, rimuovo da lista la salvo nella variabile locale sessione
@@ -154,7 +155,7 @@ public class SchedeController {
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 						while((temp = bf_inner.readLine()) != null) {
 							String[] alimento = new String[100];
-							alimento = temp.split("|");					
+							alimento = temp.split(Pattern.quote("|"));					
 							if(pn.getId().equals(alimento[0])) { //se alimento associato alla scheda in questione
 								pasto = new Pasto(DayOfWeek.of(Integer.parseInt(alimento[1])), LocalTime.parse(alimento[2], formatterOra));
 								//se pasto già presente, rimuovo da lista la salvo nella variabile locale pasto
@@ -190,7 +191,7 @@ public class SchedeController {
 		try {
 			while((line = bf_schede.readLine()) != null) {
 				String[] campi = new String[100];
-				campi = line.split("|");
+				campi = line.split(Pattern.quote("|"));
 				SchedaAllenamento sa;
 				PianoNutrizionale pn;
 				
@@ -212,7 +213,7 @@ public class SchedeController {
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 						while((temp = bf_inner.readLine()) != null) {
 							String[] esercizio = new String[100];
-							esercizio = temp.split("|");					
+							esercizio = temp.split(Pattern.quote("|"));					
 							if(sa.getId().equals(esercizio[0])) { //se esercizio associato alla scheda in questione
 								sessione = new Sessione(DayOfWeek.of(Integer.parseInt(esercizio[1])));
 								//se sessione già presente, rimuovo da lista la salvo nella variabile locale sessione
@@ -234,7 +235,7 @@ public class SchedeController {
 								LocalDate.parse(campi[4],  formatterData), Integer.parseInt(campi[5]), campi[6]);
 						while((temp = bf_inner.readLine()) != null) {
 							String[] alimento = new String[100];
-							alimento = temp.split("|");					
+							alimento = temp.split(Pattern.quote("|"));					
 							if(pn.getId().equals(alimento[0])) { //se alimento associato alla scheda in questione
 								pasto = new Pasto(DayOfWeek.of(Integer.parseInt(alimento[1])), LocalTime.parse(alimento[2], formatterOra));
 								//se pasto già presente, rimuovo da lista la salvo nella variabile locale pasto
@@ -318,7 +319,7 @@ public class SchedeController {
 				codice = Utilities.generaID("SCHEDA", 3);
 				while((line = bf_schede.readLine()) != null && !codiceEsiste) {
 					String[] campi = new String[100];
-					campi = line.split("|");
+					campi = line.split(Pattern.quote("|"));
 					if(campi[0].equals(codice))
 						codiceEsiste = true;
 				}
@@ -373,7 +374,7 @@ public class SchedeController {
 				codice = Utilities.generaID("SCHEDA", 3);
 				while((line = bf_schede.readLine()) != null && !codiceEsiste) {
 					String[] campi = new String[100];
-					campi = line.split("|");
+					campi = line.split(Pattern.quote("|"));
 					if(campi[0].equals(codice))
 						codiceEsiste = true;
 				}

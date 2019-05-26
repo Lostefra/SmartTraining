@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import model.Entry;
 import model.EntryMessaggio;
@@ -28,7 +29,7 @@ public class LogController {
 		try {
 			while((line = bf_log.readLine()) != null) {
 				String[] campi = new String[10];
-				campi = line.split("|");
+				campi = line.split(Pattern.quote("|"));
 				EntryOperazione o;
 				EntryMessaggio m;
 

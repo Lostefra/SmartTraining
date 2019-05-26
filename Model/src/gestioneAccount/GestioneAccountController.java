@@ -3,6 +3,7 @@ package gestioneAccount;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
 
 import model.Cliente;
 import model.PersonalTrainer;
@@ -36,7 +37,6 @@ public class GestioneAccountController {
 	 * @param numeroTelefono
 	 * @return modifica avvenuta
 	 */
-	//							    3            6               10                      11 ...15
 	public boolean modificaDati(String id, String email, String indirizzoResidenza, String numeroTelefono) {
 		boolean res = false, found = false;
 		StringBuilder sb = new StringBuilder();
@@ -47,7 +47,7 @@ public class GestioneAccountController {
 		try {
 			while((line = bf_utenti.readLine()) != null && !found) {
 				
-				utente = line.split("|");
+				utente = line.split(Pattern.quote("|"));
 				if(id.equals(utente[3])) 
 					found = true;
 				i++;	
@@ -102,7 +102,7 @@ public class GestioneAccountController {
 		try {
 			while((line = bf_utenti.readLine()) != null && !found) {
 				String[] utente = new String[100];
-				utente = line.split("|");
+				utente = line.split(Pattern.quote("|"));
 				if(id.equals(utente[3])) 
 					found = true;
 				i++;	

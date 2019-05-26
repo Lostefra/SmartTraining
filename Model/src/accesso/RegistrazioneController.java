@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 import util.Utilities;
 
@@ -44,8 +45,9 @@ public class RegistrazioneController {
 		String cognome, String email, String codiceFiscale, LocalDate dataNascita,
 		String luogoNascita, String indirizzoResidenza, String numeroTelefono, String codiceID) throws IOException {
 		
-		File inputFile = new File("C:/SmartTrainingFiles/utenti.txt");
+		File inputFile = new File("utenti.txt");
 		
+		@SuppressWarnings("resource")
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		
 		String currentLine;
@@ -56,7 +58,7 @@ public class RegistrazioneController {
 		
 		/* Controllo esistenza credenziali */
 		while((currentLine = reader.readLine()) != null) {
-			utente = currentLine.split("|");
+			utente = currentLine.split(Pattern.quote("|"));
 			if(username.equals(utente[0]))
 				return "Errore: username già presente nel sistema";
 			else if (email.equals(utente[6]))
@@ -72,7 +74,7 @@ public class RegistrazioneController {
 			pt = true;
 			reader = new BufferedReader(new FileReader(inputFile));
 			while((currentLine = reader.readLine()) != null && !found) {
-				utente = currentLine.split("|");
+				utente = currentLine.split(Pattern.quote("|"));
 				if(codiceFiscale.equals(utente[7])) {
 					found = true;
 					if (!(codiceID.equals(utente[15])))
@@ -115,12 +117,12 @@ public class RegistrazioneController {
 		/* Creazione tessera socio */
 		int codice;
 		boolean codiceEsiste = false;
-		reader = Utilities.apriFile("C:/SmartTrainingFiles/utenti.txt");
+		reader = Utilities.apriFile("utenti.txt");
 		do {
 			codice = Utilities.generaIntero();
 			while((currentLine = reader.readLine()) != null && !codiceEsiste) {
 				String[] campi = new String[100];
-				campi = currentLine.split("|");
+				campi = currentLine.split(Pattern.quote("|"));
 				if(Integer.parseInt(campi[0]) == (codice))
 					codiceEsiste = true;
 			}
@@ -132,7 +134,6 @@ public class RegistrazioneController {
 		
 		
 		PrintWriter writer = Utilities.apriFileAppend("utenti.txt");
-		String id;
 		
 		writer.write(username+"|"+password+"|C|"+generateID(reader, "C")+nome+"|"+cognome+"|"+email+"|"
 				+codiceFiscale+"|"+dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"|"+luogoNascita
@@ -153,7 +154,7 @@ public class RegistrazioneController {
 		do {
 			id = Utilities.generaID(type, 5);
 			while ((currentLine=bf.readLine()) != null) {
-				user = currentLine.split("|");
+				user = currentLine.split(Pattern.quote("|"));
 				if (id.equals(user[2]))
 					ok = false;
 			}

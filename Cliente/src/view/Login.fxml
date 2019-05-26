@@ -11,25 +11,25 @@
 <?import javafx.scene.text.Font?>
 <?scenebuilder-background-color 0x63ccffff?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
   <children>
-    <PasswordField focusTraversable="true" layoutX="389.0" layoutY="328.0" prefWidth="200.0" promptText="" style="-fx-background-color: #eeeeee;" text="aaaaaaaaaaaaaa" visible="true" />
-    <TextField layoutX="389.0" layoutY="284.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" text="claudio.bianchi" />
-    <Label layoutX="309.0" layoutY="289.0" text="Username:">
+    <PasswordField focusTraversable="true" layoutX="389.0" layoutY="328.0" prefWidth="200.0" promptText="" style="-fx-background-color: #eeeeee;" visible="true" fx:id="password" />
+    <TextField layoutX="389.0" layoutY="284.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" fx:id="username"/>
+    <Label layoutX="309.0" layoutY="289.0" text="Username:" >
       <font>
-        <Font name="Verdana" size="12.0" fx:id="x1" />
+        <Font name="Verdana" size="12.0" />
       </font>
     </Label>
     <Label layoutX="311.0" layoutY="333.0" text="Password:">
          <font>
             <Font name="Verdana" size="12.0" />
          </font></Label>
-    <Button layoutX="540.0" layoutY="387.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Login" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+    <Button layoutX="540.0" onAction="#loginCliente" layoutY="387.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Login" textAlignment="CENTER" textFill="WHITE" wrapText="false">
          <font>
             <Font name="Verdana" size="12.0" />
          </font></Button>
-    <Button layoutX="526.0" layoutY="431.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Sign up" textFill="WHITE">
-         <font>
+    <Button layoutX="526.0" onAction="#registrazioneCliente" layoutY="431.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Sign up" textFill="WHITE">
+         <font>	
             <Font name="Verdana" size="12.0" />
          </font></Button>
       <ImageView fitHeight="98.0" fitWidth="313.0" layoutX="326.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('file:C:/Users/dinoc/Downloads/Logoz.png');">

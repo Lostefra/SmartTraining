@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import model.Cliente;
 import model.OrarioIngressoUscita;
@@ -37,7 +38,7 @@ public class LoginController {
 		
 		while((line = bf_utenti.readLine()) != null && !found) {
 			
-			utente = line.split("|");
+			utente = line.split(Pattern.quote("|"));
 			
 			if(username.equals(utente[0]) && password.equals(utente[1])) {
 				found = true;
@@ -73,7 +74,7 @@ public class LoginController {
 		List<OrarioIngressoUscita> result = new ArrayList<>();
 		
 		while ((currentLine = reader.readLine()) != null) {
-			user = currentLine.split("|");
+			user = currentLine.split(Pattern.quote("|"));
 			
 			if (user[0].equals(userID) && 
 					cliente.getTes().getUltimoAggiornamento().isAfter(LocalDateTime.parse(user[1], Utilities.formatterDataOra)))

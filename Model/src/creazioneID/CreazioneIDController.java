@@ -3,6 +3,7 @@ package creazioneID;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
 
 import util.Utilities;
 
@@ -18,7 +19,7 @@ public class CreazioneIDController {
 			//verifico che il codice fiscale non sia gia associato ad un utente
 			try {
 				while((line = bf_utenti.readLine()) != null) {
-					utente = line.split("|");
+					utente = line.split(Pattern.quote("|"));
 					if(codiceFiscale.equals(utente[7]))
 						return id;
 				}
@@ -33,7 +34,7 @@ public class CreazioneIDController {
 					bf_utenti = Utilities.apriFile("utenti.txt");
 					while((line = bf_utenti.readLine()) != null && !codiceEsiste) {
 						String[] campi = new String[100];
-						campi = line.split("|");
+						campi = line.split(Pattern.quote("|"));
 						if(campi[15].equals(id))
 							codiceEsiste = true;
 					}

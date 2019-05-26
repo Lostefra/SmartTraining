@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import model.Cliente;
 import model.PersonalTrainer;
@@ -34,7 +35,7 @@ public class RichiesteController {
 			while((line = bf_richieste.readLine()) != null) {
 				
 				String[] richiesta = new String[100];
-				richiesta = line.split("|");
+				richiesta = line.split(Pattern.quote("|"));
 				if(richiesta[2].equals(p.getId())) {	//idPersonalTrainer uguale in richiesta e campo passato
 					if(richiesta[7].contentEquals("A")) {
 						RichiestaSchedaAllenamento r = new RichiestaSchedaAllenamento(richiesta[0],
@@ -85,7 +86,7 @@ public class RichiesteController {
 				codice = Utilities.generaID("RICH", 3);
 				while((line = bf_schede.readLine()) != null && !codiceEsiste) {
 					String[] campi = new String[100];
-					campi = line.split("|");
+					campi = line.split(Pattern.quote("|"));
 					if(campi[0].equals(codice))
 						codiceEsiste = true;
 				}
@@ -131,7 +132,7 @@ public class RichiesteController {
 				codice = Utilities.generaID("RICH", 3);
 				while((line = bf_schede.readLine()) != null && !codiceEsiste) {
 					String[] campi = new String[100];
-					campi = line.split("|");
+					campi = line.split(Pattern.quote("|"));
 					if(campi[0].equals(codice))
 						codiceEsiste = true;
 				}
@@ -176,7 +177,7 @@ public class RichiesteController {
 			while((line = bf_richieste.readLine()) != null) {
 				
 				String[] richiesta = new String[100];
-				richiesta = line.split("|");
+				richiesta = line.split(Pattern.quote("|"));
 				if(richiesta[0].equals(id)) {	//idRichiesta individuato
 					bf_richieste.close();
 					Utilities.riscriviTranneRiga("richieste.txt", index);
@@ -210,7 +211,7 @@ public class RichiesteController {
 			while((line = bf_richieste.readLine()) != null) {
 				
 				String[] richiesta = new String[100];
-				richiesta = line.split("|");
+				richiesta = line.split(Pattern.quote("|"));
 				if(richiesta[0].equals(r.getId())) {	//idRichiesta individuato
 					bf_richieste.close();
 					Utilities.riscriviTranneRiga("richieste.txt", index);
@@ -239,7 +240,7 @@ public class RichiesteController {
 		try {	
 			while((line = bf_utenti.readLine()) != null) {		
 				String[] richiesta = new String[100];
-				richiesta = line.split("|");
+				richiesta = line.split(Pattern.quote("|"));
 				if(richiesta[2].equals("P")) {	//utente e' PersonalTrainer 
 					PersonalTrainer p = Utilities.leggiPersonalTrainer(richiesta[3]);
 					lista.add(p);

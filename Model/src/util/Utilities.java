@@ -7,12 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import model.Cliente;
 import model.PersonalTrainer;
@@ -23,7 +23,7 @@ public class Utilities {
 
 	public static DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 	public static DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	static DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
+	public static DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
 	private static String alphaNumericCharacters = "abcdefghijklmnopqrstuvwxyz"
 												+ "ABCDEFGHIJLMNOPQRSTUVWXYZ"
 												+ "1234567890";
@@ -39,7 +39,10 @@ public class Utilities {
 	 */
 	public static BufferedReader apriFile(String filename) {
 		try {
-			return new BufferedReader(new FileReader(new File("C:/SmartTrainingFiles/" + filename)));
+			if(filename.startsWith("C:/"))
+				return new BufferedReader(new FileReader(new File(filename)));
+			else
+				return new BufferedReader(new FileReader(new File("C:/SmartTrainingFiles/" + filename)));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -57,7 +60,10 @@ public class Utilities {
 	public static PrintWriter apriFileAppend(String filename) {
 		FileWriter fw;
 		try {
-			fw = new FileWriter("C:/SmartTrainingFiles/" + filename,true);
+			if(filename.startsWith("C:/"))
+				fw = new FileWriter(filename,true);
+			else
+				fw = new FileWriter("C:/SmartTrainingFiles/" + filename,true);
 			return new PrintWriter(new BufferedWriter(fw)); //Wrapper vari per fare la println, più comoda
 		} catch (IOException e) {
 			
@@ -76,7 +82,10 @@ public class Utilities {
 	public static PrintWriter apriFileOverwrite(String filename) {
 		FileWriter fw;
 		try {
-			fw = new FileWriter("C:/SmartTrainingFiles/" + filename, false);
+			if(filename.startsWith("C:/"))
+				fw = new FileWriter(filename,false);
+			else
+				fw = new FileWriter("C:/SmartTrainingFiles/" + filename,false);
 			return new PrintWriter(new BufferedWriter(fw)); //Wrapper vari per fare la println, più comoda
 		} catch (IOException e) {
 	
@@ -122,12 +131,10 @@ public class Utilities {
 	public static Cliente leggiCliente(String id) {
 		BufferedReader bf = apriFile("utenti.txt");
 		String line;
-		//username|password|'P' / 'C' / 'A'|id utente|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|numero tessera|punti|ultimo aggiornamento|codice id personal trainer  
-
 		try {
 			while((line = bf.readLine()) != null) {
 				String[] utente = new String[100];
-				utente = line.split("|");
+				utente = line.split(Pattern.quote("|"));
 										
 				if(id.equals(utente[3]) && utente[2].equals("C")){
 					return new Cliente(utente[4], utente[5], utente[6], utente[7], LocalDate.parse(utente[8], formatterData),
@@ -149,12 +156,11 @@ public class Utilities {
 	public static PersonalTrainer leggiPersonalTrainer(String id) {
 		BufferedReader bf = apriFile("utenti.txt");
 		String line;
-		//username|password|'P' / 'C' / 'A'|id utente|nome|cognome|mail|cf|data nascita|luogo nascita|indirizzo|telefono|numero tessera|punti|ultimo aggiornamento|codice id personal trainer  
-
+		
 		try {
 			while((line = bf.readLine()) != null) {
 				String[] utente = new String[100];
-				utente = line.split("|");
+				utente = line.split(Pattern.quote("|"));
 										
 				if(id.equals(utente[3]) && utente[2].equals("C")){
 					return new PersonalTrainer(utente[4], utente[5], utente[6], utente[7], LocalDate.parse(utente[8], formatterData),
@@ -208,7 +214,7 @@ public class Utilities {
 		String[] utente = new String[200];
 		
 		while ((currentLine = reader.readLine()) != null) {
-			utente = currentLine.split("|");
+			utente = currentLine.split(Pattern.quote("|"));
 			
 			if (utente[0].equals(username))
 				cliente = new Cliente(utente[4], utente[5], utente[6], utente[7], LocalDate.parse(utente[8], formatterData),

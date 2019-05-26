@@ -185,4 +185,28 @@ public class Utilities {
 		return r.nextInt();
 	}
 
+	/**
+	 * 
+	 * Ritorna il cliente dallo username dato
+	 * 
+	 * @param username
+	 * @return Cliente
+	 */
+	public static Cliente getCliente(String username) {
+		BufferedReader reader = apriFile("utenti.txt");
+		Cliente cliente;
+		String currentLine;
+		String[] user = new String[200];
+		
+		while ((currentLine = reader.readLine()) != null) {
+			user = currentLine.split("|");
+			
+			if (user[0].equals(username))
+				cliente = new Cliente(utente[4], utente[5], utente[6], utente[7], LocalDate.parse(utente[8], formatterData),
+						utente[9], utente[10], utente[11], new TesseraSocio(Integer.parseInt(utente[12]), 
+								Integer.parseInt(utente[13]), LocalDateTime.parse(utente[14], formatterDataOra)), utente[3]);
+		}
+		
+		return cliente;
+	}
 }

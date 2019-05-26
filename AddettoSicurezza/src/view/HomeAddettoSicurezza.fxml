@@ -15,11 +15,11 @@
             <Font name="Verdana" size="36.0" />
          </font>
       </Text>
-      <Button alignment="TOP_CENTER" layoutX="512.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/Log2.png'); -fx-background-size: 200% 100%; -fx-background-repeat: no-repeat; -fx-background-position: -140; -fx-background-color: white;" text="Visualizza log">
+      <Button onAction="#visualizzaLog" alignment="TOP_CENTER" layoutX="512.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/Log2.png'); -fx-background-size: 200% 100%; -fx-background-repeat: no-repeat; -fx-background-position: -140; -fx-background-color: white;" text="Visualizza log">
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>
-      <Button alignment="TOP_CENTER" layoutX="123.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/ID.png'); -fx-background-position: center; -fx-background-color: white; -fx-background-size: 150%; -fx-background-repeat: no-repeat;" text="Crea codice ID">
+      <Button onAction="#creaID" alignment="TOP_CENTER" layoutX="123.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/ID.png'); -fx-background-position: center; -fx-background-color: white; -fx-background-size: 150%; -fx-background-repeat: no-repeat;" text="Crea codice ID">
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>
@@ -32,7 +32,7 @@
             </Glow>
          </effect>
       </ImageView>
-      <Button layoutX="776.0" layoutY="551.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="90.0" style="-fx-background-color: #006db3;" text="Esci" textFill="WHITE">
+      <Button onAction="#logout" layoutX="776.0" layoutY="551.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="90.0" style="-fx-background-color: #006db3;" text="Esci" textFill="WHITE">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

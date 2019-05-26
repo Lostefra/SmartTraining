@@ -13,8 +13,8 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
   <children>
-    <PasswordField focusTraversable="true" layoutX="389.0" layoutY="328.0" prefWidth="200.0" promptText="" style="-fx-background-color: #eeeeee;" visible="true" fx:id="password" />
-    <TextField layoutX="389.0" layoutY="284.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" fx:id="username"/>
+    <PasswordField focusTraversable="true" layoutX="389.0" layoutY="328.0" prefWidth="200.0" promptText="" style="-fx-background-color: #eeeeee;" visible="true" fx:id="password" text="password"/>
+    <TextField layoutX="389.0" layoutY="284.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" fx:id="username" text="amministratore"/>
     <Label layoutX="309.0" layoutY="289.0" text="Username:" >
       <font>
         <Font name="Verdana" size="12.0" />

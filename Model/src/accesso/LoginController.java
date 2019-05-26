@@ -86,7 +86,7 @@ public class LoginController {
 		
 		return result;
 	}
-
+//prova
 	private void calcolaAumentoPunti(List<OrarioIngressoUscita> orari) {
 		aumentoPunti = 0;
 		long min;

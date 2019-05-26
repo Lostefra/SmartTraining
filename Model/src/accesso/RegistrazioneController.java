@@ -144,6 +144,7 @@ public class RegistrazioneController {
 		return "T";
 	}
 	
+	//dd
 	private String generateID (BufferedReader bf, String type) throws IOException{
 		String currentLine;
 		String[] user;

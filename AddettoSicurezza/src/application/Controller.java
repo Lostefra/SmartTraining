@@ -25,7 +25,7 @@ public class Controller {
 	@FXML
     public void loginAddettoSicurezza(ActionEvent event)
     {
-		if(username.getText().length() == 0 || password.getText().length() == 0)
+		if(username == null || username.getText().length() == 0 || password == null || password.getText().length() == 0)
 			return;
 		LoginController lc = new LoginController();
 		UserType result;
@@ -49,12 +49,6 @@ public class Controller {
 			e.printStackTrace();
 		}
 		//inform("OK","", "benvenuto " + username.getText());
-    }
-	
-	@FXML
-    public void registrazioneAddettoSicurezza(ActionEvent event)
-    {
-		alert("Errore","", "Non è possibile registrarsi da questo client");
     }
 	
 	private static void alert(String title, String headerMessage, String contentMessage) {

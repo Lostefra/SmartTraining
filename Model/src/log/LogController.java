@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import model.Entry;
-import model.EntryMessaggio;
-import model.EntryOperazione;
 import util.Utilities;
 
 public class LogController {
@@ -30,18 +28,17 @@ public class LogController {
 			while((line = bf_log.readLine()) != null) {
 				String[] campi = new String[10];
 				campi = line.split(Pattern.quote("|"));
-				EntryOperazione o;
-				EntryMessaggio m;
+				Entry entry;
 
 				//se entry messaggio
 				if(campi[2].equals("null")) {
-					m = new EntryMessaggio(LocalDateTime.parse(campi[0], formatterDataOra), campi[1]);
-					entries.add(m);
+					entry = new Entry(LocalDateTime.parse(campi[0], formatterDataOra), "",campi[1]);
+					entries.add(entry);
 				}
 				//se entry operazione
 				else {
-					o = new EntryOperazione(LocalDateTime.parse(campi[0], formatterDataOra), campi[1], campi[2]);
-					entries.add(o);
+					entry = new Entry(LocalDateTime.parse(campi[0], formatterDataOra), campi[2], campi[1]);
+					entries.add(entry);
 				}			
 			}
 			bf_log.close();
@@ -63,14 +60,9 @@ public class LogController {
 	public List<Entry> applicaFiltro(List<Entry> entries, LocalDateTime dataInizio, LocalDateTime dataFine, String idUtente){
 		List<Entry> res = new ArrayList<Entry>();
 		for(Entry e : entries) {
-			boolean idOK = false;
-			if(e instanceof EntryOperazione) {
-				EntryOperazione eo = (EntryOperazione) e;
-				idOK = idUtente.equals(eo.getIdUtente());
-			}
 			if(	(dataInizio == null || !e.getDataOra().isBefore(dataInizio)) &&
 					(dataFine == null || !e.getDataOra().isAfter(dataFine)) && 
-					(idUtente == null || idOK)) {
+					(idUtente.equals("") || e.getIdUtente().contains(idUtente))) {
 				res.add(e);
 			}			
 		}
@@ -82,9 +74,9 @@ public class LogController {
 	 * @param m entryMessaggio
 	 * @return scrittura avvenuta
 	 */
-	public boolean scriviMessaggio(EntryMessaggio m) {
+	public boolean scriviMessaggio(Entry m) {
 		PrintWriter pw = Utilities.apriFileAppend("log.txt");
-		pw.write(m.getDataOra() +"|"+m.getMessaggio()+'\n');
+		pw.write(m.getDataOra() +"|"+m.getDescrizione()+"|null\n");
 		pw.close();
 		return true;
 	}
@@ -98,7 +90,7 @@ public class LogController {
 	 */
 	public boolean scriviMessaggio(LocalDateTime dataOra, String messaggio) {
 		PrintWriter pw = Utilities.apriFileAppend("log.txt");
-		pw.write(dataOra.format(formatterDataOra) +"|"+messaggio +'\n');
+		pw.write(dataOra.format(formatterDataOra) +"|"+messaggio +"|null\n");
 		pw.close();
 		return true;
 	}
@@ -108,9 +100,9 @@ public class LogController {
 	 * @param o entryOperazione
 	 * @return scrittura avvenuta
 	 */
-	public boolean scriviOperazione(EntryOperazione o) {
+	public boolean scriviOperazione(Entry o) {
 		PrintWriter pw = Utilities.apriFileAppend("log.txt");
-		pw.write(o.getDataOra() +"|"+o.getAttivita()+"|"+o.getIdUtente()+'\n');
+		pw.write(o.getDataOra() +"|"+o.getDescrizione()+"|"+o.getIdUtente()+'\n');
 		pw.close();
 		return true;
 	}

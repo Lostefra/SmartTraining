@@ -37,12 +37,12 @@
             <Font name="Verdana" size="14.0" />
          </font>
       </Text>
-      <Text fx:id="codiceID" layoutX="143.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Il codice ID generato è: " wrappingWidth="279.0000004693866">
+      <Text layoutX="143.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Il codice ID generato è: " wrappingWidth="279.0000004693866">
          <font>
             <Font name="Verdana" size="20.0" />
          </font>
       </Text>
-      <TextArea editable="false" layoutX="484.0" layoutY="345.0" minHeight="-Infinity" prefHeight="42.0" prefWidth="228.0">
+      <TextArea fx:id="codiceID" editable="false" layoutX="484.0" layoutY="345.0" minHeight="-Infinity" prefHeight="42.0" prefWidth="228.0">
          <font>
             <Font name="Verdana" size="20.0" />
          </font>

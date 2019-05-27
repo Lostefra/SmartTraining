@@ -1,10 +1,11 @@
 package model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import util.Utilities;
 
-public class Entry {
+public class Entry implements Comparable<Entry> {
 	private LocalDateTime dataOra;
 	private String idUtente;
 	private String descrizione;
@@ -32,6 +33,10 @@ public class Entry {
 
 	public String getIdUtente() {
 		return idUtente;
+	}
+
+	public int compareTo(Entry that) {
+		return - (int) Duration.between(dataOra, that.getDataOra()).toMinutes();
 	}
 	
 }

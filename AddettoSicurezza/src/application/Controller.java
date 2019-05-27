@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import accesso.LoginController;
@@ -137,6 +138,7 @@ public class Controller {
 		dataOraCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("stringDataOra"));
         idCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("idUtente"));
         descCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("descrizione"));
+        Collections.sort(entries);
         tabella.getItems().setAll(entries);
 	}
 	
@@ -200,6 +202,7 @@ public class Controller {
 		dataOraCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("stringDataOra"));
         idCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("idUtente"));
         descCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("descrizione"));
+        Collections.sort(entries);
         tabella.getItems().setAll(entries);
 	}
 	

@@ -50,7 +50,8 @@ public class Controller {
     @FXML private ComboBox<String> minFine;
     @FXML private DatePicker dataInizio;
     @FXML private DatePicker dataFine;
-	
+	AnchorPane root;
+    
 	List<Entry> entries = new ArrayList<Entry>();
 	
 	@FXML
@@ -68,18 +69,14 @@ public class Controller {
 			}
 			//se sei qui l'addetto alla sicurezza è autenticato
 			// da qui bisogna caricare fxml della home
-			
-			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeAddettoSicurezza.fxml"));
+			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeAddettoSicurezza.fxml"));
 			Scene scene = new Scene(root,900,600);
-			Main.stage.setTitle("Smart Training - Addetto alla Sicurezza");
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Main.stage.setScene(scene);		
-			Main.stage.show();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//inform("OK","", "benvenuto " + username.getText());
+		
     }
 	
 	private static void alert(String title, String headerMessage, String contentMessage) {
@@ -92,84 +89,69 @@ public class Controller {
 	
 	@FXML
 	public void logout(ActionEvent e) {
-		AnchorPane root = null;
+		root = null;
 		try {
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		Scene scene = new Scene(root,900,600);
-		Main.stage.setTitle("Smart Training - Addetto alla Sicurezza");
-		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		Main.stage.setScene(scene);		
-		Main.stage.show();
 	}
 	
 	@FXML
 	public void visualizzaLog(ActionEvent e) {
-		AnchorPane root = null;
+		root = null;
 		try {
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/VisualizzaLog.fxml"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
 		Scene scene = new Scene(root,900,600);
-		Main.stage.setTitle("Smart Training - Addetto alla Sicurezza");
-		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		Main.stage.setScene(scene);		
-		Main.stage.onShowingProperty();
-	/*	Main.stage.setOnShowing(new EventHandler<WindowEvent>() {
-			//qui si caricano i log da mostrare all'inizio
-		    @Override
-		    public void handle(WindowEvent event) {
-		    	System.out.print("sono nel handle\n");
-		        getLogFile();
-		    }
+		Main.stage.setScene(scene);
 
-		});*/
-		Main.stage.setOnShowing(event -> getLogFile());
-		Main.stage.show();
+	}
+	
+	//questa funzione e' invocata automaticamente dal controller ad ogni caricamenti di file fxml
+	@FXML private void initialize() {
+		getLogFile();
 	}
 	
 	private void getLogFile() {
 		LogController lc = new LogController();
 		entries = lc.getLog();
-		dataOraCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("stringDataOra"));
-        idCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("idUtente"));
-        descCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("descrizione"));
-        Collections.sort(entries);
-        tabella.getItems().setAll(entries);
+		//la tabella sara' non nulla quando sara' caricato il file VisualizzaLog.fxml
+		if(tabella != null) {
+			dataOraCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("stringDataOra"));
+	        idCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("idUtente"));
+	        descCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("descrizione"));
+	        Collections.sort(entries);
+	        tabella.getItems().setAll(entries);
+		}
 	}
 	
 	@FXML
 	public void creaID(ActionEvent e) {
-		AnchorPane root = null;
+		root = null;
 		try {
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/CreaID.fxml"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		Scene scene = new Scene(root,900,600);
-		Main.stage.setTitle("Smart Training - Addetto alla Sicurezza");
-		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		Main.stage.setScene(scene);		
-		Main.stage.show();
 	}
 	
 	@FXML
 	public void goToHome(ActionEvent event) {
-		AnchorPane root = null;
+		root = null;
 		try {
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeAddettoSicurezza.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(root,900,600);
-		Main.stage.setTitle("Smart Training - Addetto alla Sicurezza");
-		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		Main.stage.setScene(scene);		
-		Main.stage.show();
 	}
 	
 	@FXML

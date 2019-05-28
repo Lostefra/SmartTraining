@@ -172,18 +172,29 @@ public class Controller {
 		LogController lc = new LogController();
 		entries = lc.getLog();
 		LocalDateTime inizio = null, fine = null;
-		if(dataInizio.getValue() != null && oraInizio.getValue() != null && minInizio.getValue() != null &&
-				!oraInizio.getValue().equals("") && !minInizio.getValue().equals(""))
+		
+		if(dataInizio.getValue() != null &&
+				oraInizio.getValue() != null && 
+				minInizio.getValue() != null &&
+				!oraInizio.getValue().equals("") &&
+				!minInizio.getValue().equals("")	)
 			inizio = LocalDateTime.parse(dataInizio.getValue().format(Utilities.formatterData)+ " " +
-					oraInizio.getValue()+":"+minInizio.getValue(), Utilities.formatterDataOra);
-		if(dataFine.getValue() != null && oraFine.getValue() != null && minFine.getValue() != null &&
-				!oraFine.getValue().equals("") && !minFine.getValue().equals(""))
+											oraInizio.getValue()+":"+minInizio.getValue(), Utilities.formatterDataOra);
+		
+		if(dataFine.getValue() != null &&
+				oraFine.getValue() != null &&
+				minFine.getValue() != null &&
+				!oraFine.getValue().equals("") &&
+				!minFine.getValue().equals("")	 )
 			fine = LocalDateTime.parse(dataFine.getValue().format(Utilities.formatterData)+ " " +
-					oraFine.getValue()+":"+minFine.getValue(), Utilities.formatterDataOra);
+										oraFine.getValue()+":"+minFine.getValue(), Utilities.formatterDataOra);
+		
 		entries = lc.applicaFiltro(entries, inizio, fine, filtroID.getText());
+		
 		dataOraCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("stringDataOra"));
         idCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("idUtente"));
         descCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("descrizione"));
+        
         Collections.sort(entries);
         tabella.getItems().setAll(entries);
 	}

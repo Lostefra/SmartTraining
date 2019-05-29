@@ -26,3 +26,12 @@ idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 richieste.txt
 0	  		1
 idRichiesta|idCliente|idPersonalTrainer|dataOraInserimento|dataInizio|durataSettimane|note|'A' / 'P'|numeroAllenamentiSettimanali|altezza|peso|elencoAllergeni
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+prodotti.txt
+0		1
+codice|nome|prezzo|descrizione|quantita
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+sconti.txt
+0				1
+valore in euro|punti richiesti|spesa minima
+

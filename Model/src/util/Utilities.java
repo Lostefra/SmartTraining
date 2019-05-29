@@ -111,6 +111,7 @@ public class Utilities {
 			while ((currentLine = reader.readLine()) != null) {
 				if (i != lineToRemove)
 					pw.write(currentLine+"\n");
+				i++;
 			}
 			pw.close();
 			reader.close();

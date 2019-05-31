@@ -40,7 +40,7 @@ public class AcquistoController {
 			//codice|nome|prezzo|descrizione|quantita
 			while((line = bf_prodotti.readLine()) != null) {
 				String[] campi = new String[100];
-				campi = line.split("|");
+				campi = line.split("\\|");
 				
 				int codice = Integer.parseInt(campi[0]);
 				String nome = campi[1];

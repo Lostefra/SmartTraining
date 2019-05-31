@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -262,18 +263,25 @@ public class AcquistoController {
 		return sommaSpesa - s.getValore();
 	}
 	
-	public boolean conferma(Acquisto a, Sconto s) { //DA RIVEDERE BENE.. quando si crea l'acquisto? (in confermaCarrello???)
+	public boolean conferma(Sconto s) { //DA RIVEDERE BENE.. quando si crea l'acquisto? (in confermaCarrello???)
 		if(effettuaPagamento() == false) return false;
 		//Non c'è un while perché la conferma è manuale. Se il pagamento va male, si può anche decidere
 		//di tornare indietro
 		
 		else {
+			Acquisto a = creaAcquisto();
 			aggiornaSaldoPunti(s);
 			mandaMail(a);
 			return true;
 		}
 	}
 	
+	private Acquisto creaAcquisto() {
+		int codice = Utilities.generaIntero(99999);
+		int puntiGuadagnati = (int) Math.floor(calcolaSommaSpesa() / 10);
+		return new Acquisto(codice, LocalDateTime.now(), puntiGuadagnati);
+	}
+
 	private void mandaMail(Acquisto a) {
 		Map<String, Integer> prod = new HashMap<String, Integer>();
 		StringBuilder sb = new StringBuilder();

@@ -4,52 +4,35 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
-import java.util.regex.Pattern;
-
-import mail.Main;
 import model.Acquisto;
-import model.Alimento;
 import model.Cliente;
-import model.Esercizio;
-import model.Pasto;
-import model.PersonalTrainer;
-import model.PianoNutrizionale;
-import model.ProdottiPalestra;
 import model.Prodotto;
-import model.SchedaAllenamento;
-import model.ScontiPalestra;
 import model.Sconto;
-import model.Sessione;
-import model.TesseraSocio;
 import util.Utilities;
 
 public class AcquistoController {
 	
 	private Cliente cli;
-	private List<Prodotto> selezionati;
+	private List<Prodotto> prodottiSelezionati;
 	
 	public AcquistoController(Cliente c) {
 		this.cli = c;
-		this.selezionati = new ArrayList<Prodotto>();
+		this.prodottiSelezionati = new ArrayList<Prodotto>();
 	}
 	
 	/**
-	 * 
+	 * Legge dal file tutti i prodotti presenti, serve per riempire la tabella che permette la selezione
 	 * @return prodotti
 	 */
 	public List<Prodotto> getProdotti() {
 		List<Prodotto> prodotti = new ArrayList<Prodotto>();
 		BufferedReader bf_prodotti = Utilities.apriFile("prodotti.txt");
 		String line;
+		
 		try {
 			//codice|nome|prezzo|descrizione|quantita
 			while((line = bf_prodotti.readLine()) != null) {
@@ -68,13 +51,14 @@ public class AcquistoController {
 			
 			bf_prodotti.close();
 		} catch (IOException e) {
-		
+			e.printStackTrace();
 		}
+		
 		return prodotti;
 	}
 	
 	/**
-	 *
+	 * Legge dal file tutti gli sconti presenti, serve per riempire la tabella che permette la selezione dello sconto
 	 * @return tuttiGliSconti
 	 */
 	public List<Sconto> getScontiDisponibili() {
@@ -106,7 +90,7 @@ public class AcquistoController {
 	
 	
 	/**
-	 * I parametri in input messi a null => non si filtra per quel paramentro 
+	 * I parametri in input messi a null (Optional)  => non si filtra per quel paramentro 
 	 *
 	 * @param prodotti
 	 * @param codice
@@ -130,60 +114,67 @@ public class AcquistoController {
 	}
 	
 	/**
-	 *
+	 * Si seleziona un prodotto dalla tabella iniziale e si aggiunge al carrello, diminuendo la sua disponibilità
+	 * 
 	 * @param prodotto
 	 * @return prodottiSelezionati
 	 */
 	public List<Prodotto> aggiungiProdotto(Prodotto p) {
-		List<Prodotto> prodottiSelezionati = new ArrayList<Prodotto>();
-		diminuisciDisponibilita(p);
+		if(diminuisciDisponibilita(p) < 1)
+			//Fare alert impossibile selezionare;
 		prodottiSelezionati.add(p);
 		return prodottiSelezionati;
 	}
 	
 	/**
-	 *
+	 * Aggiorna il file contenente i prodotti, diminuendo la disponibilità di quello scelto
 	 * @param prodotto
+	 * @return disponibilitàDiQuelProdotto
 	 */
-	private void diminuisciDisponibilita(Prodotto p) {
+	private int diminuisciDisponibilita(Prodotto p) {
+		int disp = -1;
+		
 		try {
 	        // input the (modified) file content to the StringBuffer "input"
 	        BufferedReader file = new BufferedReader(new FileReader("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt"));
 	        StringBuffer inputBuffer = new StringBuffer();
 	        String line;
-	        int disp = -1;
 
 	        while ((line = file.readLine()) != null) {
 	            String[] res = new String[100];
 	            res = line.split("\\|");
 	        	
-	        	if(Integer.parseInt(res[0]) == p.getCodice()) {
-	        		disp = Integer.parseInt(res[4]) - 1;
+	        	if(Integer.parseInt(res[0]) == p.getCodice()) { //Se ho trovato il codice giusto
+	        		disp = Integer.parseInt(res[4]) - 1; //Diminuisco subito la disponibilità
 	        		line = res[0] + "|" + res[1] + "|" + res[2] + "|" + 
-	        				res[3] + "|" + disp; // replace the line here
+	        				res[3] + "|" + disp; // Riscrivo la riga già con la disponibilità aggiornata
 	        		inputBuffer.append(line);
 	        	    inputBuffer.append('\n');
 	        	}
 	        	
-	        	else {   // replace the line here
-	    	        		inputBuffer.append(line);
-	    	        	    inputBuffer.append('\n');
+	        	else { //Non era il codice giusto, salvo la riga appena letta nel buffer e provo con quella dopo
+	    	        inputBuffer.append(line);
+	    	        inputBuffer.append('\n');
 	        	}
+	        	
+	        	//Non è trattato il caso in cui non si trovi il codice giusto perché la scelta è forzata dalla view
+	        	//Non essendoci parametri che l'utente può inserire, sono per forza giusti
 	        }
 	        file.close();
 
-	        // write the new string with the replaced line OVER the same file
+	        // Scrivo tutto il buffer in overwrite sullo stesso file
 	        FileOutputStream fileOut = new FileOutputStream("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt");
 	        fileOut.write(inputBuffer.toString().getBytes());
 	        fileOut.close();
-
 	    } catch (Exception e) {
 	        System.out.println("Problem reading file.");
 	    }
+		
+		return disp;
 	}
 	
 	/**
-	 *
+	 * Si toglie un prodotto dal carrello, viene aumentata la sua disponibilità
 	 * @param prodotto
 	 * @return prodottiSelezionati
 	 */
@@ -195,12 +186,14 @@ public class AcquistoController {
 	}
 
 	/**
-	 *
+	 * Aggiorna il file contenente i prodotti, aumentando la disponibilità di quello eliminato dalla scelta
 	 * @param prodotto
 	 */
 	private void aumentaDisponibilita(Prodotto p) {
 		try {
-	        // input the (modified) file content to the StringBuffer "input"
+	        // Duale di quello sopra, leggere commenti in diminuisciDisponibilità
+			//Questa volta è void perché non c'è una disponibilità massima da controllare
+			
 	        BufferedReader file = new BufferedReader(new FileReader("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt"));
 	        StringBuffer inputBuffer = new StringBuffer();
 	        String line;
@@ -218,14 +211,13 @@ public class AcquistoController {
 	        	    inputBuffer.append('\n');
 	        	}
 	        	
-	        	else {   // replace the line here
-	    	        		inputBuffer.append(line);
-	    	        	    inputBuffer.append('\n');
+	        	else {
+	        		inputBuffer.append(line);
+	    	        inputBuffer.append('\n');
 	        	}
 	        }
 	        file.close();
 
-	        // write the new string with the replaced line OVER the same file
 	        FileOutputStream fileOut = new FileOutputStream("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt");
 	        fileOut.write(inputBuffer.toString().getBytes());
 	        fileOut.close();
@@ -237,7 +229,9 @@ public class AcquistoController {
 	}
 	
 	/**
-	 *
+	 * Gli articoli presenti nel carrello sono confermati, si aggiorna la tabella con gli sconti disponibili
+	 * in base al saldo punti e ai soldi spesi
+	 * 
 	 * @param puntiSullaTessera
 	 * @param sommaSpesa
 	 * 
@@ -252,17 +246,28 @@ public class AcquistoController {
 		return disp;
 	}
 	
+	
+	/**
+	 * Viene applicato lo sconto selezionato dal cliente (solo tra i disponibili), l'importo totale viene diminuito
+	 * in base al valore dello sconto
+	 * 
+	 * @param puntiSullaTessera
+	 * @param sommaSpesa
+	 * 
+	 * @return scontiDisponibili
+	 */
 	public float applicaSconto(Sconto s, float sommaSpesa) {
 		return sommaSpesa - s.getValore();
 	}
 	
-	public boolean conferma(Acquisto a, Sconto s) { //DA RIVEDERE BENE, non so se la view fa i calcoli
+	public boolean conferma(Acquisto a, Sconto s) { //DA RIVEDERE BENE.. quando si crea l'acquisto? (in confermaCarrello???)
 		if(effettuaPagamento() == false) return false;
+		//Non c'è un while perché la conferma è manuale. Se il pagamento va male, si può anche decidere
+		//di tornare indietro
 		
 		else {
 			aggiornaSaldoPunti(s);
 			mandaMail(a);
-			
 			return true;
 		}
 	}
@@ -272,7 +277,7 @@ public class AcquistoController {
 		int numeroCoseAcquistate = 1; /*Provvisorio: dobbiamo prendere la lista dei selezionati e
 										vedere quante volte compare ogni prodotto
 									  */
-		for (Prodotto prodotto : selezionati) {
+		for (Prodotto prodotto : prodottiSelezionati) {
 			/*Formato: 2 Integratori, 30 euro
 						1 Integratore, 15 euro
 						3 SteroidiSuperPower 150 euro
@@ -284,23 +289,84 @@ public class AcquistoController {
 	}
 	
 	private boolean effettuaPagamento() {
-		if(Utilities.generaIntero(100) == 50) //Se l'intero generato è 50, fallisce (una possibilità su 100)
+		if(Utilities.generaIntero(100) == 50) //Se l'intero generato è 50, fallisce (una possibilità su 100 di fallimento)
 			return false;
 		return true;
 	}
 	
+	/**
+	 * Aggiorno la disponibilità di tutte le cose messe nel carrello
+	 */
 	public void annulla() {
-		//?????
+		for (Prodotto prodotto : prodottiSelezionati) {
+			aumentaDisponibilita(prodotto);
+		}
 	}
 	
-		
+	/**
+	 * 
+	 * @return saldoPunti
+	 */
 	public int getSaldoPunti() {
 		return cli.getTes().getSaldoPunti();
 	}
 	
-	public int aggiornaSaldoPunti(Sconto s) {
-		int nuovoSaldoPunti;
-		nuovoSaldoPunti = getSaldoPunti() - s.getPuntiRichiesti();
-		return nuovoSaldoPunti;
+	/**
+	 * Vengono scalati i se è stato selezionato uno sconto
+	 * 
+	 * @param sconto
+	 */
+	public void aggiornaSaldoPunti(Sconto s) {
+		cli.getTes().setSaldoPunti(getSaldoPunti() - s.getPuntiRichiesti()); 
+	}
+	
+	/**
+	 * Vengono aumentati i punti a seguito dell'acquisto
+	 * 
+	 * @param acquisto
+	 */
+	public void aggiungiPunti(Acquisto a) {
+		cli.getTes().setSaldoPunti(getSaldoPunti() + a.getPuntiGuadagnati()); 
+	}
+	
+	
+	//DA QUI IN POI CI SONO I METODI DA USARE SE LA VIEW NON FA I CALCOLI
+	
+	private float calcolaSommaSpesa() {
+		float sommaSpesa = (float) 1.0;
+		for (Prodotto prodotto : prodottiSelezionati) {
+			sommaSpesa += prodotto.getPrezzo();
+		}
+		return sommaSpesa;
+	}
+	
+	/**
+	 * Gli articoli presenti nel carrello sono confermati, si aggiorna la tabella con gli sconti disponibili
+	 * in base al saldo punti e ai soldi spesi
+	 * 
+	 * @return scontiDispInBaseAPrezzoEPunti
+	 */
+	public List<Sconto> confermaCarrello() {
+		float sommaSpesa = calcolaSommaSpesa();
+				
+		ArrayList<Sconto> scontiDispInBaseAPrezzoEPunti = new ArrayList<Sconto>();
+		for (Sconto sconto : getScontiDisponibili()) {
+			if(sconto.isAvailable(getSaldoPunti(), sommaSpesa))
+				scontiDispInBaseAPrezzoEPunti.add(sconto);
+		}
+		return scontiDispInBaseAPrezzoEPunti;
+	}
+	
+	/**
+	 * Viene applicato lo sconto selezionato dal cliente (solo tra i disponibili), l'importo totale viene diminuito
+	 * in base al valore dello sconto
+	 * 
+	 * @param puntiSullaTessera
+	 * @param sommaSpesa
+	 * 
+	 * @return scontiDisponibili
+	 */
+	public float applicaSconto(Sconto s) {
+		return calcolaSommaSpesa() - s.getValore();
 	}
 }

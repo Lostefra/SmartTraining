@@ -198,6 +198,15 @@ public class Utilities {
 		Random r = new Random();
 		return r.nextInt();
 	}
+	
+	/**
+	 * @param upperBound
+	 * @return numero random
+	 */
+	public static int generaIntero(int upperBound) {
+		Random r = new Random();
+		return r.nextInt(upperBound);
+	}
 
 	/**
 	 * 
@@ -225,4 +234,5 @@ public class Utilities {
 		
 		return cliente;
 	}
+
 }

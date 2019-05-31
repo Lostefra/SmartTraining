@@ -34,6 +34,11 @@ public class Acquisto {
 		this.puntiGuadagnati = puntiGuadagnati;
 	}
 	
+	@Override
+	public String toString() {
+		return "Codice Acquisto: " + codice + "\nData e Ora: " + dataOra +
+				"\nHai guadagnato " + puntiGuadagnati + " punti";
+	}
 	
 	
 }

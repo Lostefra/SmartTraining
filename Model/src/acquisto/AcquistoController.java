@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import model.Acquisto;
@@ -273,17 +275,34 @@ public class AcquistoController {
 	}
 	
 	private void mandaMail(Acquisto a) {
+		Map<String, Integer> prod = new HashMap<String, Integer>();
 		StringBuilder sb = new StringBuilder();
-		int numeroCoseAcquistate = 1; /*Provvisorio: dobbiamo prendere la lista dei selezionati e
-										vedere quante volte compare ogni prodotto
-									  */
+		
 		for (Prodotto prodotto : prodottiSelezionati) {
-			/*Formato: 2 Integratori, 30 euro
-						1 Integratore, 15 euro
-						3 SteroidiSuperPower 150 euro
-			*/
-			sb.append("NumeroCoseAcquistate " + prodotto.getNome() + ", " + prodotto.getPrezzo()*numeroCoseAcquistate + "\n");
+			if(prod.containsKey(prodotto.getNome())) {
+				int value = prod.get(prodotto.getNome());
+				prod.put(prodotto.getNome(), ++value);
+			}
+			else
+				prod.put(prodotto.getNome(), 1);
 		}
+		
+		/*Formato: Quantità acquistata nome, prezzo euro (volendo si possono aggiungere anche codice e prezzo per singolo prodotto)
+		 *  2 Integratori, 30 euro
+		 *  1 Integratore, 15 euro
+		 *  3 SteroidiSuperPower 150 euro
+		*/
+		
+		for(String name : prod.keySet()) {
+			float price = (float) -1;
+			int qty = prod.get(name);
+			for (Prodotto prodotto : prodottiSelezionati) {
+				if(prodotto.getNome().equals(name))
+					price = prodotto.getPrezzo();
+			}
+			sb.append(qty + " " + name + ", " + price*qty + " euro\n");
+		}
+			
 		mail.Main.mandaMail("aaabbbccc@gmail.com", a.toString(), sb.toString());
 							//Indirizzo, header (Codice, DataOra, PuntiGuadagnati), listaArticoliAcquistati
 	}

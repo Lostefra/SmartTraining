@@ -10,10 +10,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	static public Stage stage;
-	
+	static public String usernamePT;
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			stage = primaryStage;
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
 			Scene scene = new Scene(root,900,600);
 			primaryStage.setTitle("Smart Training - Personal Trainer");

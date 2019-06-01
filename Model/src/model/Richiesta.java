@@ -28,11 +28,11 @@ public abstract class Richiesta {
 		return id;
 	}
 
-	public Cliente getIdCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public PersonalTrainer getIdPersonalTrainer() {
+	public PersonalTrainer getPersonalTrainer() {
 		return personalTrainer;
 	}
 

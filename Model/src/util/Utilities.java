@@ -225,4 +225,21 @@ public class Utilities {
 		
 		return cliente;
 	}
+	
+	public static PersonalTrainer getPersonalTrainer(String username) throws NumberFormatException, IOException {
+		BufferedReader reader = apriFile("utenti.txt");
+		PersonalTrainer personalTrainer = null;
+		String currentLine;
+		String[] utente = new String[200];
+		
+		while ((currentLine = reader.readLine()) != null) {
+			utente = currentLine.split(Pattern.quote("|"));
+			
+			if (utente[0].equals(username))
+				personalTrainer = new PersonalTrainer(utente[4], utente[5], utente[6], utente[7], LocalDate.parse(utente[8], formatterData),
+						utente[9], utente[10], utente[11], utente[3]);
+		}
+		
+		return personalTrainer;
+	}
 }

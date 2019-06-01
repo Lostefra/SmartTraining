@@ -45,7 +45,7 @@ public class RegistrazioneController {
 		String cognome, String email, String codiceFiscale, LocalDate dataNascita,
 		String luogoNascita, String indirizzoResidenza, String numeroTelefono, String codiceID) throws IOException {
 		
-		File inputFile = new File("utenti.txt");
+		File inputFile = new File("C:/SmartTrainingFiles/utenti.txt");
 		
 		@SuppressWarnings("resource")
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -58,12 +58,23 @@ public class RegistrazioneController {
 		
 		/* Controllo esistenza credenziali */
 		while((currentLine = reader.readLine()) != null) {
-			utente = currentLine.split(Pattern.quote("|"));
+			utente = currentLine.split("\\|");
+			System.out.println("1"+utente[0]);
+			System.out.println(utente[1]);
+			System.out.println(utente[2]);
+			System.out.println(utente[3]);
+			System.out.println(utente[4]);
+			System.out.println(utente[5]);
+			System.out.println(utente[6]);
+			System.out.println(utente[7]);
+			System.out.println(utente[8]);
+			System.out.println(utente[9]);
+			
 			if(username.equals(utente[0]))
 				return "Errore: username già presente nel sistema";
 			else if (email.equals(utente[6]))
 				return "Errore: email già presente nel sistema";
-			else if (codiceFiscale.equals(utente[7]) && !(username.equals("null"))) //parsa non mi e' chiaro lol
+			else if (codiceFiscale.equals(utente[7]) && !(utente[0].equals("null")))
 				return "Errore: codice fiscale già presente nel sistema";
 		}
 		reader.close();
@@ -94,7 +105,7 @@ public class RegistrazioneController {
 			reader = new BufferedReader(new FileReader(inputFile));
 			
 			while ((currentLine = reader.readLine()) != null) {
-				if (!(currentLine.equals(lineToRemove)))
+				if (!(currentLine.equals(lineToRemove))) 
 					writer.write(currentLine+"\n");
 			}			
 			reader.close();
@@ -105,13 +116,15 @@ public class RegistrazioneController {
 					+codiceFiscale+"|"+dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"|"+luogoNascita
 					+"|"+indirizzoResidenza+"|"+numeroTelefono+"|null|null|null|"+codiceID+"\n");
 			reader.close();
-			boolean t = tempFile.renameTo(inputFile);
 			writer.close();
-			
+			boolean t1 = inputFile.delete();
+			boolean t = tempFile.renameTo(inputFile);
+					
 			if (t)
 				return "T";
-			else
+			else {
 				return "Errore: errore scrittura nel database";
+			}
 		}
 		
 		/* Creazione tessera socio */

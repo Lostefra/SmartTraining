@@ -1,25 +1,56 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import accesso.LoginController;
+import accesso.RegistrazioneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import model.ObservableRichiesta;
+import model.PersonalTrainer;
+import model.Richiesta;
 import model.UserType;
+import richieste.RichiesteController;
+import util.Utilities;
 
 public class Controller {
 
-	@FXML
-	PasswordField password;
-	@FXML
-	TextField username;
+	@FXML private PasswordField password;
+	@FXML private TextField username;
+	@FXML private TextField regNome;
+	@FXML private TextField regCognome;
+	@FXML private TextField regEmail;
+	@FXML private TextField regCodFisc;
+	@FXML private TextField regLuogoNascita;
+	@FXML private TextField regTel;
+	@FXML private TextField regUsername;
+	@FXML private PasswordField regPassword;
+	@FXML private PasswordField regConfermaPassword;
+	@FXML private DatePicker regDataNascita;
+	@FXML private TextField regCodiceID;
+	@FXML private TextField regResidenza;
+	@FXML private TableView<ObservableRichiesta> homeTab;
+	@FXML private TableColumn<ObservableRichiesta, String> idNome;
+	@FXML private TableColumn<ObservableRichiesta, String> idCognome;
+	@FXML private TableColumn<ObservableRichiesta, String> idTipologia;
+	@FXML private TableColumn<ObservableRichiesta, String> idDataOra;
+	
+	public PersonalTrainer pt;
+	
+	private AnchorPane root;
 	
 	@FXML
     public void loginPersonalTrainer(ActionEvent event)
@@ -31,29 +62,221 @@ public class Controller {
 		try {
 			result = lc.verificaCredenziali(username.getText(), password.getText());
 			if (result == null || !result.equals(UserType.PersonalTrainer)) {
-				alert("Errore","", "Le credenziali inserite non sono valide");
+				alert("Errore","", "Le credenziali inserite non sono valide o l'utente inserito non ha può accedere da questo Client");
 				return;
 			}
 			
-			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomePersonalTrainer.fxml"));
-			Scene scene = new Scene(root,900,600);
+			
+			Main.usernamePT = username.getText();
+			
 			Main.stage.setTitle("Smart Training - PersonalTrainer");
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			Main.stage.setScene(scene);		
+			viewHomePersonalTrainer(event);
 			Main.stage.show();
 			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//inform("OK","", "benvenuto " + username.getText());
     }
 	
 	@FXML
-    public void registrazionePersonalTrainer(ActionEvent event)
+	public void viewHomePersonalTrainer(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomePersonalTrainer.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+		
+	}
+	
+	@FXML 
+	private void initialize() throws NumberFormatException, IOException {
+		getRichieste();
+	}
+	
+	private void getRichieste() throws NumberFormatException, IOException {
+		RichiesteController rc = new RichiesteController();
+		
+		if(homeTab != null) {
+			pt = Utilities.getPersonalTrainer(Main.usernamePT);
+
+		List<Richiesta> richieste = new ArrayList<>(rc.visualizzaRichieste(pt));
+		List<ObservableRichiesta> observableRichieste = new ArrayList<>();
+		for(Richiesta r : richieste)
+			observableRichieste.add(new ObservableRichiesta(r.getId(), r.getCliente().getNome(), r.getCliente().getCognome(), r, r.getDataOra(), r.getDataOra().format(Utilities.formatterDataOra)));
+		
+		idNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		idCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
+		idTipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+		idDataOra.setCellValueFactory(new PropertyValueFactory<>("dataOraStringa"));
+		homeTab.getItems().setAll(observableRichieste);
+		}
+	}
+	
+	@FXML
+    public void viewRegistrazionePersonalTrainer(ActionEvent event) throws IOException
     {
-		inform("Segue la registrazione","", "Al posto del prompt vanno mostrata la view");
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Registrazione.fxml"));
+		
+		Main.stage.setScene(new Scene(root,900,600));
+		
+		/*regDataNascita.setDayCellFactory(d -> new DateCell() {
+            @Override 
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                setDisable(empty || item.isAfter(LocalDate.now().minusYears(14)) || item.isBefore(LocalDate.now().minusYears(90)));
+            }});
+		*/
     }
+	 
+	@FXML
+	public void viewLogin (ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
+	@FXML
+	public void confermaRegistrazione (ActionEvent event) throws IOException {
+		root = null;
+		
+		if (!checkValuesRegistrazione()) {
+			return;
+		}
+		
+		RegistrazioneController controller = new RegistrazioneController();
+		String result = controller.registrazione(regUsername.getText(), regPassword.getText(), regNome.getText(), regCognome.getText(),
+				regEmail.getText(), regCodFisc.getText(), regDataNascita.getValue(), regLuogoNascita.getText(),
+				regResidenza.getText(), regTel.getText(), regCodiceID.getText());
+		if (!result.equals("T")) {
+			alert("Errore", "Errore registrazione", result);
+			return;
+		}
+		
+		viewHomePersonalTrainer(event);
+		inform("Smart Training", "Registrazione avvenuta con successo!", "Benvenuto in Smart Training");
+	}
+	
+	private boolean checkValuesRegistrazione() {
+		if (regUsername == null || regUsername.getText().length() < 5 || !isAlphaNumeric(regUsername.getText())) {
+			alert("Errore", "Errore username", "Lo username deve avere minimo 5 caratteri ed essere composto solo da lettere e numeri.");
+			return false;
+		}
+		if (regPassword == null || regPassword.getText().length() < 8  || !containsUpperCase() || !containsLowerCase() || !containsNumber() || !isAlphaNumeric(regPassword.getText())) {
+			alert("Errore", "Errore password", "La password deve avere un minimo di 8 caratteri e contenere almeno una maiuscola, una minuscola e un numero. Deve essere composto solo da lettere e numeri.");
+			return false;
+		}
+		if ( regNome == null ||  regNome.getText().length() < 1 || isAlphabetic(regNome.getText())) {
+			alert("Errore", "Errore nome", "Inserire il proprio nome");
+			return false;
+		}
+		if (regCognome == null || regCognome.getText().length() < 1 || isAlphabetic(regNome.getText())) {
+			alert("Errore", "Errore cognome", "Inserire il proprio cognome");
+			return false;
+		}
+		if ( regEmail == null || regEmail.getText().length() < 1 || !isEmail()) {
+			alert("Errore", "Errore email", "Inserire un email valido");
+			return false;
+		}
+		if (regCodFisc == null || regCodFisc.getText().length() != 16 || !isAlphaNumeric(regCodFisc.getText())) {
+			alert("Errore", "Errore codice fiscale", "Inserire un codice fiscale valido");
+			return false;
+		}
+		if (regLuogoNascita == null || regLuogoNascita.getText().length() < 1 || containsSplit(regLuogoNascita.getText())) {
+			alert("Errore", "Errore luogo di nascita", "Inserire un luogo di nascita valido. Non deve contenere il carattere '|' ");
+			return false;
+		}
+		if (regTel == null || regTel.getText().length() < 1 || containsSplit(regTel.getText())) {
+			alert("Errore", "Errore numero di telefono", "Inserire un numero di telefono valido. Non deve contenere il carattere '|' ");
+			return false;
+		}
+		if(!regConfermaPassword.getText().equals(regPassword.getText())) {
+			alert("Errore", "Errore conferma password", "Inserire la password di conferma non è uguale alla password inserita");
+			return false;
+		}
+		if (regDataNascita == null) {
+			alert("Errore", "Errore data di nascita", "Inserire data di nascita");
+			return false;
+		}
+		if (regCodiceID == null || regCodiceID.getText().length() < 1) {
+			alert("Errore", "Errore CodiceID", "Inserire il CodiceID");
+			return false;
+		}
+		if (regResidenza == null || regTel.getText().length() < 1 || containsSplit(regResidenza.getText())) {
+			alert("Errore", "Errore indirizzo di residenza", "Inserire l'indirizzo di residenza. Non deve contenere il carattere '|' ");
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean isAlphaNumeric(String string) {
+		char[] seq = string.toCharArray();
+		
+		for (char c : seq)
+			if (!Character.isAlphabetic(c) && !Character.isDigit(c))
+				return false;
+		
+		return true;
+	}
+	
+	private boolean containsSplit(String string) {
+		char[] seq = string.toCharArray();
+		
+		for (char c : seq)
+			if (c=='|')
+				return false;
+		
+		return true;
+	}
+	
+	private boolean isAlphabetic(String string) {
+		char[] seq = string.toCharArray();
+		
+		for (char c : seq)
+			if (!Character.isAlphabetic(c) && c!=' ')
+				return false;
+		
+		return true;
+	}
+	
+	private boolean isEmail() {
+		char[] seq = regEmail.getText().toCharArray();
+		
+		for (int i = 0; i<seq.length; i++)
+			if (seq[i]=='@' && i>0 && i<seq.length-2)
+				return true;
+		
+		return false;
+	}
+	
+	private boolean containsUpperCase() {
+		char[] seq = regPassword.getText().toCharArray();
+		
+		for (char c : seq)
+			if (Character.isUpperCase(c))
+				return true;
+		
+		return false;
+	}
+	
+	private boolean containsLowerCase() {
+		char[] seq = regPassword.getText().toCharArray();
+		
+		for (char c : seq)
+			if (Character.isLowerCase(c))
+				return true;
+		
+		return false;
+	}
+	
+	private boolean containsNumber() {
+		char[] seq = regPassword.getText().toCharArray();
+		
+		for (char c : seq)
+			if (Character.isDigit(c))
+				return true;
+		
+		return false;
+	}
 	
 	private static void alert(String title, String headerMessage, String contentMessage) {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -63,7 +286,6 @@ public class Controller {
 		alert.showAndWait();
 	}
 
-	
 	private static void inform(String title, String headerMessage, String contentMessage) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(title);

@@ -1,6 +1,6 @@
 package model;
 
-public class Sconto {
+public class Sconto implements Comparable<Sconto> {
 	private float valore;
 	private int puntiRichiesti;
 	private float spesaMinima;
@@ -25,5 +25,10 @@ public class Sconto {
 
 	public float getSpesaMinima() {
 		return spesaMinima;
+	}
+
+	@Override
+	public int compareTo(Sconto that) {
+		return (int) (this.getValore() - that.getValore());
 	}
 }

@@ -32,7 +32,7 @@
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>
-      <Button layoutX="27.0" layoutY="551.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #006db3;" text="Esci" textFill="WHITE">
+      <Button onAction="#viewLogin" layoutX="27.0" layoutY="551.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #006db3;" text="Esci" textFill="WHITE">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

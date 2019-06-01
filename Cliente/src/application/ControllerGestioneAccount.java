@@ -150,18 +150,21 @@ public class ControllerGestioneAccount {
     {
 		GestioneAccountController gac = new GestioneAccountController();
 		String numeroParametro = null, indirizzoParametro =  null, emailParametro = null;
-		if(!numero.getText().equals("")) {
-			numeroParametro = numero.getText();
+		if(numero.getText().equals("")) {
+			alert("Modifica dati", "", "Il numero inserito risulta scorretto");
+			return;		
 		}
-		if(!email.getText().equals("") && email.getText().contains("@") && email.getText().contains(".")) {
-			emailParametro = email.getText();
-		}
-		if(!indirizzo.getText().equals("")) {
-			indirizzoParametro = indirizzo.getText();
-		}
-		if(!email.getText().contains("@") || !email.getText().contains(".")) {
+		if(email.getText().equals("") || !email.getText().contains("@") || !email.getText().contains(".")) {
 			alert("Modifica dati", "", "L'email inserita risulta scorretta");
+			return;
 		}
+		if(indirizzo.getText().equals("")) {
+			alert("Modifica dati", "", "L'indirizzo inserito risulta scorretto");
+			return;
+		}
+		emailParametro = email.getText();
+		numeroParametro = numero.getText();
+		indirizzoParametro = indirizzo.getText();
 		if(gac.modificaDati(Main.idCliente, emailParametro, indirizzoParametro, numeroParametro)) {
 			inform("Modifica dati", "", "Modifica effettuata con successo");
 			numero.setEditable(false);
@@ -205,6 +208,7 @@ public class ControllerGestioneAccount {
 		dataNascita.setDisable(false);
 		codiceFiscale.setDisable(false);
 		
+		modifica.setDisable(false);
 		elimina.setDisable(false);
 		conferma.setDisable(true);
 		annulla.setDisable(true);

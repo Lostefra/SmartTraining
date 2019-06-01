@@ -25,7 +25,7 @@ public class Utilities {
 
 	public static DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 	public static DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	public static DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
+	public static DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("HH:mm");
 	private static String alphaNumericCharacters = "abcdefghijklmnopqrstuvwxyz"
 												+ "ABCDEFGHIJLMNOPQRSTUVWXYZ"
 												+ "1234567890";

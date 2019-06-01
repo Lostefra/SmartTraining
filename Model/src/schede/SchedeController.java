@@ -28,7 +28,7 @@ public class SchedeController {
 	
 	private DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 	private DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	private DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
+	private DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("HH:mm");
 	
 	/**
 	 * 
@@ -198,9 +198,9 @@ public class SchedeController {
 				BufferedReader bf_inner = Utilities.apriFile("eserciziAlimenti.txt");
 				String temp;
 				
-				LocalDate dataFineValidita = LocalDate.parse(campi[5], formatterData).plusWeeks(Integer.parseInt(campi[6]));
+				LocalDate dataFineValidita = LocalDate.parse(campi[4], formatterData).plusWeeks(Integer.parseInt(campi[5]));
 				
-				//facendo così le schede che terminano la validita' oggi compaiono tra le attuali
+				//facendo così le schede che terminano la validita' oggi compaiono tra le attualiS
 				boolean dataNONok = dataFineValidita.isBefore(LocalDate.now());
 				
 				PersonalTrainer p = Utilities.leggiPersonalTrainer(campi[2]);
@@ -221,7 +221,7 @@ public class SchedeController {
 									sessione = sa.getRemoveSessione(sessione);
 								}
 								sessione.getEsercizi().add(new Esercizio(campi[3], Integer.parseInt(campi[5]), 
-										Integer.parseInt(campi[6]), LocalTime.parse(campi[7], formatterOra)));
+										Integer.parseInt(esercizio[6]), LocalTime.parse(esercizio[7], formatterOra)));
 								sa.getSessioni().add(sessione);
 							}
 					
@@ -242,7 +242,7 @@ public class SchedeController {
 								if(pn.getPasti().contains(pasto)) { 
 									pasto = pn.getRemovePasto(pasto);
 								}
-								pasto.getAlimenti().add(new Alimento(campi[3], Integer.parseInt(campi[4])));
+								pasto.getAlimenti().add(new Alimento(alimento[3], Integer.parseInt(alimento[4])));
 								pn.getPasti().add(pasto);
 							}
 					

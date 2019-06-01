@@ -1,10 +1,13 @@
-package model;
+package application;
 
 import java.time.LocalDate;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import util.Utilities;
 
-public class ObservableScheda {
+public class ObservableScheda implements ObservableValue<ObservableScheda>{
 	private String nomeCliente;
 	private String cognomeCliente;
 	private String nomePT;
@@ -52,7 +55,37 @@ public class ObservableScheda {
 	public String getTipologia() {
 		return tipologia;
 	}
-	
+
+	@Override
+	public void addListener(InvalidationListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeListener(InvalidationListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addListener(ChangeListener<? super ObservableScheda> listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ObservableScheda getValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeListener(ChangeListener<? super ObservableScheda> listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 }

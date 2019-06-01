@@ -2,9 +2,11 @@ package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,10 +15,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import model.Entry;
-import model.ObservableScheda;
 import model.Scheda;
 import model.SchedaAllenamento;
 import schede.SchedeController;
@@ -72,9 +73,8 @@ public class ControllerAttuali {
 	@FXML private TableColumn colCdom;
 	
 	
-	@FXML //vedere initialize confronto log controller carica log fxml
-	private void initialize(ActionEvent event)  {
-		System.out.println("init");
+	 //vedere initialize confronto log controller carica log fxml
+	@FXML private void initialize()  {
 		SchedeController sc = new SchedeController();
 		List<Scheda> schede = sc.visualizzaAttuali(Utilities.leggiCliente(Main.idCliente));
 		List<ObservableScheda> obsList = new ArrayList<>();
@@ -94,6 +94,23 @@ public class ControllerAttuali {
         dataFine.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("dataFine"));
         tipologia.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("tipologia"));    
         listaSchede.getItems().setAll(obsList);
+        
+
+
+        listaSchede.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
+	        @Override
+	        public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
+	            //Check whether item is selected and set value of selected item to Label
+	            if(listaSchede.getSelectionModel().getSelectedItem() != null) 
+	            {    
+	               TableViewSelectionModel<ObservableScheda> selectionModel = listaSchede.getSelectionModel();
+	               ObservableList<?> selectedCells = selectionModel.getSelectedCells();
+	               ObservableScheda o = (ObservableScheda) selectedCells.get(0);
+	               //TODO
+	             }
+             }
+         });
+        
 	}
 	
 	@FXML

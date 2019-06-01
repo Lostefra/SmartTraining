@@ -11,7 +11,8 @@ public class Main extends Application {
 	
 	static public Stage stage;
 	static public String usernamePT;
-
+	// commento
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {

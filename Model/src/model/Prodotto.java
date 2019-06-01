@@ -57,7 +57,8 @@ public class Prodotto implements Comparable<Prodotto> {
 		this.quantita = quantita;
 	}
 	
-	public int compare(Prodotto that) {
+	@Override
+	public int compareTo(Prodotto that) {
 		return this.getCodice() - that.getCodice();
 	}
 }

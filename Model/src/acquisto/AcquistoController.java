@@ -1,8 +1,8 @@
 package acquisto;
 
+
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class AcquistoController {
 		this.prodottiSelezionati = new ArrayList<Prodotto>();
 	}
 	
-	/**
+	/** 
 	 * Legge dal file tutti i prodotti presenti, serve per riempire la tabella che permette la selezione
 	 * @return prodotti
 	 */
@@ -85,7 +85,7 @@ public class AcquistoController {
 			
 			bf_sconti.close();
 		} catch (IOException e) {
-		
+			e.printStackTrace();
 		}
 		
 		return scontiDisp;
@@ -139,11 +139,11 @@ public class AcquistoController {
 		
 		try {
 	        // input the (modified) file content to the StringBuffer "input"
-	        BufferedReader file = new BufferedReader(new FileReader("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt"));
+			BufferedReader bf_prodotti = Utilities.apriFile("prodotti.txt");
 	        StringBuffer inputBuffer = new StringBuffer();
 	        String line;
 
-	        while ((line = file.readLine()) != null) {
+	        while ((line = bf_prodotti.readLine()) != null) {
 	            String[] res = new String[100];
 	            res = line.split("\\|");
 	        	
@@ -163,7 +163,7 @@ public class AcquistoController {
 	        	//Non è trattato il caso in cui non si trovi il codice giusto perché la scelta è forzata dalla view
 	        	//Non essendoci parametri che l'utente può inserire, sono per forza giusti
 	        }
-	        file.close();
+	        bf_prodotti.close();
 
 	        // Scrivo tutto il buffer in overwrite sullo stesso file
 	        FileOutputStream fileOut = new FileOutputStream("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt");
@@ -197,12 +197,13 @@ public class AcquistoController {
 	        // Duale di quello sopra, leggere commenti in diminuisciDisponibilità
 			//Questa volta è void perché non c'è una disponibilità massima da controllare
 			
-	        BufferedReader file = new BufferedReader(new FileReader("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt"));
-	        StringBuffer inputBuffer = new StringBuffer();
+	        //BufferedReader file = new BufferedReader(new FileReader("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt"));
+			BufferedReader bf_prodotti = Utilities.apriFile("prodotti.txt");
+			StringBuffer inputBuffer = new StringBuffer();
 	        String line;
 	        int disp = -1;
 
-	        while ((line = file.readLine()) != null) {
+	        while ((line = bf_prodotti.readLine()) != null) {
 	            String[] res = new String[100];
 	            res = line.split("\\|");
 	        	
@@ -219,7 +220,7 @@ public class AcquistoController {
 	    	        inputBuffer.append('\n');
 	        	}
 	        }
-	        file.close();
+	        bf_prodotti.close();
 
 	        FileOutputStream fileOut = new FileOutputStream("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt");
 	        fileOut.write(inputBuffer.toString().getBytes());
@@ -263,7 +264,8 @@ public class AcquistoController {
 		return sommaSpesa - s.getValore();
 	}
 	
-	public boolean conferma(Sconto s) { //DA RIVEDERE BENE.. quando si crea l'acquisto? (in confermaCarrello???)
+	
+	public boolean conferma(Sconto s) {
 		if(effettuaPagamento() == false) return false;
 		//Non c'è un while perché la conferma è manuale. Se il pagamento va male, si può anche decidere
 		//di tornare indietro
@@ -279,7 +281,7 @@ public class AcquistoController {
 	private Acquisto creaAcquisto() {
 		int codice = Utilities.generaIntero(99999);
 		int puntiGuadagnati = (int) Math.floor(calcolaSommaSpesa() / 10);
-		return new Acquisto(codice, LocalDateTime.now(), puntiGuadagnati);
+		return new Acquisto(codice, LocalDateTime.now().format(Utilities.formatterDataOra), puntiGuadagnati);
 	}
 
 	private void mandaMail(Acquisto a) {

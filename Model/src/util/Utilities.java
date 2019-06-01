@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -104,7 +106,7 @@ public class Utilities {
 		
 		File tempFile = new File("C:/SmartTrainingFiles/tmp.txt");
 		PrintWriter pw = apriFileOverwrite("C:/SmartTrainingFiles/tmp.txt");
-		BufferedReader reader = apriFile("C:/SmartTrainingFiles/" + filename);
+		BufferedReader reader = apriFile(filename);
 		String currentLine;
 		try {
 			int i = 1;
@@ -116,13 +118,15 @@ public class Utilities {
 			pw.close();
 			reader.close();
 			File inputFile = new File("C:/SmartTrainingFiles/" + filename);
+			Files.delete(Paths.get("C:/SmartTrainingFiles/"+ filename));
 			return  tempFile.renameTo(inputFile);
-			}
+		}
 		catch(Exception e) {
 			
 		}
 		return false;
 	}
+
 
 	/**
 	 * 
@@ -163,7 +167,7 @@ public class Utilities {
 				String[] utente = new String[100];
 				utente = line.split(Pattern.quote("|"));
 										
-				if(id.equals(utente[3]) && utente[2].equals("C")){
+				if(id.equals(utente[3]) && utente[2].equals("P")){
 					return new PersonalTrainer(utente[4], utente[5], utente[6], utente[7], LocalDate.parse(utente[8], formatterData),
 							utente[9], utente[10], utente[11], utente[3]);
 				}
@@ -196,7 +200,10 @@ public class Utilities {
 	 */
 	public static int generaIntero() {
 		Random r = new Random();
-		return r.nextInt();
+		int res =  r.nextInt();
+		if(res < 0)
+			return - res;
+		return res;
 	}
 	
 	/**
@@ -233,8 +240,22 @@ public class Utilities {
 		}
 		
 		return cliente;
+<<<<<<< HEAD
 	}
 	
+=======
+	}
+
+	/**
+	 * 
+	 * Ritorna il Personal trainer dallo username dato
+	 * 
+	 * @param username
+	 * @return Personal Trainer
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
+>>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 	public static PersonalTrainer getPersonalTrainer(String username) throws NumberFormatException, IOException {
 		BufferedReader reader = apriFile("utenti.txt");
 		PersonalTrainer personalTrainer = null;
@@ -250,11 +271,35 @@ public class Utilities {
 		}
 		
 		return personalTrainer;
+<<<<<<< HEAD
+	}
+=======
 	}
 
+>>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
+
 	public static boolean eliminazione(int riga) {
-		BufferedReader bf = Utilities.apriFile("utenti.txt");
-	//	for
+		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
+		String line = null;
+		int i = 0;
+		try {
+			for(; i < riga; i++) {
+				line = bf_utenti.readLine();
+			}
+			String[] utente = new String[100];
+			utente = line.split(Pattern.quote("|"));			
+			//se sei qui hai trovato l'utente da eliminare,
+			bf_utenti.close();
+			//eliminazione
+			Utilities.riscriviTranneRiga("utenti.txt", riga);
+			//inserimento riga senza dati (es. username)
+			PrintWriter pw = Utilities.apriFileAppend("utenti.txt");
+			pw.println("deleted|deleted|C|" +utente[3] +"|"+utente[4]+"|"+utente[5]+"|"+ utente[6]+"|"+utente[7]+"|"+utente[8]+"|"+utente[9]+"|"+utente[10]+"|"+utente[11]+"|"+utente[12]+"|"+utente[13]+"|"+utente[14]+"|null");
+			pw.close();
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

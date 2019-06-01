@@ -346,7 +346,7 @@ public class SchedeController {
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
 						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|P";
 		
-			pw_schede.write(scheda);
+			pw_schede.println(scheda);
 			pw_schede.close();
 			PrintWriter pw_esercizi = Utilities.apriFileAppend("eserciziAlimenti.txt");
 			for(EsercizioAlimento e : esercizi) {
@@ -354,7 +354,7 @@ public class SchedeController {
 				String esercizio = codice+"|"+ e.getGiorno().getValue() +"|null|"+ e.getEsercizio().getNome()+"|null|"+
 						e.getEsercizio().getNumeroSerie()+"|"+e.getEsercizio().getNumeroRipetizioni()+"|"+
 						e.getEsercizio().getTempoRecupero().format(formatterOra);
-				pw_esercizi.write(esercizio);
+				pw_esercizi.println(esercizio);
 			}
 			pw_esercizi.close();
 			
@@ -392,14 +392,14 @@ public class SchedeController {
 					scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
 							dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|A";
 			
-				pw_schede.write(scheda);
+				pw_schede.println(scheda);
 				pw_schede.close();
 				PrintWriter pw_alimenti = Utilities.apriFileAppend("eserciziAlimenti.txt");
 				for(EsercizioAlimento a : alimenti) {
 					//idScheda|giorno|ora|nome|peso|numeroSerie|numeroRipetizioni|tempoRecupero
 					String esercizio = codice+"|"+ a.getGiorno().getValue() +"|"+a.getOra().format(formatterOra)+"|"+ 
 							a.getAlimento().getNome()+"|"+ a.getAlimento().getPeso()+"|null|null|null";
-					pw_alimenti.write(esercizio);
+					pw_alimenti.println(esercizio);
 				}
 				pw_alimenti.close();
 				

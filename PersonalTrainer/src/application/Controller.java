@@ -158,7 +158,7 @@ public class Controller {
 			return;
 		}
 		
-		viewHomePersonalTrainer(event);
+		viewLogin(event);
 		inform("Smart Training", "Registrazione avvenuta con successo!", "Benvenuto in Smart Training");
 	}
 	
@@ -198,7 +198,11 @@ public class Controller {
 			alert("Errore", "Errore nome", "Inserire il proprio nome");
 			return false;
 		}
+<<<<<<< HEAD
 		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regNome.getText())) {
+=======
+		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regCognome.getText())) {
+>>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 			alert("Errore", "Errore cognome", "Inserire il proprio cognome");
 			return false;
 		}
@@ -222,7 +226,7 @@ public class Controller {
 			alert("Errore", "Errore conferma password", "Inserire la password di conferma non è uguale alla password inserita");
 			return false;
 		}
-		if (regDataNascita == null) {
+		if (regDataNascita == null || regDataNascita.getValue() == null) {
 			alert("Errore", "Errore data di nascita", "Inserire data di nascita");
 			return false;
 		}
@@ -252,9 +256,9 @@ public class Controller {
 		
 		for (char c : seq)
 			if (c=='|')
-				return false;
+				return true;
 		
-		return true;
+		return false;
 	}
 	
 	private boolean isAlphabetic(String string) {

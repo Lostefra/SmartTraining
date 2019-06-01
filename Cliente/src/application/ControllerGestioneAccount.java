@@ -35,6 +35,7 @@ public class ControllerGestioneAccount {
     @FXML private Button indietro;
     @FXML private Button elimina;
     private AnchorPane root;
+    private String vecchiaEmail, vecchioNumero, vecchioIndirizzo;
     
   //questa funzione e' invocata automaticamente dal controller ad ogni caricamenti di file fxml
   	@FXML private void initialize() {
@@ -43,7 +44,7 @@ public class ControllerGestioneAccount {
 
 	private void getDatiUtente() {
 		GestioneAccountController gac = new GestioneAccountController();
-		
+		//TODO
 		Cliente c = gac.getDatiCliente("insanelosteID");
  		tipologia.setText("Cliente");
 		nome.setText(c.getNome());
@@ -55,8 +56,26 @@ public class ControllerGestioneAccount {
 		dataNascita.setText(c.getDataDiNascita().format(Utilities.formatterData));
 		email.setText(c.getEmail());
 		codiceFiscale.setText(c.getCodiceFiscale());
+		
+		tipologia.setEditable(false);
+		nome.setEditable(false);
+		cognome.setEditable(false);
+		tessera.setEditable(false);
+		numero.setEditable(false);
+		indirizzo.setEditable(false);
+		luogoNascita.setEditable(false);
+		dataNascita.setEditable(false);
+		email.setEditable(false);
+		codiceFiscale.setEditable(false);
+		
+		elimina.setDisable(false);
+		indietro.setDisable(false);
+		modifica.setDisable(false);
+		conferma.setDisable(true);
+		annulla.setDisable(true);
 	}
 	
+	@FXML
 	public void eliminaAccount(ActionEvent event)
     {
 		GestioneAccountController gac = new GestioneAccountController();
@@ -64,10 +83,18 @@ public class ControllerGestioneAccount {
 		alert.setTitle("Eliminazione Account");
 		alert.setHeaderText("Attenzione, si sta per eliminare il proprio account");
 		alert.setContentText("Sicuro di voler procedere?");
+		
+		elimina.setDisable(true);
+		indietro.setDisable(true);
+		modifica.setDisable(true);
+		conferma.setDisable(true);
+		annulla.setDisable(true);
+		
 		Optional<ButtonType> result = alert.showAndWait();
 		
 		if (result.get() == ButtonType.OK){
-			if(gac.EliminaAccount("idREMOVE")) {
+			//TODO
+			if(gac.eliminaAccount("idREMOVE")) {
 				inform("Eliminazione Account", "", "Eliminazione account effettuata con successo");
 				//se sei qui l'account e' stato eliminato correttamente
 				// da qui bisogna caricare fxml del
@@ -86,9 +113,118 @@ public class ControllerGestioneAccount {
 		} else {
 			inform("Eliminazione Account", "", "Operazione annullata");
 		}
+		elimina.setDisable(false);
+		indietro.setDisable(false);
+		modifica.setDisable(false);
+		conferma.setDisable(true);
+		annulla.setDisable(true);
 			
     } 
 	
+	@FXML
+	public void modifica(ActionEvent event)
+    {
+		vecchiaEmail = email.getText();
+		vecchioNumero = numero.getText();
+		vecchioIndirizzo = indirizzo.getText();
+		numero.setEditable(true);
+		indirizzo.setEditable(true);
+		email.setEditable(true);
+		
+		tipologia.setDisable(true);
+		nome.setDisable(true);
+		cognome.setDisable(true);
+		tessera.setDisable(true);
+		luogoNascita.setDisable(true);
+		dataNascita.setDisable(true);
+		codiceFiscale.setDisable(true);
+		
+		elimina.setDisable(true);
+		conferma.setDisable(false);
+		annulla.setDisable(false);
+			
+    } 
+	
+	//TODO
+	@FXML
+	public void conferma(ActionEvent event)
+    {
+		GestioneAccountController gac = new GestioneAccountController();
+		String numeroParametro = null, indirizzoParametro =  null, emailParametro = null;
+		if(!numero.getText().equals("")) {
+			numeroParametro = numero.getText();
+		}
+		if(!email.getText().equals("") && email.getText().contains("@") && email.getText().contains(".")) {
+			emailParametro = email.getText();
+		}
+		if(!indirizzo.getText().equals("")) {
+			indirizzoParametro = indirizzo.getText();
+		}
+		if(!email.getText().contains("@") || !email.getText().contains(".")) {
+			alert("Modifica dati", "", "L'email inserita risulta scorretta");
+		}
+		if(gac.modificaDati("ID", emailParametro, indirizzoParametro, numeroParametro)) {
+			inform("Modifica dati", "", "Modifica effettuata con successo");
+			numero.setEditable(false);
+			indirizzo.setEditable(false);
+			email.setEditable(false);
+			
+			tipologia.setDisable(false);
+			nome.setDisable(false);
+			cognome.setDisable(false);
+			tessera.setDisable(false);
+			luogoNascita.setDisable(false);
+			dataNascita.setDisable(false);
+			codiceFiscale.setDisable(false);
+			
+			elimina.setDisable(false);
+			conferma.setDisable(true);
+			annulla.setDisable(true);
+		}
+		else {
+			alert("Modifica dati", "", "Modifica fallita. Riprovare");
+		}
+			
+    } 
+	
+	@FXML
+	public void annulla(ActionEvent event)
+    {
+		numero.setEditable(false);
+		indirizzo.setEditable(false);
+		email.setEditable(false);
+		numero.setText(vecchioNumero);
+		indirizzo.setText(vecchioIndirizzo);
+		email.setText(vecchiaEmail);
+		
+		tipologia.setDisable(false);
+		nome.setDisable(false);
+		cognome.setDisable(false);
+		tessera.setDisable(false);
+		luogoNascita.setDisable(false);
+		dataNascita.setDisable(false);
+		codiceFiscale.setDisable(false);
+		
+		elimina.setDisable(false);
+		conferma.setDisable(true);
+		annulla.setDisable(true);
+			
+    }
+	
+	@FXML
+	public void indietro(ActionEvent event)
+    {
+		
+			
+    } 
+	
+	private static void alert(String title, String headerMessage, String contentMessage) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(title);
+		alert.setHeaderText(headerMessage);
+		alert.setContentText(contentMessage);
+		alert.showAndWait();
+	}
 	
 	private static void inform(String title, String headerMessage, String contentMessage) {
 		Alert alert = new Alert(AlertType.INFORMATION);

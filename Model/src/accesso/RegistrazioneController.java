@@ -59,7 +59,7 @@ public class RegistrazioneController {
 		/* Controllo esistenza credenziali */
 		while((currentLine = reader.readLine()) != null) {
 			utente = currentLine.split("\\|");
-			System.out.println("1"+utente[0]);
+/*			System.out.println("1"+utente[0]);
 			System.out.println(utente[1]);
 			System.out.println(utente[2]);
 			System.out.println(utente[3]);
@@ -69,7 +69,7 @@ public class RegistrazioneController {
 			System.out.println(utente[7]);
 			System.out.println(utente[8]);
 			System.out.println(utente[9]);
-			
+*/			
 			if(username.equals(utente[0]))
 				return "Errore: username già presente nel sistema";
 			else if (email.equals(utente[6]))
@@ -117,9 +117,10 @@ public class RegistrazioneController {
 					+"|"+indirizzoResidenza+"|"+numeroTelefono+"|null|null|null|"+codiceID+"\n");
 			reader.close();
 			writer.close();
-			boolean t1 = inputFile.delete();
-			boolean t = tempFile.renameTo(inputFile);
-					
+			if(!inputFile.delete())
+				return "Errore: errore scrittura nel database";
+			
+			boolean t = tempFile.renameTo(inputFile);			
 			if (t)
 				return "T";
 			else {
@@ -136,7 +137,7 @@ public class RegistrazioneController {
 			while((currentLine = reader.readLine()) != null && !codiceEsiste) {
 				String[] campi = new String[100];
 				campi = currentLine.split(Pattern.quote("|"));
-				if(Integer.parseInt(campi[0]) == (codice))
+				if(campi[2].equals("C") && Integer.parseInt(campi[12]) == (codice))
 					codiceEsiste = true;
 			}
 		}while(codiceEsiste == true);
@@ -147,11 +148,45 @@ public class RegistrazioneController {
 		
 		
 		PrintWriter writer = Utilities.apriFileAppend("utenti.txt");
-		
-		writer.write(username+"|"+password+"|C|"+generateID(reader, "C")+nome+"|"+cognome+"|"+email+"|"
+		String idCliente =generateID(reader, "C");
+		if(username == null) {
+			System.out.println("Username");
+		}
+		if(password == null) {
+			System.out.println("password");
+		}
+		if(idCliente == null) {
+			System.out.println("idCliente");
+		}
+		if(nome == null) {
+			System.out.println("nome");
+		}
+		if(cognome == null) {
+			System.out.println("cognome");
+		}
+		if(email == null) {
+			System.out.println("email");
+		}
+		if(codiceFiscale == null) {
+			System.out.println("codiceFiscale");
+		}
+		if(dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) == null) {
+			System.out.println("dataNascita.format(DateTimeFormatter.ofPattern(\"dd/MM/yyyy\"))");
+		}
+		if(luogoNascita == null) {
+			System.out.println("luogoNascita");
+		}
+		if(indirizzoResidenza == null) {
+			System.out.println("indirizzoResidenza");
+		}
+		if(numeroTelefono == null) {
+			System.out.println("numeroTelefono");
+		}
+
+		writer.write(username+"|"+password+"|C|"+idCliente+"|"+nome+"|"+cognome+"|"+email+"|"
 				+codiceFiscale+"|"+dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"|"+luogoNascita
-				+"|"+indirizzoResidenza+"|"+numeroTelefono+"|"+ codice+"|0|" + 
-				LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))+ "|null/n");
+				+"|"+indirizzoResidenza+"|"+numeroTelefono+"|"+codice+"|0|" + 
+				LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))+ "|null\n");
 		
 		reader.close();
 		writer.close();

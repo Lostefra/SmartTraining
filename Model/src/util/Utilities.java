@@ -235,4 +235,10 @@ public class Utilities {
 		return cliente;
 	}
 
+	public static boolean eliminazione(int riga) {
+		BufferedReader bf = Utilities.apriFile("utenti.txt");
+	//	for
+		return false;
+	}
+
 }

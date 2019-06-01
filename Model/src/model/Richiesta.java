@@ -9,11 +9,11 @@ public abstract class Richiesta {
 	private PersonalTrainer personalTrainer;
 	private LocalDateTime dataOra;
 	private LocalDate dateInizio;
-	private int durataSettimane;
+	private Integer durataSettimane;
 	private String note;
 	
 	public Richiesta(String id, Cliente idCliente, PersonalTrainer idPersonalTrainer, LocalDateTime dataOra, LocalDate dateInizio,
-			int durataSettimane, String note) {
+			Integer durataSettimane, String note) {
 		super();
 		this.id = id;
 		this.cliente = idCliente;
@@ -44,7 +44,7 @@ public abstract class Richiesta {
 		return dateInizio;
 	}
 
-	public int getDurataSettimane() {
+	public Integer getDurataSettimane() {
 		return durataSettimane;
 	}
 

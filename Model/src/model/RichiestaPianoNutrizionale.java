@@ -9,7 +9,7 @@ public class RichiestaPianoNutrizionale extends Richiesta {
 	private String ElencoAllergeni;
 	
 	public RichiestaPianoNutrizionale(String id, Cliente idCliente, PersonalTrainer idPersonalTrainer, LocalDateTime dataOra,
-			LocalDate dateInizio, int durataSettimane, String note, int altezza, int peso, String elencoAllergeni) {
+			LocalDate dateInizio, Integer durataSettimane, String note, int altezza, int peso, String elencoAllergeni) {
 		super(id, idCliente, idPersonalTrainer, dataOra, dateInizio, durataSettimane, note);
 		this.altezza = altezza;
 		this.peso = peso;

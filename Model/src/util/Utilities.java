@@ -240,11 +240,9 @@ public class Utilities {
 		}
 		
 		return cliente;
-<<<<<<< HEAD
+
 	}
 	
-=======
-	}
 
 	/**
 	 * 
@@ -255,7 +253,7 @@ public class Utilities {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
+
 	public static PersonalTrainer getPersonalTrainer(String username) throws NumberFormatException, IOException {
 		BufferedReader reader = apriFile("utenti.txt");
 		PersonalTrainer personalTrainer = null;
@@ -271,12 +269,11 @@ public class Utilities {
 		}
 		
 		return personalTrainer;
-<<<<<<< HEAD
-	}
-=======
+
 	}
 
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
+
+
 
 	public static boolean eliminazione(int riga) {
 		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");

@@ -15,13 +15,8 @@
         <columns>
           <TableColumn prefWidth="98.39998626708984" text="Nome" fx:id="idNome"/>
           <TableColumn prefWidth="112.79998779296875" text="Cognome" fx:id="idCognome"/>
-<<<<<<< HEAD
           <TableColumn prefWidth="115.199951171875" text="Tipologia" fx:id="idTipologia"/>
           <TableColumn prefWidth="84.79998779296875" text="Data" fx:id="idDataOra"/>
-=======
-            <TableColumn prefWidth="115.199951171875" text="Tipologia" fx:id="idTipologia"/>
-            <TableColumn prefWidth="84.79998779296875" text="Data" fx:id="idDataOra"/>
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
         </columns>
       </TableView>
       <Button layoutX="796.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: #006db3;" text="Rispondi" textFill="WHITE">
@@ -72,11 +67,11 @@
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextField editable="false" layoutX="60.0" layoutY="53.0" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #eeeeee;" />
-            <TextField editable="false" layoutX="177.0" layoutY="128.0" prefHeight="26.0" prefWidth="41.0" style="-fx-background-color: #eeeeee;" />
-            <TextField editable="false" layoutX="178.0" layoutY="163.0" style="-fx-background-color: #eeeeee;" />
-            <TextField editable="false" layoutX="177.0" layoutY="94.0" style="-fx-background-color: #eeeeee;" />
-            <TextField editable="false" layoutX="271.0" layoutY="53.0" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="60.0" layoutY="53.0" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #eeeeee;" fx:id="nomeRichiesta"/>
+            <TextField editable="false" layoutX="177.0" layoutY="128.0" prefHeight="26.0" prefWidth="41.0" style="-fx-background-color: #eeeeee;" fx:id="durataRichiesta" />
+            <TextField editable="false" layoutX="178.0" layoutY="163.0" style="-fx-background-color: #eeeeee;" fx:id="tipologiaRichiesta"/>
+            <TextField editable="false" layoutX="177.0" layoutY="94.0" style="-fx-background-color: #eeeeee;" fx:id="dataInizioRichiesta"/>
+            <TextField editable="false" layoutX="271.0" layoutY="53.0" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #eeeeee;" fx:id="cognomeRichiesta"/>
             <Label layoutX="110.0" layoutY="14.0" text="Richiesta Cliente">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
@@ -87,31 +82,31 @@
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextArea editable="false" layoutX="178.0" layoutY="308.0" prefHeight="114.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
+            <TextArea editable="false" layoutX="178.0" layoutY="308.0" prefHeight="114.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" fx:id="noteRichiesta"/>
             <Label layoutX="13.0" layoutY="203.0" text="N° allenamenti settimanali">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextField editable="false" layoutX="179.0" layoutY="198.0" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="179.0" layoutY="198.0" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #eeeeee;" fx:id="allenamentiRichiesta"/>
             <Label layoutX="222.0" layoutY="202.0" text="Peso:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextField editable="false" layoutX="258.0" layoutY="197.0" prefHeight="26.0" prefWidth="42.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="258.0" layoutY="197.0" prefHeight="26.0" prefWidth="42.0" style="-fx-background-color: #eeeeee;" fx:id="pesoRichiesta"/>
             <Label layoutX="305.0" layoutY="201.0" text="Altezza:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextField editable="false" layoutX="356.0" layoutY="196.0" prefHeight="26.0" prefWidth="42.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="356.0" layoutY="196.0" prefHeight="26.0" prefWidth="42.0" style="-fx-background-color: #eeeeee;" fx:id="altezzaRichiesta"/>
             <Label layoutX="115.0" layoutY="233.0" text="Allergeni:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextArea editable="false" layoutX="178.0" layoutY="231.0" prefHeight="69.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
+            <TextArea editable="false" layoutX="178.0" layoutY="231.0" prefHeight="69.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" fx:id="allergeniRichiesta"/>
          </children>
       </AnchorPane>
    </children>

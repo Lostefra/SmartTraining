@@ -16,12 +16,15 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.ObservableRichiesta;
 import model.PersonalTrainer;
 import model.Richiesta;
+import model.RichiestaPianoNutrizionale;
+import model.RichiestaSchedaAllenamento;
 import model.UserType;
 import richieste.RichiesteController;
 import util.Utilities;
@@ -42,6 +45,16 @@ public class Controller {
 	@FXML private DatePicker regDataNascita;
 	@FXML private TextField regCodiceID;
 	@FXML private TextField regResidenza;
+	@FXML private TextField nomeRichiesta;
+	@FXML private TextField cognomeRichiesta;
+	@FXML private TextField tipologiaRichiesta;
+	@FXML private TextField dataInizioRichiesta;
+	@FXML private TextField durataRichiesta;
+	@FXML private TextField allenamentiRichiesta;
+	@FXML private TextField pesoRichiesta;
+	@FXML private TextField altezzaRichiesta;
+	@FXML private TextArea allergeniRichiesta;
+	@FXML private TextArea noteRichiesta;
 	@FXML private TableView<ObservableRichiesta> homeTab;
 	@FXML private TableColumn<ObservableRichiesta, String> idNome;
 	@FXML private TableColumn<ObservableRichiesta, String> idCognome;
@@ -110,7 +123,13 @@ public class Controller {
 			homeTab.getItems().setAll(observableRichieste);
 			
 			homeTab.setOnMouseClicked(e -> {
-				fill(homeTab.getSelectionModel().getSelectedItem());
+						try {
+							fill(homeTab.getSelectionModel().getSelectedItem());
+						} catch (NumberFormatException | IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					
 			});
 		}
 		
@@ -181,6 +200,50 @@ public class Controller {
 			}
 		}
 		
+		allergeniRichiesta.clear();
+		pesoRichiesta.clear();
+		altezzaRichiesta.clear();
+		allenamentiRichiesta.clear();
+		nomeRichiesta.clear();
+		cognomeRichiesta.clear();
+		tipologiaRichiesta.clear();
+		dataInizioRichiesta.clear();
+		durataRichiesta.clear();
+		allenamentiRichiesta.clear();
+		noteRichiesta.clear();
+		allergeniRichiesta.setWrapText(true);
+		noteRichiesta.setWrapText(true);
+		
+		if(richiesta instanceof RichiestaSchedaAllenamento) {
+			allergeniRichiesta.setDisable(true);
+			pesoRichiesta.setDisable(true);
+			altezzaRichiesta.setDisable(true);
+			allenamentiRichiesta.setDisable(false);
+			
+			nomeRichiesta.setText(richiesta.getCliente().getNome());
+			cognomeRichiesta.setText(richiesta.getCliente().getCognome());
+			tipologiaRichiesta.setText("Scheda di Allenamento");
+			if(richiesta.getDateInizio()!=null) dataInizioRichiesta.setText(richiesta.getDateInizio().format(Utilities.formatterData));
+			if (richiesta.getDurataSettimane()!=null) durataRichiesta.setText(Integer.toString(richiesta.getDurataSettimane()));
+			allenamentiRichiesta.setText(Integer.toString(((RichiestaSchedaAllenamento)richiesta).getNumeroAllenamentiSettimanali()));
+			if (richiesta.getNote()!=null) noteRichiesta.setText(richiesta.getNote());
+		}
+		else {
+			allergeniRichiesta.setDisable(false);
+			pesoRichiesta.setDisable(false);
+			altezzaRichiesta.setDisable(false);
+			allenamentiRichiesta.setDisable(true);
+			
+			nomeRichiesta.setText(richiesta.getCliente().getNome());
+			cognomeRichiesta.setText(richiesta.getCliente().getCognome());
+			tipologiaRichiesta.setText("Piano Nutrizionale");
+			if(richiesta.getDateInizio()!=null) dataInizioRichiesta.setText(richiesta.getDateInizio().format(Utilities.formatterData));
+			if (richiesta.getDurataSettimane()!=null) durataRichiesta.setText(Integer.toString(richiesta.getDurataSettimane()));
+			if (((RichiestaPianoNutrizionale)richiesta).getElencoAllergeni() !=null) allergeniRichiesta.setText(((RichiestaPianoNutrizionale)richiesta).getElencoAllergeni());
+			altezzaRichiesta.setText(Integer.toString(((RichiestaPianoNutrizionale)richiesta).getAltezza()));
+			pesoRichiesta.setText(Integer.toString(((RichiestaPianoNutrizionale)richiesta).getPeso()));
+			if (richiesta.getNote()!=null) noteRichiesta.setText(richiesta.getNote());
+		}
 		
 		
 	}
@@ -198,11 +261,8 @@ public class Controller {
 			alert("Errore", "Errore nome", "Inserire il proprio nome");
 			return false;
 		}
-<<<<<<< HEAD
-		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regNome.getText())) {
-=======
+
 		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regCognome.getText())) {
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 			alert("Errore", "Errore cognome", "Inserire il proprio cognome");
 			return false;
 		}

@@ -41,8 +41,10 @@ public class RichiesteController {
 						RichiestaSchedaAllenamento r = new RichiestaSchedaAllenamento(richiesta[0],
 								Utilities.leggiCliente(richiesta[1]), Utilities.leggiPersonalTrainer(richiesta[2]),
 										LocalDateTime.parse(richiesta[3], formatterDataOra),
-										LocalDate.parse(richiesta[4], formatterData), Integer.parseInt(richiesta[5]), 
-										richiesta[6], Integer.parseInt(richiesta[8]));
+										(richiesta[4].equals("null") ? null : LocalDate.parse(richiesta[4], formatterData)), 
+										(richiesta[5].equals("null") ? null : Integer.valueOf((richiesta[5]))),
+										(richiesta[6].equals("null") ? null : richiesta[6]), 
+										Integer.parseInt(richiesta[8]));
 						
 						richieste.add(r);
 								
@@ -51,9 +53,12 @@ public class RichiesteController {
 						RichiestaPianoNutrizionale r = new RichiestaPianoNutrizionale(richiesta[0],
 								Utilities.leggiCliente(richiesta[1]), Utilities.leggiPersonalTrainer(richiesta[2]),
 										LocalDateTime.parse(richiesta[3], formatterDataOra),
-										LocalDate.parse(richiesta[4], formatterData), Integer.parseInt(richiesta[5]), 
-										richiesta[6], Integer.parseInt(richiesta[9]), Integer.parseInt(richiesta[10]), 
-										richiesta[11]);
+										(richiesta[4].equals("null") ? null : LocalDate.parse(richiesta[4], formatterData)), 
+										(richiesta[5].equals("null") ? null : Integer.valueOf(richiesta[5])), 
+										(richiesta[6].equals("null") ? null : richiesta[6]), 
+										Integer.parseInt(richiesta[9]), 
+										Integer.parseInt(richiesta[10]), 
+										(richiesta[11].equals("null") ? null : richiesta[11]));
 						
 						richieste.add(r);
 					}

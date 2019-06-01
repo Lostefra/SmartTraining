@@ -1,0 +1,3 @@
+Lostefra|password|P|lostefraID|Lorenzo|Amorosa|lorenzomario.amorosa@studio.unibo.it|MRSLNZ98A28A944G|28/01/1998|Bologna|Via Oretti 2|3343887922|null|null|null|ABCDEF
+InsaneLoste|password|C|insanelosteID|Mario|Amorosa|lorenzomario.amorosa@gmail.it|MRSMRA98A28A944W|28/01/1998|Bologna|Via Vallescura 21|3349999999|11|500|21/07/2017 10:50|null
+parsa23|Password1|P|Pee5zO|Parsa|Dahesh|dinoco.parsa23@gmail.com|DHSPRS97T23A944W|01/05/2019|Bologna|Via Firenze 4|3494111444|null|null|null|codiceid1

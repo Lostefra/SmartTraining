@@ -15,8 +15,8 @@
         <columns>
           <TableColumn prefWidth="98.39998626708984" text="Nome" fx:id="idNome"/>
           <TableColumn prefWidth="112.79998779296875" text="Cognome" fx:id="idCognome"/>
-            <TableColumn prefWidth="115.199951171875" text="Tipologia" fx:id="idTipologia"/>
-            <TableColumn prefWidth="84.79998779296875" text="Data" fx:id="idDataOra"/>
+          <TableColumn prefWidth="115.199951171875" text="Tipologia" fx:id="idTipologia"/>
+          <TableColumn prefWidth="84.79998779296875" text="Data" fx:id="idDataOra"/>
         </columns>
       </TableView>
       <Button layoutX="796.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: #006db3;" text="Rispondi" textFill="WHITE">
@@ -42,53 +42,71 @@
       <Button onAction="#viewLogin" layoutX="37.0" layoutY="549.0" mnemonicParsing="false" style="-fx-background-color: #006db3;" text="Esci" textFill="WHITE" />
       <AnchorPane layoutX="462.0" layoutY="85.0" prefHeight="451.0" prefWidth="406.0" style="-fx-background-color: #5ac0fd;">
          <children>
-            <Label layoutX="128.0" layoutY="63.0" text="Nome:">
+            <Label layoutX="11.0" layoutY="58.0" text="Nome:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="101.0" layoutY="131.0" prefHeight="18.0" prefWidth="72.0" text="Data Inizio:">
+            <Label layoutX="101.0" layoutY="97.0" prefHeight="18.0" prefWidth="72.0" text="Data Inizio:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="106.0" layoutY="96.0" text="Cognome:">
+            <Label layoutX="200.0" layoutY="58.0" text="Cognome:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="51.0" layoutY="169.0" text="Durata (settimane):">
+            <Label layoutX="51.0" layoutY="133.0" text="Durata (settimane):">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="65.0" layoutY="205.0" text="Tipologia Scheda:">
+            <Label layoutX="65.0" layoutY="168.0" text="Tipologia Scheda:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextField layoutX="177.0" layoutY="58.0" prefWidth="149.0" style="-fx-background-color: #eeeeee;" />
-            <TextField layoutX="177.0" layoutY="164.0" style="-fx-background-color: #eeeeee;" />
-            <TextField layoutX="178.0" layoutY="200.0" style="-fx-background-color: #eeeeee;" />
-            <TextField layoutX="177.0" layoutY="128.0" style="-fx-background-color: #eeeeee;" />
-            <TextField layoutX="177.0" layoutY="91.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="60.0" layoutY="53.0" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="177.0" layoutY="128.0" prefHeight="26.0" prefWidth="41.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="178.0" layoutY="163.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="177.0" layoutY="94.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="271.0" layoutY="53.0" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #eeeeee;" />
             <Label layoutX="110.0" layoutY="14.0" text="Richiesta Cliente">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="137.0" layoutY="267.0" text="Note:">
+            <Label layoutX="137.0" layoutY="310.0" text="Note:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextArea layoutX="178.0" layoutY="267.0" prefHeight="155.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
-            <Label layoutX="12.0" layoutY="237.0" text="N° allenamenti settimanali">
+            <TextArea editable="false" layoutX="178.0" layoutY="308.0" prefHeight="114.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
+            <Label layoutX="13.0" layoutY="203.0" text="N° allenamenti settimanali">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextField layoutX="178.0" layoutY="232.0" style="-fx-background-color: #eeeeee;" />
+            <TextField editable="false" layoutX="179.0" layoutY="198.0" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: #eeeeee;" />
+            <Label layoutX="222.0" layoutY="202.0" text="Peso:">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <TextField editable="false" layoutX="258.0" layoutY="197.0" prefHeight="26.0" prefWidth="42.0" style="-fx-background-color: #eeeeee;" />
+            <Label layoutX="305.0" layoutY="201.0" text="Altezza:">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <TextField editable="false" layoutX="356.0" layoutY="196.0" prefHeight="26.0" prefWidth="42.0" style="-fx-background-color: #eeeeee;" />
+            <Label layoutX="115.0" layoutY="233.0" text="Allergeni:">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <TextArea editable="false" layoutX="178.0" layoutY="231.0" prefHeight="69.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;" />
          </children>
       </AnchorPane>
    </children>

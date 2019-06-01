@@ -1,6 +1,6 @@
 package model;
 
-public class Prodotto {
+public class Prodotto implements Comparable<Prodotto> {
 	private int codice;
 	private String nome;
 	private float prezzo;
@@ -55,5 +55,9 @@ public class Prodotto {
 	}
 	public void setQuantita(int quantita) {
 		this.quantita = quantita;
+	}
+	
+	public int compare(Prodotto that) {
+		return this.getCodice() - that.getCodice();
 	}
 }

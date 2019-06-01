@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="application.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="37.0" layoutY="85.0" prefHeight="451.0" prefWidth="412.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
+      <TableView fx:id="homeTab" layoutX="37.0" layoutY="85.0" prefHeight="451.0" prefWidth="412.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
         <columns>
-          <TableColumn prefWidth="98.39998626708984" text="Nome" />
-          <TableColumn prefWidth="112.79998779296875" text="Cognome" />
-            <TableColumn prefWidth="115.199951171875" text="Tipologia" />
-            <TableColumn prefWidth="84.79998779296875" text="Data" />
+          <TableColumn prefWidth="98.39998626708984" text="Nome" fx:id="idNome"/>
+          <TableColumn prefWidth="112.79998779296875" text="Cognome" fx:id="idCognome"/>
+            <TableColumn prefWidth="115.199951171875" text="Tipologia" fx:id="idTipologia"/>
+            <TableColumn prefWidth="84.79998779296875" text="Data" fx:id="idDataOra"/>
         </columns>
       </TableView>
       <Button layoutX="796.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: #006db3;" text="Rispondi" textFill="WHITE">
@@ -39,7 +39,7 @@
             <Font name="Verdana Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="37.0" layoutY="549.0" mnemonicParsing="false" style="-fx-background-color: #006db3;" text="Esci" textFill="WHITE" />
+      <Button onAction="#viewLogin" layoutX="37.0" layoutY="549.0" mnemonicParsing="false" style="-fx-background-color: #006db3;" text="Esci" textFill="WHITE" />
       <AnchorPane layoutX="462.0" layoutY="85.0" prefHeight="451.0" prefWidth="406.0" style="-fx-background-color: #5ac0fd;">
          <children>
             <Label layoutX="128.0" layoutY="63.0" text="Nome:">

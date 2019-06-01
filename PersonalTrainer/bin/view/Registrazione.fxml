@@ -10,16 +10,16 @@
 <?import javafx.scene.text.Text?>
 <?scenebuilder-background-color 0x63ccffff?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="application.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <TextField layoutX="248.0" layoutY="173.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="Claudio" />
-    <TextField layoutX="561.0" layoutY="174.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="Bianchi" />
-    <TextField layoutX="248.0" layoutY="201.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="claudio.bianchi@gmail.com" />
-    <TextField layoutX="248.0" layoutY="229.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="BNCCLD80T23A944Z" />
-    <TextField layoutX="248.0" layoutY="258.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="Bologna" />
-    <TextField layoutX="248.0" layoutY="320.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="Via Murri 12" />
-    <TextField layoutX="248.0" layoutY="348.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="3401234567" />
-    <TextField layoutX="248.0" layoutY="402.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="claudio.bianchi" />
+    <TextField layoutX="248.0" layoutY="173.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regNome" text="Parsa"/>
+    <TextField layoutX="561.0" layoutY="174.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regCognome" text="Dahesh"/>
+    <TextField layoutX="248.0" layoutY="201.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regEmail" text="dinoco.parsa23@gmail.com"/>
+    <TextField layoutX="248.0" layoutY="229.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regCodFisc" text="DHSPRS97T23A944W"/>
+    <TextField layoutX="248.0" layoutY="258.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regLuogoNascita" text="Bologna"/>
+    <TextField layoutX="248.0" layoutY="320.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regResidenza" text="Via Firenze 4"/>
+    <TextField layoutX="248.0" layoutY="348.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regTel" text="3494111444"/>
+    <TextField layoutX="248.0" layoutY="402.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regUsername" text="parsa23"/>
     <Label layoutX="201.0" layoutY="178.0" text="Nome:">
       <font>
         <Font name="Verdana" size="12.0" fx:id="x1" />
@@ -57,9 +57,9 @@
          <font>
             <Font name="Verdana" size="12.0" />
          </font></Label>
-    <PasswordField layoutX="248.0" layoutY="429.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="aaaaaaaaaaaa" />
-    <TextField layoutX="660.0" layoutY="304.0" prefHeight="25.0" prefWidth="96.0" />
-    <Button layoutX="720.0" layoutY="540.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="89.0" style="-fx-background-color: #006db3;&#10;" text="Conferma" textFill="WHITE">
+    <PasswordField layoutX="248.0" layoutY="429.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regPassword" text="Password1"/>
+    <TextField layoutX="660.0" layoutY="304.0" prefHeight="25.0" prefWidth="96.0" fx:id="regCodiceID" text="codiceid1"/>
+    <Button onAction="#confermaRegistrazione" layoutX="720.0" layoutY="540.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="89.0" style="-fx-background-color: #006db3;&#10;" text="Conferma" textFill="WHITE">
          <font>
             <Font name="Verdana" size="12.0" />
          </font></Button>
@@ -72,7 +72,7 @@
          <font>
             <Font name="Verdana" size="12.0" />
          </font></Label>
-      <DatePicker layoutX="248.0" layoutY="291.0" prefHeight="26.0" prefWidth="200.0" />
+      <DatePicker layoutX="248.0" layoutY="291.0" prefHeight="26.0" prefWidth="200.0" fx:id="regDataNascita"/>
       <Label layoutX="310.0" layoutY="54.0" text="Registrazione">
          <font>
             <Font name="Verdana Bold" size="36.0" />
@@ -88,8 +88,8 @@
             <Font name="Verdana" size="12.0" />
          </font>
       </Label>
-      <PasswordField layoutX="248.0" layoutY="458.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" text="aaaaaaaaaaaa" />
-      <Button layoutX="608.0" layoutY="540.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="89.0" style="-fx-background-color: #eeeeee;" text="Annulla">
+      <PasswordField layoutX="248.0" layoutY="458.0" prefWidth="200.0" style="-fx-background-color: #eeeeee;&#10;" fx:id="regConfermaPassword" text="Password1"/>
+      <Button layoutX="608.0" layoutY="540.0" onAction="#viewLogin" mnemonicParsing="false" prefHeight="23.0" prefWidth="89.0" style="-fx-background-color: #eeeeee;" text="Annulla">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

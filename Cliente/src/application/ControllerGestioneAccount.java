@@ -43,7 +43,7 @@ public class ControllerGestioneAccount {
 
 	private void getDatiUtente() {
 		GestioneAccountController gac = new GestioneAccountController();
-		
+		//TODO
 		Cliente c = gac.getDatiCliente("insanelosteID");
  		tipologia.setText("Cliente");
 		nome.setText(c.getNome());
@@ -55,8 +55,24 @@ public class ControllerGestioneAccount {
 		dataNascita.setText(c.getDataDiNascita().format(Utilities.formatterData));
 		email.setText(c.getEmail());
 		codiceFiscale.setText(c.getCodiceFiscale());
+		
+		tipologia.setEditable(false);
+		nome.setEditable(false);
+		cognome.setEditable(false);
+		tessera.setEditable(false);
+		numero.setEditable(false);
+		indirizzo.setEditable(false);
+		luogoNascita.setEditable(false);
+		dataNascita.setEditable(false);
+		email.setEditable(false);
+		codiceFiscale.setEditable(false);
+		
+		elimina.setDisable(false);
+		conferma.setDisable(true);
+		annulla.setDisable(true);
 	}
 	
+	@FXML
 	public void eliminaAccount(ActionEvent event)
     {
 		GestioneAccountController gac = new GestioneAccountController();
@@ -67,7 +83,8 @@ public class ControllerGestioneAccount {
 		Optional<ButtonType> result = alert.showAndWait();
 		
 		if (result.get() == ButtonType.OK){
-			if(gac.EliminaAccount("idREMOVE")) {
+			//TODO
+			if(gac.eliminaAccount("idREMOVE")) {
 				inform("Eliminazione Account", "", "Eliminazione account effettuata con successo");
 				//se sei qui l'account e' stato eliminato correttamente
 				// da qui bisogna caricare fxml del
@@ -86,6 +103,35 @@ public class ControllerGestioneAccount {
 		} else {
 			inform("Eliminazione Account", "", "Operazione annullata");
 		}
+			
+    } 
+	
+	@FXML
+	public void modifica(ActionEvent event)
+    {
+		numero.setEditable(true);
+		indirizzo.setEditable(true);
+		email.setEditable(true);
+		
+		tipologia.setDisable(true);
+		nome.setDisable(true);
+		cognome.setDisable(true);
+		tessera.setDisable(true);
+		luogoNascita.setDisable(true);
+		dataNascita.setDisable(true);
+		codiceFiscale.setDisable(true);
+		
+		elimina.setDisable(true);
+		conferma.setDisable(false);
+		annulla.setDisable(false);
+			
+    } 
+	
+	@FXML
+	public void conferma(ActionEvent event)
+    {
+		GestioneAccountController gac = new GestioneAccountController();
+		
 			
     } 
 	

@@ -94,7 +94,7 @@ public class GestioneAccountController {
 	 * @param id utente
 	 * @return risultato eliminazione
 	 */
-	public boolean EliminaAccount(String id) {
+	public boolean eliminaAccount(String id) {
 		boolean found = false;
 		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
 		String line;

@@ -15,6 +15,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.UserType;
+import util.Utilities;
 
 //questo controller e' visto interamento dal fxml (deve essere interno al progetto)
 public class Controller {
@@ -50,6 +51,9 @@ public class Controller {
 			}
 			//se sei qui il cliente è autenticato
 			// da qui bisogna caricare fxml della home
+			Main.usernameCliente = username.getText();
+			Main.idCliente = Utilities.getCliente(Main.usernameCliente).getId();
+			
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeCliente.fxml"));
 			Scene scene = new Scene(root,900,600);
 			Main.stage.setScene(scene);		
@@ -67,6 +71,14 @@ public class Controller {
 		Main.stage.setScene(new Scene(root,900,600));
 		
 	}
+	
+	@FXML
+	public void gestioneAccount(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/GestioneAccount.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
 	
 	@FXML
 	public void viewLogin (ActionEvent event) throws IOException {

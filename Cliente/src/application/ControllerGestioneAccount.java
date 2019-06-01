@@ -44,8 +44,7 @@ public class ControllerGestioneAccount {
 
 	private void getDatiUtente() {
 		GestioneAccountController gac = new GestioneAccountController();
-		//TODO
-		Cliente c = gac.getDatiCliente("insanelosteID");
+		Cliente c = gac.getDatiCliente(Main.idCliente);
  		tipologia.setText("Cliente");
 		nome.setText(c.getNome());
 		cognome.setText(c.getCognome());
@@ -93,8 +92,8 @@ public class ControllerGestioneAccount {
 		Optional<ButtonType> result = alert.showAndWait();
 		
 		if (result.get() == ButtonType.OK){
-			//TODO
-			if(gac.eliminaAccount("idREMOVE")) {
+
+			if(gac.eliminaAccount(Main.idCliente)) {
 				inform("Eliminazione Account", "", "Eliminazione account effettuata con successo");
 				//se sei qui l'account e' stato eliminato correttamente
 				// da qui bisogna caricare fxml del
@@ -142,28 +141,31 @@ public class ControllerGestioneAccount {
 		elimina.setDisable(true);
 		conferma.setDisable(false);
 		annulla.setDisable(false);
+		modifica.setDisable(true);
 			
     } 
 	
-	//TODO
 	@FXML
 	public void conferma(ActionEvent event)
     {
 		GestioneAccountController gac = new GestioneAccountController();
 		String numeroParametro = null, indirizzoParametro =  null, emailParametro = null;
-		if(!numero.getText().equals("")) {
-			numeroParametro = numero.getText();
+		if(numero.getText().equals("")) {
+			alert("Modifica dati", "", "Il numero inserito risulta scorretto");
+			return;		
 		}
-		if(!email.getText().equals("") && email.getText().contains("@") && email.getText().contains(".")) {
-			emailParametro = email.getText();
-		}
-		if(!indirizzo.getText().equals("")) {
-			indirizzoParametro = indirizzo.getText();
-		}
-		if(!email.getText().contains("@") || !email.getText().contains(".")) {
+		if(email.getText().equals("") || !email.getText().contains("@") || !email.getText().contains(".")) {
 			alert("Modifica dati", "", "L'email inserita risulta scorretta");
+			return;
 		}
-		if(gac.modificaDati("ID", emailParametro, indirizzoParametro, numeroParametro)) {
+		if(indirizzo.getText().equals("")) {
+			alert("Modifica dati", "", "L'indirizzo inserito risulta scorretto");
+			return;
+		}
+		emailParametro = email.getText();
+		numeroParametro = numero.getText();
+		indirizzoParametro = indirizzo.getText();
+		if(gac.modificaDati(Main.idCliente, emailParametro, indirizzoParametro, numeroParametro)) {
 			inform("Modifica dati", "", "Modifica effettuata con successo");
 			numero.setEditable(false);
 			indirizzo.setEditable(false);
@@ -177,6 +179,7 @@ public class ControllerGestioneAccount {
 			dataNascita.setDisable(false);
 			codiceFiscale.setDisable(false);
 			
+			modifica.setDisable(false);
 			elimina.setDisable(false);
 			conferma.setDisable(true);
 			annulla.setDisable(true);
@@ -205,6 +208,7 @@ public class ControllerGestioneAccount {
 		dataNascita.setDisable(false);
 		codiceFiscale.setDisable(false);
 		
+		modifica.setDisable(false);
 		elimina.setDisable(false);
 		conferma.setDisable(true);
 		annulla.setDisable(true);
@@ -212,11 +216,12 @@ public class ControllerGestioneAccount {
     }
 	
 	@FXML
-	public void indietro(ActionEvent event)
-    {
-		
-			
-    } 
+	public void indietro(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeCliente.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
 	
 	private static void alert(String title, String headerMessage, String contentMessage) {
 		Alert alert = new Alert(AlertType.ERROR);

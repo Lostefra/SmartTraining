@@ -117,12 +117,12 @@ public class Utilities {
 			}
 			pw.close();
 			reader.close();
-			File inputFile = new File("C:/SmartTrainingFiles/" + filename);
 			Files.delete(Paths.get("C:/SmartTrainingFiles/"+ filename));
+			File inputFile = new File("C:/SmartTrainingFiles/" + filename);
 			return  tempFile.renameTo(inputFile);
 		}
 		catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -142,14 +142,17 @@ public class Utilities {
 				utente = line.split(Pattern.quote("|"));
 										
 				if(id.equals(utente[3]) && utente[2].equals("C")){
+					bf.close();
 					return new Cliente(utente[4], utente[5], utente[6], utente[7], LocalDate.parse(utente[8], formatterData),
 							utente[9], utente[10], utente[11], new TesseraSocio(Integer.parseInt(utente[12]), 
 									Integer.parseInt(utente[13]), LocalDateTime.parse(utente[14], formatterDataOra)), utente[3]);
 				}
 			}
+			bf.close();
 		} catch (IOException e) {
 			
 		}
+	
 		return null;
 	}
 
@@ -168,10 +171,12 @@ public class Utilities {
 				utente = line.split(Pattern.quote("|"));
 										
 				if(id.equals(utente[3]) && utente[2].equals("P")){
+					bf.close();
 					return new PersonalTrainer(utente[4], utente[5], utente[6], utente[7], LocalDate.parse(utente[8], formatterData),
 							utente[9], utente[10], utente[11], utente[3]);
 				}
 			}
+			bf.close();
 		} catch (IOException e) {
 			
 		}
@@ -238,12 +243,17 @@ public class Utilities {
 						utente[9], utente[10], utente[11], new TesseraSocio(Integer.parseInt(utente[12]), 
 								Integer.parseInt(utente[13]), LocalDateTime.parse(utente[14], formatterDataOra)), utente[3]);
 		}
-		
+		reader.close();
 		return cliente;
+<<<<<<< HEAD
 
 	}
 	
 
+=======
+	}
+
+>>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 	/**
 	 * 
 	 * Ritorna il Personal trainer dallo username dato
@@ -253,7 +263,10 @@ public class Utilities {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 	public static PersonalTrainer getPersonalTrainer(String username) throws NumberFormatException, IOException {
 		BufferedReader reader = apriFile("utenti.txt");
 		PersonalTrainer personalTrainer = null;
@@ -267,13 +280,18 @@ public class Utilities {
 				personalTrainer = new PersonalTrainer(utente[4], utente[5], utente[6], utente[7], LocalDate.parse(utente[8], formatterData),
 						utente[9], utente[10], utente[11], utente[3]);
 		}
-		
+		reader.close();
 		return personalTrainer;
+<<<<<<< HEAD
 
 	}
 
 
 
+=======
+	}
+
+>>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 
 	public static boolean eliminazione(int riga) {
 		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
@@ -289,7 +307,7 @@ public class Utilities {
 			bf_utenti.close();
 			//eliminazione
 			Utilities.riscriviTranneRiga("utenti.txt", riga);
-			//inserimento riga senza dati (es. username)
+			//inserimento riga senza dati ( username e password )
 			PrintWriter pw = Utilities.apriFileAppend("utenti.txt");
 			pw.println("deleted|deleted|C|" +utente[3] +"|"+utente[4]+"|"+utente[5]+"|"+ utente[6]+"|"+utente[7]+"|"+utente[8]+"|"+utente[9]+"|"+utente[10]+"|"+utente[11]+"|"+utente[12]+"|"+utente[13]+"|"+utente[14]+"|null");
 			pw.close();

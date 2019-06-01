@@ -10,7 +10,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	static public Stage stage;
-	//main
+	static public String usernameCliente;
+	static public String idCliente;
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {

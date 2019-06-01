@@ -2,8 +2,6 @@ package model;
 
 import java.time.LocalDateTime;
 
-import util.Utilities;
-
 public class ObservableRichiesta {
 
 	private String id;

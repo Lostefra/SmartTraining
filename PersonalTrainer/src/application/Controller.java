@@ -111,7 +111,7 @@ public class Controller {
 		if(homeTab != null) {
 			pt = Utilities.getPersonalTrainer(Main.usernamePT);
 
-<<<<<<< HEAD
+
 			List<Richiesta> richieste = new ArrayList<>(rc.visualizzaRichieste(pt));
 			List<ObservableRichiesta> observableRichieste = new ArrayList<>();
 			for(Richiesta r : richieste)
@@ -132,9 +132,9 @@ public class Controller {
 						}
 					
 			});
-=======
-		List<Richiesta> richieste = new ArrayList<>(rc.visualizzaRichieste(pt));
-		List<ObservableRichiesta> observableRichieste = new ArrayList<>();
+
+		richieste = new ArrayList<>(rc.visualizzaRichieste(pt));
+		observableRichieste = new ArrayList<>();
 		for(Richiesta r : richieste)
 			observableRichieste.add(new ObservableRichiesta(r.getId(), r.getCliente().getNome(), r.getCliente().getCognome(), r, r.getDataOra(), r.getDataOra().format(Utilities.formatterDataOra)));
 		
@@ -143,7 +143,7 @@ public class Controller {
 		idTipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
 		idDataOra.setCellValueFactory(new PropertyValueFactory<>("dataOraStringa"));
 		homeTab.getItems().setAll(observableRichieste);
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
+
 		}
 	}
 	
@@ -192,7 +192,7 @@ public class Controller {
 		inform("Smart Training", "Registrazione avvenuta con successo!", "Benvenuto in Smart Training");
 	}
 	
-<<<<<<< HEAD
+
 	
 	private void fill (ObservableRichiesta observableRichiesta) throws NumberFormatException, IOException {
 		String idRichiesta = observableRichiesta.getId();
@@ -260,8 +260,7 @@ public class Controller {
 		
 	}
 	
-=======
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
+
 	private boolean checkValuesRegistrazione() {
 		if (regUsername == null || regUsername.getText().length() < 5 || !isAlphaNumeric(regUsername.getText())) {
 			alert("Errore", "Errore username", "Lo username deve avere minimo 5 caratteri ed essere composto solo da lettere e numeri.");
@@ -275,12 +274,8 @@ public class Controller {
 			alert("Errore", "Errore nome", "Inserire il proprio nome");
 			return false;
 		}
-<<<<<<< HEAD
+		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regCognome.getText())) {
 
-		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regCognome.getText())) {
-=======
-		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regCognome.getText())) {
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 			alert("Errore", "Errore cognome", "Inserire il proprio cognome");
 			return false;
 		}

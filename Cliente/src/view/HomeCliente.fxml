@@ -24,7 +24,7 @@
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>
-      <Button alignment="TOP_CENTER" layoutX="318.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/schede.jpg'); -fx-background-size: 100% 90%; -fx-background-repeat: no-repeat; -fx-background-position: 0 33; -fx-background-color: white;" text="Visualizza le tue schede attive">
+      <Button onAction="#viewSchedeAttuali" alignment="TOP_CENTER" layoutX="318.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/schede.jpg'); -fx-background-size: 100% 90%; -fx-background-repeat: no-repeat; -fx-background-position: 0 33; -fx-background-color: white;" text="Visualizza le tue schede attive">
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>

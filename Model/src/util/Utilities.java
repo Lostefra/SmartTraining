@@ -198,6 +198,15 @@ public class Utilities {
 		Random r = new Random();
 		return r.nextInt();
 	}
+	
+	/**
+	 * @param upperBound
+	 * @return numero random
+	 */
+	public static int generaIntero(int upperBound) {
+		Random r = new Random();
+		return r.nextInt(upperBound);
+	}
 
 	/**
 	 * 
@@ -225,6 +234,7 @@ public class Utilities {
 		
 		return cliente;
 	}
+<<<<<<< HEAD
 	
 	public static PersonalTrainer getPersonalTrainer(String username) throws NumberFormatException, IOException {
 		BufferedReader reader = apriFile("utenti.txt");
@@ -242,4 +252,13 @@ public class Utilities {
 		
 		return personalTrainer;
 	}
+=======
+
+	public static boolean eliminazione(int riga) {
+		BufferedReader bf = Utilities.apriFile("utenti.txt");
+	//	for
+		return false;
+	}
+
+>>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 }

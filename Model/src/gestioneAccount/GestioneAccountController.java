@@ -112,7 +112,7 @@ public class GestioneAccountController {
 			//se sei qui hai trovato l'utente da eliminare,
 			bf_utenti.close();
 			//eliminazione
-			return Utilities.riscriviTranneRiga("utenti.txt", i);
+			return Utilities.eliminazione(i);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

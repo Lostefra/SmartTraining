@@ -1,16 +1,14 @@
 package model;
 
-import java.time.LocalDateTime;
 
 public class Acquisto {
 	private int codice;
-	private LocalDateTime dataOra;
+	private String dataOra;
 	private int puntiGuadagnati;
 	
-	public Acquisto(int codice, LocalDateTime dataOra, int puntiGuadagnati) {
+	public Acquisto(int codice, String dataOra, int puntiGuadagnati) {
 		this.codice = codice;
 		this.dataOra = dataOra;
-		this.puntiGuadagnati = puntiGuadagnati;
 	}
 	
 	public int getCodice() {
@@ -20,10 +18,10 @@ public class Acquisto {
 		this.codice = codice;
 	}
 	
-	public LocalDateTime getDataOra() {
+	public String getDataOra() {
 		return dataOra;
 	}
-	public void setDataOra(LocalDateTime dataOra) {
+	public void setDataOra(String dataOra) {
 		this.dataOra = dataOra;
 	}
 	
@@ -34,6 +32,9 @@ public class Acquisto {
 		this.puntiGuadagnati = puntiGuadagnati;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "Codice Acquisto: " + codice + "\nData e Ora: " + dataOra +
+				"\nHai guadagnato " + puntiGuadagnati + " punti";
+	}
 }

@@ -200,7 +200,10 @@ public class Utilities {
 	 */
 	public static int generaIntero() {
 		Random r = new Random();
-		return r.nextInt();
+		int res =  r.nextInt();
+		if(res < 0)
+			return - res;
+		return res;
 	}
 	
 	/**

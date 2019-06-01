@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="344.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciao MARIO!">
+         <font>
+            <Font name="Verdana" size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="326.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hai la bellezza di 1000 punti!">
+         <font>
+            <Font name="Verdana" size="18.0" />
+         </font>
+      </Text>
+      <Button alignment="TOP_CENTER" layoutX="611.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/PT.jpg'); -fx-background-size: 120% 90%; -fx-background-repeat: no-repeat; -fx-background-position: -30 32; -fx-background-color: white;" text="Richiedi una scheda">
+         <font>
+            <Font name="Verdana Bold" size="14.0" />
+         </font></Button>
+      <Button alignment="TOP_CENTER" layoutX="318.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/schede.jpg'); -fx-background-size: 100% 90%; -fx-background-repeat: no-repeat; -fx-background-position: 0 33; -fx-background-color: white;" text="Visualizza le tue schede attive">
+         <font>
+            <Font name="Verdana Bold" size="14.0" />
+         </font></Button>
+      <Button alignment="TOP_CENTER" layoutX="27.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/25354.jpg'); -fx-background-position: -5 33; -fx-background-color: white; -fx-background-size: 130%; -fx-background-repeat: no-repeat;" text="Acquista un prodotto">
+         <font>
+            <Font name="Verdana Bold" size="14.0" />
+         </font></Button>
+      <Button layoutX="27.0" layoutY="551.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #006db3;" text="Esci" textFill="WHITE">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="677.0" layoutY="551.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #006db3;" text="Profilo" textFill="WHITE">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="64.0" fitWidth="203.0" layoutX="27.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('/images/Logoz.png');">
+         <effect>
+            <Glow level="0.4">
+               <input>
+                  <ColorAdjust contrast="0.4" hue="-0.02" saturation="-0.4" />
+               </input>
+            </Glow>
+         </effect>
+      </ImageView>
+      <Button layoutX="758.0" layoutY="551.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="117.0" style="-fx-background-color: #006db3;" text="Storico Schede" textFill="WHITE">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

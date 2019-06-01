@@ -98,23 +98,17 @@ public class Controller {
 		if(homeTab != null) {
 			pt = Utilities.getPersonalTrainer(Main.usernamePT);
 
-			List<Richiesta> richieste = new ArrayList<>(rc.visualizzaRichieste(pt));
-			List<ObservableRichiesta> observableRichieste = new ArrayList<>();
-			for(Richiesta r : richieste)
-				observableRichieste.add(new ObservableRichiesta(r.getId(), r.getCliente().getNome(), r.getCliente().getCognome(), r, r.getDataOra(), r.getDataOra().format(Utilities.formatterDataOra)));
-			
-			idNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-			idCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
-			idTipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-			idDataOra.setCellValueFactory(new PropertyValueFactory<>("dataOraStringa"));
-			homeTab.getItems().setAll(observableRichieste);
-			
-			homeTab.setOnMouseClicked(e -> {
-				fill(homeTab.getSelectionModel().getSelectedItem());
-			});
+		List<Richiesta> richieste = new ArrayList<>(rc.visualizzaRichieste(pt));
+		List<ObservableRichiesta> observableRichieste = new ArrayList<>();
+		for(Richiesta r : richieste)
+			observableRichieste.add(new ObservableRichiesta(r.getId(), r.getCliente().getNome(), r.getCliente().getCognome(), r, r.getDataOra(), r.getDataOra().format(Utilities.formatterDataOra)));
+		
+		idNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		idCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
+		idTipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+		idDataOra.setCellValueFactory(new PropertyValueFactory<>("dataOraStringa"));
+		homeTab.getItems().setAll(observableRichieste);
 		}
-		
-		
 	}
 	
 	@FXML
@@ -162,29 +156,6 @@ public class Controller {
 		inform("Smart Training", "Registrazione avvenuta con successo!", "Benvenuto in Smart Training");
 	}
 	
-	
-	private void fill (ObservableRichiesta observableRichiesta) throws NumberFormatException, IOException {
-		String idRichiesta = observableRichiesta.getId();
-		RichiesteController rc = new RichiesteController();
-		Richiesta richiesta = null;
-		
-		List<Richiesta> richieste = new ArrayList<>();
-		
-		richieste = rc.visualizzaRichieste(Utilities.getPersonalTrainer(Main.usernamePT));
-		
-		boolean found = false;
-		
-		for (int i = 0; i<richieste.size() && !found; i++) {
-			if (richieste.get(i).getId().equals(observableRichiesta.getId())) {
-				richiesta = richieste.get(i);
-				found = true;
-			}
-		}
-		
-		
-		
-	}
-	
 	private boolean checkValuesRegistrazione() {
 		if (regUsername == null || regUsername.getText().length() < 5 || !isAlphaNumeric(regUsername.getText())) {
 			alert("Errore", "Errore username", "Lo username deve avere minimo 5 caratteri ed essere composto solo da lettere e numeri.");
@@ -198,11 +169,7 @@ public class Controller {
 			alert("Errore", "Errore nome", "Inserire il proprio nome");
 			return false;
 		}
-<<<<<<< HEAD
-		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regNome.getText())) {
-=======
 		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regCognome.getText())) {
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 			alert("Errore", "Errore cognome", "Inserire il proprio cognome");
 			return false;
 		}

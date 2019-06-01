@@ -27,7 +27,7 @@
       <TextField fx:id="codiceFiscale" layoutX="419.0" layoutY="235.0" prefHeight="26.0" prefWidth="187.0" style="-fx-background-color: #eeeeee;" />
       <TextField fx:id="nome" layoutX="419.0" layoutY="162.0" prefHeight="26.0" prefWidth="187.0" style="-fx-background-color: #eeeeee;"/>
       <TextField fx:id="cognome" layoutX="419.0" layoutY="199.0" prefHeight="26.0" prefWidth="187.0" style="-fx-background-color: #eeeeee;"  />
-      <Button fx:id="conferma" disable="true" layoutX="777.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="89.0" style="-fx-background-color: #006db3;&#10;" text="Conferma" textFill="WHITE">
+      <Button onAction="#conferma" fx:id="conferma" disable="true" layoutX="777.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="89.0" style="-fx-background-color: #006db3;&#10;" text="Conferma" textFill="WHITE">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
@@ -42,7 +42,7 @@
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="annulla" disable="true" layoutX="159.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="89.0" style="-fx-background-color: #eeeeee;" text="Annulla">
+      <Button onAction="#annulla" fx:id="annulla" disable="true" layoutX="159.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="89.0" style="-fx-background-color: #eeeeee;" text="Annulla">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

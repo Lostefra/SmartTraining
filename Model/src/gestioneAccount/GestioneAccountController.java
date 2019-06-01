@@ -18,6 +18,7 @@ public class GestioneAccountController {
 	 */
 	public Cliente getDatiCliente(String id) {
 		return Utilities.leggiCliente(id);
+		
 	}
 	
 	/**
@@ -107,8 +108,10 @@ public class GestioneAccountController {
 					found = true;
 				i++;	
 			}
-			if(!found)
+			if(!found) {
+				bf_utenti.close();
 				return false;
+			}
 			//se sei qui hai trovato l'utente da eliminare,
 			bf_utenti.close();
 			//eliminazione

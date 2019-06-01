@@ -47,7 +47,6 @@ public class RegistrazioneController {
 		
 		File inputFile = new File("C:/SmartTrainingFiles/utenti.txt");
 		
-		@SuppressWarnings("resource")
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		
 		String currentLine;
@@ -70,12 +69,18 @@ public class RegistrazioneController {
 			System.out.println(utente[8]);
 			System.out.println(utente[9]);
 */			
-			if(username.equals(utente[0]))
+			if(username.equals(utente[0])) {
+				reader.close();
 				return "Errore: username già presente nel sistema";
-			else if (email.equals(utente[6]))
+			}
+			else if (email.equals(utente[6])) {
+				reader.close();
 				return "Errore: email già presente nel sistema";
-			else if (codiceFiscale.equals(utente[7]) && !(utente[0].equals("null")))
+			}
+			else if (codiceFiscale.equals(utente[7]) && !(utente[0].equals("null"))) {
+				reader.close();
 				return "Errore: codice fiscale già presente nel sistema";
+			}
 		}
 		reader.close();
 		
@@ -88,14 +93,17 @@ public class RegistrazioneController {
 				utente = currentLine.split(Pattern.quote("|"));
 				if(codiceFiscale.equals(utente[7])) {
 					found = true;
-					if (!(codiceID.equals(utente[15])))
+					if (!(codiceID.equals(utente[15]))) {
+						reader.close();
 						return "Errore: codiceID errato";
+					}
 				}
 				lineToRemove = currentLine;
 			}	
+			reader.close();
 			if (!found)
 				return "Errore: codiceFiscale non trovato";
-			reader.close();
+			
 		}
 		
 		/* Aggiunta PersonalTrainer nel DB */
@@ -149,40 +157,7 @@ public class RegistrazioneController {
 		
 		PrintWriter writer = Utilities.apriFileAppend("utenti.txt");
 		String idCliente =generateID(reader, "C");
-		if(username == null) {
-			System.out.println("Username");
-		}
-		if(password == null) {
-			System.out.println("password");
-		}
-		if(idCliente == null) {
-			System.out.println("idCliente");
-		}
-		if(nome == null) {
-			System.out.println("nome");
-		}
-		if(cognome == null) {
-			System.out.println("cognome");
-		}
-		if(email == null) {
-			System.out.println("email");
-		}
-		if(codiceFiscale == null) {
-			System.out.println("codiceFiscale");
-		}
-		if(dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) == null) {
-			System.out.println("dataNascita.format(DateTimeFormatter.ofPattern(\"dd/MM/yyyy\"))");
-		}
-		if(luogoNascita == null) {
-			System.out.println("luogoNascita");
-		}
-		if(indirizzoResidenza == null) {
-			System.out.println("indirizzoResidenza");
-		}
-		if(numeroTelefono == null) {
-			System.out.println("numeroTelefono");
-		}
-
+		
 		writer.write(username+"|"+password+"|C|"+idCliente+"|"+nome+"|"+cognome+"|"+email+"|"
 				+codiceFiscale+"|"+dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"|"+luogoNascita
 				+"|"+indirizzoResidenza+"|"+numeroTelefono+"|"+codice+"|0|" + 

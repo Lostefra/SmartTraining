@@ -51,7 +51,7 @@ public class LoginController {
 					result = UserType.PersonalTrainer;
 			}
 		}
-		
+		bf_utenti.close();
 		return result;
 	}
 	

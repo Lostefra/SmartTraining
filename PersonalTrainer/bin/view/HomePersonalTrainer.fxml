@@ -15,13 +15,8 @@
         <columns>
           <TableColumn prefWidth="98.39998626708984" text="Nome" fx:id="idNome"/>
           <TableColumn prefWidth="112.79998779296875" text="Cognome" fx:id="idCognome"/>
-<<<<<<< HEAD
           <TableColumn prefWidth="115.199951171875" text="Tipologia" fx:id="idTipologia"/>
           <TableColumn prefWidth="84.79998779296875" text="Data" fx:id="idDataOra"/>
-=======
-            <TableColumn prefWidth="115.199951171875" text="Tipologia" fx:id="idTipologia"/>
-            <TableColumn prefWidth="84.79998779296875" text="Data" fx:id="idDataOra"/>
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
         </columns>
       </TableView>
       <Button layoutX="796.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: #006db3;" text="Rispondi" textFill="WHITE">

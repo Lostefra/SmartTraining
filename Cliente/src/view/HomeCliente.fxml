@@ -10,12 +10,12 @@
 
 <AnchorPane fx:controller="application.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="344.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciao MARIO!">
+      <Text fx:id="welcome" layoutX="344.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" >
          <font>
             <Font name="Verdana" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="326.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hai la bellezza di 1000 punti!">
+      <Text fx:id="welcome2" layoutX="326.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font name="Verdana" size="18.0" />
          </font>
@@ -24,7 +24,7 @@
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>
-      <Button alignment="TOP_CENTER" layoutX="318.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/schede.jpg'); -fx-background-size: 100% 90%; -fx-background-repeat: no-repeat; -fx-background-position: 0 33; -fx-background-color: white;" text="Visualizza le tue schede attive">
+      <Button onAction="#viewSchedeAttuali" alignment="TOP_CENTER" layoutX="318.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/schede.jpg'); -fx-background-size: 100% 90%; -fx-background-repeat: no-repeat; -fx-background-position: 0 33; -fx-background-color: white;" text="Visualizza le tue schede attive">
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>
@@ -51,7 +51,7 @@
             </Glow>
          </effect>
       </ImageView>
-      <Button layoutX="758.0" layoutY="551.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="117.0" style="-fx-background-color: #006db3;" text="Storico Schede" textFill="WHITE">
+      <Button onAction="#storicoSchede" layoutX="758.0" layoutY="551.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="117.0" style="-fx-background-color: #006db3;" text="Storico Schede" textFill="WHITE">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

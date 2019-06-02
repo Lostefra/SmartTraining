@@ -9,11 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import model.UserType;
 import util.Utilities;
 
@@ -34,6 +35,8 @@ public class Controller {
 	@FXML private PasswordField regConfermaPassword;
 	@FXML private DatePicker regDataNascita;
 	@FXML private TextField regResidenza;
+	@FXML private Text welcome;
+	@FXML private Text welcome2;
 	
 	@FXML
     public void loginCliente(ActionEvent event)
@@ -61,7 +64,16 @@ public class Controller {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//inform("OK","", "benvenuto " + username.getText());
+		
+    }
+	
+	@FXML
+    private void initialize()
+    {
+		if(welcome != null)
+			welcome.setText("Ciao " + Utilities.leggiCliente(Main.idCliente).getNome()+"!");
+		if(welcome2 != null)
+			welcome2.setText("Hai la bellezza di " +Utilities.leggiCliente(Main.idCliente).getTes().getSaldoPunti()+ " punti!");
     }
 	
 	@FXML
@@ -76,6 +88,21 @@ public class Controller {
 	public void gestioneAccount(ActionEvent event) throws IOException {
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/GestioneAccount.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
+	
+	@FXML
+	public void viewSchedeAttuali(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/SchedeAttuali.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
+	@FXML
+	public void storicoSchede(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/StoricoSchedeCliente.fxml"));
 		Main.stage.setScene(new Scene(root,900,600));
 	}
 	
@@ -101,11 +128,11 @@ public class Controller {
 	@FXML
 	public void confermaRegistrazione(ActionEvent event) throws IOException {
 		root = null;
-		System.out.println("uno");
+		
 		if (!checkValuesRegistrazione()) {
 			return;
 		}
-		System.out.println("due");
+
 		RegistrazioneController controller = new RegistrazioneController();
 		String result = controller.registrazione(regUsername.getText(), regPassword.getText(), regNome.getText(), regCognome.getText(),
 				regEmail.getText(), regCodFisc.getText(), regDataNascita.getValue(), regLuogoNascita.getText(),
@@ -114,7 +141,7 @@ public class Controller {
 			alert("Errore", "Errore registrazione", result);
 			return;
 		}
-		System.out.println("tre");
+	
 		viewLogin(event);
 		inform("Smart Training", "Registrazione avvenuta con successo!", "Benvenuto in Smart Training");
 	}

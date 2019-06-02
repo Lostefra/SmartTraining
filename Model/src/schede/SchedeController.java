@@ -28,7 +28,7 @@ public class SchedeController {
 	
 	private DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 	private DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	private DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("mm:ss");
+	private DateTimeFormatter formatterOra = DateTimeFormatter.ofPattern("HH:mm");
 	
 	/**
 	 * 
@@ -65,8 +65,8 @@ public class SchedeController {
 							if(sa.getSessioni().contains(sessione)) { 
 								sessione = sa.getRemoveSessione(sessione);
 							}
-							sessione.getEsercizi().add(new Esercizio(campi[3], Integer.parseInt(campi[5]), 
-									Integer.parseInt(campi[6]), LocalTime.parse(campi[7], formatterOra)));
+							sessione.getEsercizi().add(new Esercizio(esercizio[3], Integer.parseInt(esercizio[5]), 
+									Integer.parseInt(esercizio[6]), LocalTime.parse(esercizio[7], formatterOra)));
 							sa.getSessioni().add(sessione);
 						}
 				
@@ -87,7 +87,7 @@ public class SchedeController {
 							if(pn.getPasti().contains(pasto)) { 
 								pasto = pn.getRemovePasto(pasto);
 							}
-							pasto.getAlimenti().add(new Alimento(campi[3], Integer.parseInt(campi[4])));
+							pasto.getAlimenti().add(new Alimento(alimento[3], Integer.parseInt(alimento[4])));
 							pn.getPasti().add(pasto);
 						}
 				
@@ -140,8 +140,8 @@ public class SchedeController {
 								if(sa.getSessioni().contains(sessione)) { 
 									sessione = sa.getRemoveSessione(sessione);
 								}
-								sessione.getEsercizi().add(new Esercizio(campi[3], Integer.parseInt(campi[5]), 
-										Integer.parseInt(campi[6]), LocalTime.parse(campi[7], formatterOra)));
+								sessione.getEsercizi().add(new Esercizio(esercizio[3], Integer.parseInt(esercizio[5]), 
+										Integer.parseInt(esercizio[6]), LocalTime.parse(esercizio[7], formatterOra)));
 								sa.getSessioni().add(sessione);
 							}
 					
@@ -162,7 +162,7 @@ public class SchedeController {
 								if(pn.getPasti().contains(pasto)) { 
 									pasto = pn.getRemovePasto(pasto);
 								}
-								pasto.getAlimenti().add(new Alimento(campi[3], Integer.parseInt(campi[4])));
+								pasto.getAlimenti().add(new Alimento(alimento[3], Integer.parseInt(alimento[4])));
 								pn.getPasti().add(pasto);
 							}
 					
@@ -198,9 +198,9 @@ public class SchedeController {
 				BufferedReader bf_inner = Utilities.apriFile("eserciziAlimenti.txt");
 				String temp;
 				
-				LocalDate dataFineValidita = LocalDate.parse(campi[5], formatterData).plusWeeks(Integer.parseInt(campi[6]));
+				LocalDate dataFineValidita = LocalDate.parse(campi[4], formatterData).plusWeeks(Integer.parseInt(campi[5]));
 				
-				//facendo così le schede che terminano la validita' oggi compaiono tra le attuali
+				//facendo così le schede che terminano la validita' oggi compaiono tra le attualiS
 				boolean dataNONok = dataFineValidita.isBefore(LocalDate.now());
 				
 				PersonalTrainer p = Utilities.leggiPersonalTrainer(campi[2]);
@@ -220,8 +220,8 @@ public class SchedeController {
 								if(sa.getSessioni().contains(sessione)) { 
 									sessione = sa.getRemoveSessione(sessione);
 								}
-								sessione.getEsercizi().add(new Esercizio(campi[3], Integer.parseInt(campi[5]), 
-										Integer.parseInt(campi[6]), LocalTime.parse(campi[7], formatterOra)));
+								sessione.getEsercizi().add(new Esercizio(esercizio[3], Integer.parseInt(esercizio[5]), 
+										Integer.parseInt(esercizio[6]), LocalTime.parse(esercizio[7], formatterOra)));
 								sa.getSessioni().add(sessione);
 							}
 					
@@ -242,7 +242,7 @@ public class SchedeController {
 								if(pn.getPasti().contains(pasto)) { 
 									pasto = pn.getRemovePasto(pasto);
 								}
-								pasto.getAlimenti().add(new Alimento(campi[3], Integer.parseInt(campi[4])));
+								pasto.getAlimenti().add(new Alimento(alimento[3], Integer.parseInt(alimento[4])));
 								pn.getPasti().add(pasto);
 							}
 					
@@ -262,6 +262,8 @@ public class SchedeController {
 	
 	/**
 	 * //i parametri in input messi a null => non si filtra per quel paramentro
+	 * sull'idScheda si filtra per fare il get dei contenuti della scheda nella visualizzazione shede
+	 * non si può applicare filtro da interfaccia grafica
 	 * 
 	 * @param schede elenco di schede su cui applicare filtro
 	 * @param nomeCliente sottostringa che deve comparire nel nome cliente
@@ -274,26 +276,27 @@ public class SchedeController {
 	 * @return schede filtrate
 	 */
 	public List<Scheda> applicaFiltro(List<Scheda> schede, String nomeCliente, String cognomeCliente, String nomePersonalTrainer,
-			String cognomePersonalTrainer, LocalDate dataInizio, LocalDate dataFine, String tipologia){
+			String cognomePersonalTrainer, LocalDate dataInizio, LocalDate dataFine, String tipologia, String idScheda){
 		List<Scheda> res = new ArrayList<Scheda>();
 		for(Scheda s : schede) {
 			boolean tipoOK = false;
-			if(tipologia != null) {
-				if(tipologia.equals("A")) {
+			if(tipologia != null && !tipologia.equals("") && !tipologia.equalsIgnoreCase("Tutte") ) {
+				if(tipologia.equals("Allenamento")) {
 					tipoOK = s instanceof SchedaAllenamento;
 				}
-				else if(tipologia.equals("P")){
+				else if(tipologia.equals("Nutrizionale")){
 					tipoOK = s instanceof PianoNutrizionale;
 				}
 			}
-			if((nomeCliente == null || s.getCliente().getNome().contains(nomeCliente)) &&
-					(cognomeCliente == null || s.getCliente().getCognome().contains(cognomeCliente)) &&
-					(nomePersonalTrainer == null || s.getPersonalTrainer().getNome().contains(nomePersonalTrainer)) &&
-					(cognomePersonalTrainer == null || s.getPersonalTrainer().getCognome().contains(cognomePersonalTrainer)) &&
+			if((nomeCliente == null || nomeCliente.equals("") || s.getCliente().getNome().contains(nomeCliente)) &&
+					(cognomeCliente == null || cognomeCliente.equals("")|| s.getCliente().getCognome().contains(cognomeCliente)) &&
+					(nomePersonalTrainer == null || nomePersonalTrainer.equals("")|| s.getPersonalTrainer().getNome().contains(nomePersonalTrainer)) &&
+					(cognomePersonalTrainer == null || cognomePersonalTrainer.equals("")|| s.getPersonalTrainer().getCognome().contains(cognomePersonalTrainer)) &&
 					(dataInizio == null || !s.getDateInizio().plusWeeks(s.getDurataSettimane()).isBefore(dataInizio)) &&
 					(dataFine == null || !s.getDateInizio().isAfter(dataFine)) && 
-					(tipologia == null || tipoOK)) {
-				schede.add(s);
+					(tipologia == null ||tipologia.equals("")||tipologia.equalsIgnoreCase("Tutte")|| tipoOK) &&
+					(idScheda == null || idScheda.equals("") || s.getId().equals(idScheda))) {
+				res.add(s);
 			}			
 		}
 		return res;

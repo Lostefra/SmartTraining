@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import model.Cliente;
+import model.PersonalTrainer;
 import util.Utilities;
 
 public class ControllerGestioneAccount {
@@ -44,7 +44,7 @@ public class ControllerGestioneAccount {
 
 	private void getDatiUtente() {
 		GestioneAccountController gac = new GestioneAccountController();
-		Cliente c = gac.getDatiCliente(Main.idCliente);
+		PersonalTrainer c = Utilities.getPersonalTrainer(Main.usernamePT);
  		tipologia.setText("Cliente");
 		nome.setText(c.getNome());
 		cognome.setText(c.getCognome());

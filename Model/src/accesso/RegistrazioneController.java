@@ -1,10 +1,8 @@
 package accesso;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -49,26 +47,13 @@ public class RegistrazioneController {
 		
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		
-		String currentLine;
-		String lineToRemove = null;
-		
+		String currentLine;		
 		String[] utente = new String[300];
 		boolean pt = false;
 		
 		/* Controllo esistenza credenziali */
 		while((currentLine = reader.readLine()) != null) {
-			utente = currentLine.split("\\|");
-/*			System.out.println("1"+utente[0]);
-			System.out.println(utente[1]);
-			System.out.println(utente[2]);
-			System.out.println(utente[3]);
-			System.out.println(utente[4]);
-			System.out.println(utente[5]);
-			System.out.println(utente[6]);
-			System.out.println(utente[7]);
-			System.out.println(utente[8]);
-			System.out.println(utente[9]);
-*/			
+			utente = currentLine.split("\\|");			
 			if(username.equals(utente[0])) {
 				reader.close();
 				return "Errore: username già presente nel sistema";
@@ -85,6 +70,7 @@ public class RegistrazioneController {
 		reader.close();
 		
 		/* Controllo codiceID */
+		int linea = 0;
 		if (!(codiceID.equals("null"))) {
 			boolean found = false;
 			pt = true;
@@ -98,7 +84,7 @@ public class RegistrazioneController {
 						return "Errore: codiceID errato";
 					}
 				}
-				lineToRemove = currentLine;
+				linea++;
 			}	
 			reader.close();
 			if (!found)
@@ -108,32 +94,21 @@ public class RegistrazioneController {
 		
 		/* Aggiunta PersonalTrainer nel DB */
 		if(pt) {
-			File tempFile = new File("C:/SmartTrainingFiles/temp.txt");
-			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+			if(!Utilities.riscriviTranneRiga("utenti.txt", linea))
+				return "Errore: riscriviTranneRiga ha fallito";
+		
 			reader = new BufferedReader(new FileReader(inputFile));
-			
-			while ((currentLine = reader.readLine()) != null) {
-				if (!(currentLine.equals(lineToRemove))) 
-					writer.write(currentLine+"\n");
-			}			
+			String idPT= generateID(reader,"P");
 			reader.close();
 			
-			reader = new BufferedReader(new FileReader(inputFile));
-			
-			writer.write(username+"|"+password+"|P|"+generateID(reader, "P")+"|"+nome+"|"+cognome+"|"+email+"|"
+			PrintWriter writer = Utilities.apriFileAppend("utenti.txt");
+			writer.write(username+"|"+password+"|P|"+idPT+"|"+nome+"|"+cognome+"|"+email+"|"
 					+codiceFiscale+"|"+dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"|"+luogoNascita
 					+"|"+indirizzoResidenza+"|"+numeroTelefono+"|null|null|null|"+codiceID+"\n");
-			reader.close();
 			writer.close();
-			if(!inputFile.delete())
-				return "Errore: errore scrittura nel database";
 			
-			boolean t = tempFile.renameTo(inputFile);			
-			if (t)
-				return "T";
-			else {
-				return "Errore: errore scrittura nel database";
-			}
+			return "T";
+			
 		}
 		
 		/* Creazione tessera socio */
@@ -153,17 +128,14 @@ public class RegistrazioneController {
 		
 		/* Aggiunta Cliente al DB */
 		reader = new BufferedReader(new FileReader(inputFile));
-		
+		String idCliente =generateID(reader, "C");
+		reader.close();
 		
 		PrintWriter writer = Utilities.apriFileAppend("utenti.txt");
-		String idCliente =generateID(reader, "C");
-		
 		writer.write(username+"|"+password+"|C|"+idCliente+"|"+nome+"|"+cognome+"|"+email+"|"
 				+codiceFiscale+"|"+dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"|"+luogoNascita
 				+"|"+indirizzoResidenza+"|"+numeroTelefono+"|"+codice+"|0|" + 
-				LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))+ "|null\n");
-		
-		reader.close();
+				LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))+ "|null\n");	
 		writer.close();
 		return "T";
 	}

@@ -127,7 +127,7 @@ public class ControllerAcquisto {
 	@FXML
 	public void initSelezionati() {
 		selezionati = ac.getSelezionati; //Dovrei prendere la lista dei selezionati 
-		ma se non ho aggiunto nulla è vuota
+										//ma se non ho aggiunto nulla è vuota
 		
 		codiceSelezionatiCol.setCellValueFactory(new PropertyValueFactory<ProdottoSelezionato, Integer>("codice"));
         prodottoSelezionatiCol.setCellValueFactory(new PropertyValueFactory<ProdottoSelezionato, String>("nome"));

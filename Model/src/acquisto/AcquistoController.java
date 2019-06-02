@@ -371,4 +371,5 @@ public class AcquistoController {
 	public float applicaSconto(Sconto s) {
 		return calcolaSommaSpesa() - s.getValore();
 	}
+	
 }

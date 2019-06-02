@@ -6,30 +6,29 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import model.Acquisto;
 import model.Cliente;
 import model.Prodotto;
+import model.ProdottoSelezionato;
 import model.Sconto;
 import util.Utilities;
 
 public class AcquistoController {
 	
 	private Cliente cli;
-	private List<Prodotto> prodottiSelezionati;
+	private List<ProdottoSelezionato> prodottiSelezionati;
 	
 	public AcquistoController(Cliente c) {
 		this.cli = c;
-		this.prodottiSelezionati = new ArrayList<Prodotto>();
+		this.prodottiSelezionati = new ArrayList<ProdottoSelezionato>();
 	}
 	
 	/** 
 	 * Legge dal file tutti i prodotti presenti, serve per riempire la tabella che permette la selezione
-	 * @return prodotti
+	 * @return List<Prodotto> con i prodotti letti
 	 */
 	public List<Prodotto> getProdotti() {
 		List<Prodotto> prodotti = new ArrayList<Prodotto>();
@@ -120,35 +119,37 @@ public class AcquistoController {
 	 * Si seleziona un prodotto dalla tabella iniziale e si aggiunge al carrello, diminuendo la sua disponibilità
 	 * 
 	 * @param prodotto
+	 * @param numero articoli selezionati
+	 * 
 	 * @return prodottiSelezionati
 	 */
-	public List<Prodotto> aggiungiProdotto(Prodotto p) {
-		if(diminuisciDisponibilita(p) < 1)
-			//Fare alert impossibile selezionare;
-		prodottiSelezionati.add(p);
+	public List<ProdottoSelezionato> aggiungiProdotto(ProdottoSelezionato psel, int qty) {
+		diminuisciDisponibilita(psel, qty);
+		prodottiSelezionati.add(psel);
 		return prodottiSelezionati;
 	}
 	
 	/**
 	 * Aggiorna il file contenente i prodotti, diminuendo la disponibilità di quello scelto
 	 * @param prodotto
+	 * @param numero articoli selezionati
+	 *  
 	 * @return disponibilitàDiQuelProdotto
 	 */
-	private int diminuisciDisponibilita(Prodotto p) {
-		int disp = -1;
-		
+	private void diminuisciDisponibilita(ProdottoSelezionato psel, int qty) {
 		try {
 	        // input the (modified) file content to the StringBuffer "input"
 			BufferedReader bf_prodotti = Utilities.apriFile("prodotti.txt");
 	        StringBuffer inputBuffer = new StringBuffer();
 	        String line;
+	        int disp = -1;
 
 	        while ((line = bf_prodotti.readLine()) != null) {
 	            String[] res = new String[100];
 	            res = line.split("\\|");
 	        	
-	        	if(Integer.parseInt(res[0]) == p.getCodice()) { //Se ho trovato il codice giusto
-	        		disp = Integer.parseInt(res[4]) - 1; //Diminuisco subito la disponibilità
+	        	if(Integer.parseInt(res[0]) == psel.getCodice()) { //Se ho trovato il codice giusto
+	        		disp = Integer.parseInt(res[4]) - qty; //Diminuisco subito la disponibilità
 	        		line = res[0] + "|" + res[1] + "|" + res[2] + "|" + 
 	        				res[3] + "|" + disp; // Riscrivo la riga già con la disponibilità aggiornata
 	        		inputBuffer.append(line);
@@ -166,24 +167,23 @@ public class AcquistoController {
 	        bf_prodotti.close();
 
 	        // Scrivo tutto il buffer in overwrite sullo stesso file
-	        FileOutputStream fileOut = new FileOutputStream("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt");
+	        FileOutputStream fileOut = new FileOutputStream("C:\\SmartTrainingFiles\\prodotti.txt");
 	        fileOut.write(inputBuffer.toString().getBytes());
 	        fileOut.close();
 	    } catch (Exception e) {
 	        System.out.println("Problem reading file.");
 	    }
-		
-		return disp;
 	}
 	
 	/**
-	 * Si toglie un prodotto dal carrello, viene aumentata la sua disponibilità
+	 * Si toglie un prodotto dal carrello, viene aumentata la sua disponibilità.
 	 * @param prodotto
-	 * @return prodottiSelezionati
+	 * 
+	 * @return List<ProdottoSelezionato> aggiornata
 	 */
-	public List<Prodotto> eliminaProdotto(Prodotto p) {
-		List<Prodotto> prodottiSelezionati = new ArrayList<Prodotto>();
-		aumentaDisponibilita(p);
+	public List<ProdottoSelezionato> eliminaProdotto(ProdottoSelezionato p, int qty) {
+		List<ProdottoSelezionato> prodottiSelezionati = new ArrayList<ProdottoSelezionato>();
+		aumentaDisponibilita(p, qty);
 		prodottiSelezionati.remove(p);
 		return prodottiSelezionati;
 	}
@@ -192,7 +192,7 @@ public class AcquistoController {
 	 * Aggiorna il file contenente i prodotti, aumentando la disponibilità di quello eliminato dalla scelta
 	 * @param prodotto
 	 */
-	private void aumentaDisponibilita(Prodotto p) {
+	public void aumentaDisponibilita(ProdottoSelezionato prodotto, int qty) {
 		try {
 	        // Duale di quello sopra, leggere commenti in diminuisciDisponibilità
 			//Questa volta è void perché non c'è una disponibilità massima da controllare
@@ -207,8 +207,8 @@ public class AcquistoController {
 	            String[] res = new String[100];
 	            res = line.split("\\|");
 	        	
-	        	if(Integer.parseInt(res[0]) == p.getCodice()) {
-	        		disp = Integer.parseInt(res[4]) + 1;
+	        	if(Integer.parseInt(res[0]) == prodotto.getCodice()) {
+	        		disp = Integer.parseInt(res[4]) + qty;
 	        		line = res[0] + "|" + res[1] + "|" + res[2] + "|" + 
 	        				res[3] + "|" + disp; // replace the line here
 	        		inputBuffer.append(line);
@@ -222,7 +222,7 @@ public class AcquistoController {
 	        }
 	        bf_prodotti.close();
 
-	        FileOutputStream fileOut = new FileOutputStream("C:\\Users\\Davide\\git\\SmartTraining\\SmartTrainingFiles\\prodotti.txt");
+	        FileOutputStream fileOut = new FileOutputStream("C:\\SmartTrainingFiles\\prodotti.txt");
 	        fileOut.write(inputBuffer.toString().getBytes());
 	        fileOut.close();
 
@@ -264,7 +264,13 @@ public class AcquistoController {
 		return sommaSpesa - s.getValore();
 	}
 	
-	
+	/**
+	 * Viene confermato l'acquisto. Il sistema esterno procede a validare il pagamento, in caso di esito positivo viene aggiornato
+	 * il saldo punti e viene mandata la ricevuta via email.
+	 * 
+	 * @param Sconto selezionato
+	 * @return Esito operazione
+	 */
 	public boolean conferma(Sconto s) {
 		if(effettuaPagamento() == false) return false;
 		//Non c'è un while perché la conferma è manuale. Se il pagamento va male, si può anche decidere
@@ -278,43 +284,36 @@ public class AcquistoController {
 		}
 	}
 	
+	/**
+	 * Genera l'acquisto 
+	 * @return acquisto
+	 */
 	private Acquisto creaAcquisto() {
 		int codice = Utilities.generaIntero(99999);
 		int puntiGuadagnati = (int) Math.floor(calcolaSommaSpesa() / 10);
 		return new Acquisto(codice, LocalDateTime.now().format(Utilities.formatterDataOra), puntiGuadagnati);
 	}
-
+	
+	/**
+	 * Manda via mail la ricevuta dell'acquisto appena effettuato
+	 * @param acquisto
+	 */
 	private void mandaMail(Acquisto a) {
-		Map<String, Integer> prod = new HashMap<String, Integer>();
-		StringBuilder sb = new StringBuilder();
-		
-		for (Prodotto prodotto : prodottiSelezionati) {
-			if(prod.containsKey(prodotto.getNome())) {
-				int value = prod.get(prodotto.getNome());
-				prod.put(prodotto.getNome(), ++value);
-			}
-			else
-				prod.put(prodotto.getNome(), 1);
-		}
-		
 		/*Formato: Quantità acquistata nome, prezzo euro (volendo si possono aggiungere anche codice e prezzo per singolo prodotto)
 		 *  2 Integratori, 30 euro
 		 *  1 Integratore, 15 euro
 		 *  3 SteroidiSuperPower 150 euro
 		*/
 		
-		for(String name : prod.keySet()) {
-			float price = (float) -1;
-			int qty = prod.get(name);
-			for (Prodotto prodotto : prodottiSelezionati) {
-				if(prodotto.getNome().equals(name))
-					price = prodotto.getPrezzo();
-			}
-			sb.append(qty + " " + name + ", " + price*qty + " euro\n");
-		}
-			
+		StringBuilder sb = new StringBuilder();
+		
+		for (ProdottoSelezionato prodottoSel : prodottiSelezionati)
+			sb.append(prodottoSel.getQuantita() + " " + prodottoSel.getNome() + ", " +
+						prodottoSel.getPrezzo()*prodottoSel.getQuantita() + 
+						" € (prezzo singolo articolo: " + prodottoSel.getPrezzo() +" )\n");
+		
 		mail.Main.mandaMail("aaabbbccc@gmail.com", a.toString(), sb.toString());
-							//Indirizzo, header (Codice, DataOra, PuntiGuadagnati), listaArticoliAcquistati
+		//Indirizzo, header (Codice, DataOra, PuntiGuadagnati), listaArticoliAcquistati
 	}
 	
 	private boolean effettuaPagamento() {
@@ -327,9 +326,7 @@ public class AcquistoController {
 	 * Aggiorno la disponibilità di tutte le cose messe nel carrello
 	 */
 	public void annulla() {
-		for (Prodotto prodotto : prodottiSelezionati) {
-			aumentaDisponibilita(prodotto);
-		}
+		//Fa tutto il controller della view per semplicità
 	}
 	
 	/**
@@ -358,13 +355,10 @@ public class AcquistoController {
 		cli.getTes().setSaldoPunti(getSaldoPunti() + a.getPuntiGuadagnati()); 
 	}
 	
-	
-	//DA QUI IN POI CI SONO I METODI DA USARE SE LA VIEW NON FA I CALCOLI
-	
-	private float calcolaSommaSpesa() {
+	public float calcolaSommaSpesa() {
 		float sommaSpesa = (float) 1.0;
-		for (Prodotto prodotto : prodottiSelezionati) {
-			sommaSpesa += prodotto.getPrezzo();
+		for (ProdottoSelezionato prodotto : prodottiSelezionati) {
+			sommaSpesa += (prodotto.getPrezzo() * prodotto.getQuantita());
 		}
 		return sommaSpesa;
 	}
@@ -390,10 +384,8 @@ public class AcquistoController {
 	 * Viene applicato lo sconto selezionato dal cliente (solo tra i disponibili), l'importo totale viene diminuito
 	 * in base al valore dello sconto
 	 * 
-	 * @param puntiSullaTessera
-	 * @param sommaSpesa
-	 * 
-	 * @return scontiDisponibili
+	 * @param Sconto selezionato	 * 
+	 * @return Prezzo aggiornato
 	 */
 	public float applicaSconto(Sconto s) {
 		return calcolaSommaSpesa() - s.getValore();

@@ -272,7 +272,7 @@ public class SchedeController {
 	 * @param cognomePersonalTrainer sottostringa che deve comparire nel cognome personal trainer
 	 * @param dataInizio data dopo la quale la scheda deve essere attiva
 	 * @param dataFine data prima della quale la scheda deve essere attiva
-	 * @param tipologia vale 'A' oppure 'P'
+	 * @param tipologia vale 'Allenamento' oppure 'Nutrizionale'
 	 * @return schede filtrate
 	 */
 	public List<Scheda> applicaFiltro(List<Scheda> schede, String nomeCliente, String cognomeCliente, String nomePersonalTrainer,

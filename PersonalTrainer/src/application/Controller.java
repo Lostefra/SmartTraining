@@ -101,6 +101,13 @@ public class Controller {
 	}
 	
 	@FXML
+	public void viewStoricoSchede(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/StoricoSchede PersonalTrainer.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
+	@FXML
 	public void viewGestioneAccount (ActionEvent event) throws IOException {
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Gestione Account.fxml"));

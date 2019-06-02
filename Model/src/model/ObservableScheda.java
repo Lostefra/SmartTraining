@@ -1,4 +1,4 @@
-package application;
+package model;
 
 import java.time.LocalDate;
 
@@ -15,8 +15,9 @@ public class ObservableScheda implements ObservableValue<ObservableScheda>{
 	private String dataInizio;
 	private String dataFine;
 	private String tipologia;
+	private String id;
 	
-	public ObservableScheda(String nomeCliente, String cognomeCliente, String nomePT, String cognomePT,
+	public ObservableScheda(String id,String nomeCliente, String cognomeCliente, String nomePT, String cognomePT,
 			LocalDate dataInizio, LocalDate dataFine, String tipologia) {
 		super();
 		this.nomeCliente = nomeCliente;
@@ -26,12 +27,18 @@ public class ObservableScheda implements ObservableValue<ObservableScheda>{
 		this.dataInizio = dataInizio.format(Utilities.formatterData);
 		this.dataFine = dataFine.format(Utilities.formatterData);
 		this.tipologia = tipologia;
+		this.id = id;
 	}
 
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	
 	public String getCognomeCliente() {
 		return cognomeCliente;
 	}

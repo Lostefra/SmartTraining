@@ -65,8 +65,8 @@ public class SchedeController {
 							if(sa.getSessioni().contains(sessione)) { 
 								sessione = sa.getRemoveSessione(sessione);
 							}
-							sessione.getEsercizi().add(new Esercizio(campi[3], Integer.parseInt(campi[5]), 
-									Integer.parseInt(campi[6]), LocalTime.parse(campi[7], formatterOra)));
+							sessione.getEsercizi().add(new Esercizio(esercizio[3], Integer.parseInt(esercizio[5]), 
+									Integer.parseInt(esercizio[6]), LocalTime.parse(esercizio[7], formatterOra)));
 							sa.getSessioni().add(sessione);
 						}
 				
@@ -87,7 +87,7 @@ public class SchedeController {
 							if(pn.getPasti().contains(pasto)) { 
 								pasto = pn.getRemovePasto(pasto);
 							}
-							pasto.getAlimenti().add(new Alimento(campi[3], Integer.parseInt(campi[4])));
+							pasto.getAlimenti().add(new Alimento(alimento[3], Integer.parseInt(alimento[4])));
 							pn.getPasti().add(pasto);
 						}
 				
@@ -140,8 +140,8 @@ public class SchedeController {
 								if(sa.getSessioni().contains(sessione)) { 
 									sessione = sa.getRemoveSessione(sessione);
 								}
-								sessione.getEsercizi().add(new Esercizio(campi[3], Integer.parseInt(campi[5]), 
-										Integer.parseInt(campi[6]), LocalTime.parse(campi[7], formatterOra)));
+								sessione.getEsercizi().add(new Esercizio(esercizio[3], Integer.parseInt(esercizio[5]), 
+										Integer.parseInt(esercizio[6]), LocalTime.parse(esercizio[7], formatterOra)));
 								sa.getSessioni().add(sessione);
 							}
 					
@@ -162,7 +162,7 @@ public class SchedeController {
 								if(pn.getPasti().contains(pasto)) { 
 									pasto = pn.getRemovePasto(pasto);
 								}
-								pasto.getAlimenti().add(new Alimento(campi[3], Integer.parseInt(campi[4])));
+								pasto.getAlimenti().add(new Alimento(alimento[3], Integer.parseInt(alimento[4])));
 								pn.getPasti().add(pasto);
 							}
 					
@@ -220,7 +220,7 @@ public class SchedeController {
 								if(sa.getSessioni().contains(sessione)) { 
 									sessione = sa.getRemoveSessione(sessione);
 								}
-								sessione.getEsercizi().add(new Esercizio(campi[3], Integer.parseInt(campi[5]), 
+								sessione.getEsercizi().add(new Esercizio(esercizio[3], Integer.parseInt(esercizio[5]), 
 										Integer.parseInt(esercizio[6]), LocalTime.parse(esercizio[7], formatterOra)));
 								sa.getSessioni().add(sessione);
 							}
@@ -262,6 +262,8 @@ public class SchedeController {
 	
 	/**
 	 * //i parametri in input messi a null => non si filtra per quel paramentro
+	 * sull'idScheda si filtra per fare il get dei contenuti della scheda nella visualizzazione shede
+	 * non si può applicare filtro da interfaccia grafica
 	 * 
 	 * @param schede elenco di schede su cui applicare filtro
 	 * @param nomeCliente sottostringa che deve comparire nel nome cliente
@@ -274,7 +276,7 @@ public class SchedeController {
 	 * @return schede filtrate
 	 */
 	public List<Scheda> applicaFiltro(List<Scheda> schede, String nomeCliente, String cognomeCliente, String nomePersonalTrainer,
-			String cognomePersonalTrainer, LocalDate dataInizio, LocalDate dataFine, String tipologia){
+			String cognomePersonalTrainer, LocalDate dataInizio, LocalDate dataFine, String tipologia, String idScheda){
 		List<Scheda> res = new ArrayList<Scheda>();
 		for(Scheda s : schede) {
 			boolean tipoOK = false;
@@ -292,8 +294,9 @@ public class SchedeController {
 					(cognomePersonalTrainer == null || s.getPersonalTrainer().getCognome().contains(cognomePersonalTrainer)) &&
 					(dataInizio == null || !s.getDateInizio().plusWeeks(s.getDurataSettimane()).isBefore(dataInizio)) &&
 					(dataFine == null || !s.getDateInizio().isAfter(dataFine)) && 
-					(tipologia == null || tipoOK)) {
-				schede.add(s);
+					(tipologia == null || tipoOK) &&
+					(idScheda == null || s.getId().equals(idScheda))) {
+				res.add(s);
 			}			
 		}
 		return res;

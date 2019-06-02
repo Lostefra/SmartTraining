@@ -47,12 +47,12 @@
                            <children>
                               <TableView fx:id="lunTable" prefHeight="219.0" prefWidth="340.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                                  <columns>
-                                    <TableColumn fx:id="colAlun" prefWidth="178.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Esercizio" />
-                                    <TableColumn fx:id="colBlun" prefWidth="86.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Ripetizioni" />
-                                    <TableColumn fx:id="colClun" prefWidth="75.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Recupero" />
+                                    <TableColumn fx:id="colAlun" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
+                                    <TableColumn fx:id="colBlun" prefWidth="86.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
+                                    <TableColumn fx:id="colClun" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note1" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -68,12 +68,12 @@
                            <children>
                               <TableView fx:id="marTable" prefHeight="219.0" prefWidth="340.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                                  <columns>
-                                    <TableColumn fx:id="colAmar" prefWidth="178.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Esercizio" />
-                                    <TableColumn fx:id="colBmar" prefWidth="86.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Ripetizioni" />
-                                    <TableColumn fx:id="colCmar" prefWidth="75.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Recupero" />
+                                    <TableColumn fx:id="colAmar" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
+                                    <TableColumn fx:id="colBmar" prefWidth="86.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
+                                    <TableColumn fx:id="colCmar" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note2" wrapText="true" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -89,12 +89,12 @@
                            <children>
                               <TableView fx:id="merTable" prefHeight="219.0" prefWidth="340.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                                  <columns>
-                                    <TableColumn fx:id="colAmer" prefWidth="178.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Esercizio" />
-                                    <TableColumn fx:id="colBmer" prefWidth="86.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Ripetizioni" />
-                                    <TableColumn fx:id="colCmer" prefWidth="75.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Recupero" />
+                                    <TableColumn fx:id="colAmer" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
+                                    <TableColumn fx:id="colBmer" prefWidth="86.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
+                                    <TableColumn fx:id="colCmer" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note3" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -110,12 +110,12 @@
                            <children>
                               <TableView fx:id="gioTable" prefHeight="219.0" prefWidth="340.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                                  <columns>
-                                    <TableColumn fx:id="colAgio" prefWidth="178.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Esercizio" />
-                                    <TableColumn fx:id="colBgio" prefWidth="86.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Ripetizioni" />
-                                    <TableColumn fx:id="colCgio" prefWidth="75.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Recupero" />
+                                    <TableColumn fx:id="colAgio" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
+                                    <TableColumn fx:id="colBgio" prefWidth="86.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
+                                    <TableColumn fx:id="colCgio" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note4" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -131,12 +131,12 @@
                            <children>
                               <TableView fx:id="venTable" prefHeight="219.0" prefWidth="340.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                                  <columns>
-                                    <TableColumn fx:id="colAven" prefWidth="178.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Esercizio" />
-                                    <TableColumn fx:id="colBven" prefWidth="86.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Ripetizioni" />
-                                    <TableColumn fx:id="colCven" prefWidth="75.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Recupero" />
+                                    <TableColumn fx:id="colAven" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
+                                    <TableColumn fx:id="colBven" prefWidth="86.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
+                                    <TableColumn fx:id="colCven" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note5" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -152,12 +152,12 @@
                            <children>
                               <TableView fx:id="sabTable" prefHeight="219.0" prefWidth="340.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                                  <columns>
-                                    <TableColumn fx:id="colAsab" prefWidth="178.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Esercizio" />
-                                    <TableColumn fx:id="colBsab" prefWidth="86.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Ripetizioni" />
-                                    <TableColumn fx:id="colCsab" prefWidth="75.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Recupero" />
+                                    <TableColumn fx:id="colAsab" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
+                                    <TableColumn fx:id="colBsab" prefWidth="86.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
+                                    <TableColumn fx:id="colCsab" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note6" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -173,12 +173,12 @@
                            <children>
                               <TableView fx:id="domTable" prefHeight="219.0" prefWidth="340.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                                  <columns>
-                                    <TableColumn fx:id="colAdom" prefWidth="178.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Esercizio" />
-                                    <TableColumn fx:id="colBdom" prefWidth="86.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Ripetizioni" />
-                                    <TableColumn fx:id="colCdom" prefWidth="75.0" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Recupero" />
+                                    <TableColumn fx:id="colAdom" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
+                                    <TableColumn fx:id="colBdom" prefWidth="86.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
+                                    <TableColumn fx:id="colCdom" prefWidth="75.0" style="-fx-font-family: Verdana" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note7" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />

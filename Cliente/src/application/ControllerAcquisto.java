@@ -112,6 +112,11 @@ public class ControllerAcquisto {
 	        
 	        Collections.sort(sconti);
 	        tabellaSconti.getItems().setAll(sconti);
+	        
+	        tabellaSconti.setOnMouseClicked(e -> {
+	        	if(e.getClickCount() == 2) //Doppio click per selezionare lo sconto
+	        		totale.setText("" + ac.applicaSconto(tabellaSconti.getSelectionModel().getSelectedItem()));
+	        });
 	    }
 	}
 	
@@ -121,6 +126,8 @@ public class ControllerAcquisto {
 	 */
 	@FXML
 	public void initSelezionati() {
+		selezionati = ac.getSelezionati; //Dovrei prendere la lista dei selezionati ma se non ho aggiunto nulla è vuota
+		
 		codiceSelezionatiCol.setCellValueFactory(new PropertyValueFactory<ProdottoSelezionato, Integer>("codice"));
         prodottoSelezionatiCol.setCellValueFactory(new PropertyValueFactory<ProdottoSelezionato, String>("nome"));
         quantitaSelezionatiCol.setCellValueFactory(new PropertyValueFactory<ProdottoSelezionato, Integer>("quantita"));
@@ -199,6 +206,12 @@ public class ControllerAcquisto {
 		 
 		 tabellaSelezionati.getItems().remove(prodottoSel);
 		 totale.setText("" + ac.calcolaSommaSpesa());
+	}
+	
+	@FXML
+	public void conferma(ActionEvent event) {
+		Sconto s = tabellaSconti.getSelectionModel().getSelectedItem(); 
+		ac.conferma(s);
 	}
 
 	@FXML

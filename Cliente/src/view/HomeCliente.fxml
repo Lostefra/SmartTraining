@@ -20,7 +20,7 @@
             <Font name="Verdana" size="18.0" />
          </font>
       </Text>
-      <Button alignment="TOP_CENTER" layoutX="611.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/PT.jpg'); -fx-background-size: 120% 90%; -fx-background-repeat: no-repeat; -fx-background-position: -30 32; -fx-background-color: white;" text="Richiedi una scheda">
+      <Button onAction="#viewRichiesta" alignment="TOP_CENTER" layoutX="611.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/PT.jpg'); -fx-background-size: 120% 90%; -fx-background-repeat: no-repeat; -fx-background-position: -30 32; -fx-background-color: white;" text="Richiedi una scheda">
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>
@@ -28,7 +28,7 @@
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>
-      <Button alignment="TOP_CENTER" layoutX="27.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/25354.jpg'); -fx-background-position: -5 33; -fx-background-color: white; -fx-background-size: 130%; -fx-background-repeat: no-repeat;" text="Acquista un prodotto">
+      <Button onAction="#viewAcquisto" alignment="TOP_CENTER" layoutX="27.0" layoutY="213.0" mnemonicParsing="false" prefHeight="260.0" prefWidth="264.0" style="-fx-background-image: url('/images/25354.jpg'); -fx-background-position: -5 33; -fx-background-color: white; -fx-background-size: 130%; -fx-background-repeat: no-repeat;" text="Acquista un prodotto">
          <font>
             <Font name="Verdana Bold" size="14.0" />
          </font></Button>

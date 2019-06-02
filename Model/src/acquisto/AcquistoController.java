@@ -233,25 +233,6 @@ public class AcquistoController {
 	}
 	
 	/**
-	 * Gli articoli presenti nel carrello sono confermati, si aggiorna la tabella con gli sconti disponibili
-	 * in base al saldo punti e ai soldi spesi
-	 * 
-	 * @param puntiSullaTessera
-	 * @param sommaSpesa
-	 * 
-	 * @return scontiDisponibili
-	 */
-	public List<Sconto> confermaCarrello(int puntiSullaTessera, float sommaSpesa) {
-		ArrayList<Sconto> disp = new ArrayList<Sconto>();
-		for (Sconto sconto : getScontiDisponibili()) {
-			if(sconto.isAvailable(puntiSullaTessera, sommaSpesa))
-				disp.add(sconto);
-		}
-		return disp;
-	}
-	
-	
-	/**
 	 * Viene applicato lo sconto selezionato dal cliente (solo tra i disponibili), l'importo totale viene diminuito
 	 * in base al valore dello sconto
 	 * 

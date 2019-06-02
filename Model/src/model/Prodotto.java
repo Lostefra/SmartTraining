@@ -5,16 +5,16 @@ public class Prodotto implements Comparable<Prodotto> {
 	private String nome;
 	private float prezzo;
 	private String descrizione;
-	private int quantita;
+	private int disponibilita;
 	
 	
 	public Prodotto(int codice, String nome, float prezzo,
-					String descrizione, int quantita) {
+					String descrizione, int disponibilita) {
 		this.codice = codice;
 		this.nome = nome;
 		this.prezzo = prezzo;
 		this.descrizione = descrizione;
-		this.quantita = quantita;
+		this.disponibilita = disponibilita;
 	}
 
 
@@ -50,11 +50,11 @@ public class Prodotto implements Comparable<Prodotto> {
 	}
 
 
-	public int getQuantita() {
-		return quantita;
+	public int getDisponibilita() {
+		return disponibilita;
 	}
-	public void setQuantita(int quantita) {
-		this.quantita = quantita;
+	public void setDisponibilita(int disponibilita) {
+		this.disponibilita = disponibilita;
 	}
 	
 	@Override

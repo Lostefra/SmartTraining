@@ -52,7 +52,7 @@
                                     <TableColumn fx:id="colClun" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea fx:id="note1" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note1" wrapText="true" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -94,7 +94,7 @@
                                     <TableColumn fx:id="colCmer" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea fx:id="note3" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note3" wrapText="true" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -115,7 +115,7 @@
                                     <TableColumn fx:id="colCgio" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea fx:id="note4" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note4" wrapText="true" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -136,7 +136,7 @@
                                     <TableColumn fx:id="colCven" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea fx:id="note5" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note5" wrapText="true" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -157,7 +157,7 @@
                                     <TableColumn fx:id="colCsab" prefWidth="75.0" style="-fx-font-family: Verdana;" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea fx:id="note6" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note6" wrapText="true" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
@@ -178,7 +178,7 @@
                                     <TableColumn fx:id="colCdom" prefWidth="75.0" style="-fx-font-family: Verdana" text="Recupero" />
                                  </columns>
                               </TableView>
-                              <TextArea fx:id="note7" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
+                              <TextArea fx:id="note7" wrapText="true" layoutY="263.0" prefHeight="115.0" prefWidth="340.0" />
                               <Text layoutX="3.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note:">
                                  <font>
                                     <Font name="Verdana" size="14.0" />

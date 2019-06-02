@@ -280,22 +280,22 @@ public class SchedeController {
 		List<Scheda> res = new ArrayList<Scheda>();
 		for(Scheda s : schede) {
 			boolean tipoOK = false;
-			if(tipologia != null) {
-				if(tipologia.equals("A")) {
+			if(tipologia != null && !tipologia.equals("") && !tipologia.equalsIgnoreCase("Tutte") ) {
+				if(tipologia.equals("Allenamento")) {
 					tipoOK = s instanceof SchedaAllenamento;
 				}
-				else if(tipologia.equals("P")){
+				else if(tipologia.equals("Nutrizionale")){
 					tipoOK = s instanceof PianoNutrizionale;
 				}
 			}
-			if((nomeCliente == null || s.getCliente().getNome().contains(nomeCliente)) &&
-					(cognomeCliente == null || s.getCliente().getCognome().contains(cognomeCliente)) &&
-					(nomePersonalTrainer == null || s.getPersonalTrainer().getNome().contains(nomePersonalTrainer)) &&
-					(cognomePersonalTrainer == null || s.getPersonalTrainer().getCognome().contains(cognomePersonalTrainer)) &&
+			if((nomeCliente == null || nomeCliente.equals("") || s.getCliente().getNome().contains(nomeCliente)) &&
+					(cognomeCliente == null || cognomeCliente.equals("")|| s.getCliente().getCognome().contains(cognomeCliente)) &&
+					(nomePersonalTrainer == null || nomePersonalTrainer.equals("")|| s.getPersonalTrainer().getNome().contains(nomePersonalTrainer)) &&
+					(cognomePersonalTrainer == null || cognomePersonalTrainer.equals("")|| s.getPersonalTrainer().getCognome().contains(cognomePersonalTrainer)) &&
 					(dataInizio == null || !s.getDateInizio().plusWeeks(s.getDurataSettimane()).isBefore(dataInizio)) &&
 					(dataFine == null || !s.getDateInizio().isAfter(dataFine)) && 
-					(tipologia == null || tipoOK) &&
-					(idScheda == null || s.getId().equals(idScheda))) {
+					(tipologia == null ||tipologia.equals("")||tipologia.equalsIgnoreCase("Tutte")|| tipoOK) &&
+					(idScheda == null || idScheda.equals("") || s.getId().equals(idScheda))) {
 				res.add(s);
 			}			
 		}

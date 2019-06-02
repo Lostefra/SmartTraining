@@ -51,7 +51,7 @@
             </Glow>
          </effect>
       </ImageView>
-      <Button layoutX="758.0" layoutY="551.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="117.0" style="-fx-background-color: #006db3;" text="Storico Schede" textFill="WHITE">
+      <Button onAction="#storicoSchede" layoutX="758.0" layoutY="551.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="117.0" style="-fx-background-color: #006db3;" text="Storico Schede" textFill="WHITE">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

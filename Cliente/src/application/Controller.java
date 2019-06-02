@@ -88,6 +88,14 @@ public class Controller {
 	}
 	
 	@FXML
+	public void storicoSchede(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/StoricoSchedeCliente.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
+	
+	@FXML
 	public void viewLogin (ActionEvent event) throws IOException {
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Login.fxml"));

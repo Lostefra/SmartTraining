@@ -9,11 +9,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -29,7 +32,7 @@ import model.Sessione;
 import schede.SchedeController;
 import util.Utilities;
 
-public class ControllerAttuali {
+public class ControllerStorico {
 
 	AnchorPane root;
 	@FXML private TableView<ObservableScheda> listaSchede;
@@ -85,10 +88,16 @@ public class ControllerAttuali {
 	@FXML private TextArea note6;
 	@FXML private TextArea note7;
 	
-	 //vedere initialize confronto log controller carica log fxml
+	@FXML private DatePicker dataInizioFiltro;
+	@FXML private DatePicker dataFineFiltro;
+	@FXML private TextField nomeFiltro;
+	@FXML private TextField cognomeFiltro;
+	@FXML private ComboBox<String> tipologiaFiltro;
+	
+	
 	@FXML private void initialize()  {
 		SchedeController sc = new SchedeController();
-		List<Scheda> schede = sc.visualizzaAttuali(Utilities.leggiCliente(Main.idCliente));
+		List<Scheda> schede = sc.visualizzaStoricoCliente(Utilities.leggiCliente(Main.idCliente));
 		List<ObservableScheda> obsList = new ArrayList<>();
 		String tipologiaString;
 		for(Scheda s: schede) {
@@ -104,7 +113,8 @@ public class ControllerAttuali {
         cognome.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("cognomePT"));
         dataInizio.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("dataInizio"));
         dataFine.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("dataFine"));
-        tipologia.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("tipologia"));    
+        tipologia.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("tipologia"));  
+
         listaSchede.getItems().setAll(obsList);      
 
         listaSchede.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -117,14 +127,14 @@ public class ControllerAttuali {
             	}
             }
 
-        }); 
+        });    
         note1.setWrapText(true);
         note2.setWrapText(true);
         note3.setWrapText(true);
         note4.setWrapText(true);
         note5.setWrapText(true);
         note6.setWrapText(true);
-        note7.setWrapText(true);       
+        note7.setWrapText(true);
 	}
 	
 	private void initTab(Scheda scheda) {
@@ -152,26 +162,26 @@ public class ControllerAttuali {
 			colCdom.setText("Recupero");
 			
 			colAlun.setPrefWidth(178.0);
-			colBlun.setPrefWidth(84.0);
-			colClun.setPrefWidth(75.0);
+			colBlun.setPrefWidth(79.0);
+			colClun.setPrefWidth(70.0);
 			colAmar.setPrefWidth(178.0);
-			colBmar.setPrefWidth(84.0);
-			colCmar.setPrefWidth(75.0);
+			colBmar.setPrefWidth(79.0);
+			colCmar.setPrefWidth(70.0);
 			colAmer.setPrefWidth(178.0);
-			colBmer.setPrefWidth(84.0);
-			colCmer.setPrefWidth(75.0);
+			colBmer.setPrefWidth(79.0);
+			colCmer.setPrefWidth(70.0);
 			colAgio.setPrefWidth(178.0);
-			colBgio.setPrefWidth(84.0);
-			colCgio.setPrefWidth(75.0);
+			colBgio.setPrefWidth(79.0);
+			colCgio.setPrefWidth(70.0);
 			colAven.setPrefWidth(178.0);
-			colBven.setPrefWidth(84.0);
-			colCven.setPrefWidth(75.0);
+			colBven.setPrefWidth(79.0);
+			colCven.setPrefWidth(70.0);
 			colAsab.setPrefWidth(178.0);
-			colBsab.setPrefWidth(84.0);
-			colCsab.setPrefWidth(75.0);
+			colBsab.setPrefWidth(79.0);
+			colCsab.setPrefWidth(70.0);
 			colAdom.setPrefWidth(178.0);
-			colBdom.setPrefWidth(84.0);
-			colCdom.setPrefWidth(75.0);			
+			colBdom.setPrefWidth(79.0);
+			colCdom.setPrefWidth(70.0);			
 			
 			List<ObservableSchedaContenuto> listEsercizi = new ArrayList<>();		
 			for(Sessione s: ((SchedaAllenamento) scheda).getSessioni()) {
@@ -306,27 +316,27 @@ public class ControllerAttuali {
 			colBdom.setText("Alimento");
 			colCdom.setText("Peso (gr.)");
 			
-			colAlun.setPrefWidth(65.0);
-			colBlun.setPrefWidth(188.0);
-			colClun.setPrefWidth(84.0);
-			colAmar.setPrefWidth(65.0);
-			colBmar.setPrefWidth(188.0);
-			colCmar.setPrefWidth(84.0);
-			colAmer.setPrefWidth(65.0);
-			colBmer.setPrefWidth(188.0);
-			colCmer.setPrefWidth(84.0);
-			colAgio.setPrefWidth(65.0);
-			colBgio.setPrefWidth(188.0);
-			colCgio.setPrefWidth(84.0);
-			colAven.setPrefWidth(65.0);
-			colBven.setPrefWidth(188.0);
-			colCven.setPrefWidth(84.0);
-			colAsab.setPrefWidth(65.0);
-			colBsab.setPrefWidth(188.0);
-			colCsab.setPrefWidth(84.0);
-			colAdom.setPrefWidth(65.0);
-			colBdom.setPrefWidth(188.0);
-			colCdom.setPrefWidth(84.0);
+			colAlun.setPrefWidth(58.0);
+			colBlun.setPrefWidth(186.0);
+			colClun.setPrefWidth(83.0);
+			colAmar.setPrefWidth(58.0);
+			colBmar.setPrefWidth(186.0);
+			colCmar.setPrefWidth(83.0);
+			colAmer.setPrefWidth(58.0);
+			colBmer.setPrefWidth(186.0);
+			colCmer.setPrefWidth(83.0);
+			colAgio.setPrefWidth(58.0);
+			colBgio.setPrefWidth(186.0);
+			colCgio.setPrefWidth(83.0);
+			colAven.setPrefWidth(58.0);
+			colBven.setPrefWidth(186.0);
+			colCven.setPrefWidth(83.0);
+			colAsab.setPrefWidth(58.0);
+			colBsab.setPrefWidth(186.0);
+			colCsab.setPrefWidth(83.0);
+			colAdom.setPrefWidth(58.0);
+			colBdom.setPrefWidth(186.0);
+			colCdom.setPrefWidth(83.0);
 			
 			List<ObservableSchedaContenuto> listaAlimenti = new ArrayList<>();		
 			for(Pasto p: ((PianoNutrizionale) scheda).getPasti()) {
@@ -449,6 +459,28 @@ public class ControllerAttuali {
 		root = null;	
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeCliente.fxml"));
 		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
+	@FXML
+	public void applica(ActionEvent event) throws IOException {
+		SchedeController sc = new SchedeController();
+		List<Scheda> schede = sc.visualizzaStoricoCliente(Utilities.leggiCliente(Main.idCliente));
+		schede = sc.applicaFiltro(schede, Utilities.leggiCliente(Main.idCliente).getNome(), 
+				Utilities.leggiCliente(Main.idCliente).getCognome(), nomeFiltro.getText(), cognomeFiltro.getText(), 
+				dataInizioFiltro.getValue(), dataFineFiltro.getValue(), tipologiaFiltro.getValue(), null);
+		List<ObservableScheda> obsList = new ArrayList<>();
+		String tipologiaString;
+		for(Scheda s: schede) {
+			if(s instanceof SchedaAllenamento)
+				tipologiaString = "Scheda di Allenamento";
+			else
+				tipologiaString = "Piano Nutrizionale";
+			obsList.add(new ObservableScheda(s.getId(), s.getCliente().getNome(), s.getCliente().getCognome(),
+					s.getPersonalTrainer().getNome(), s.getPersonalTrainer().getCognome(), s.getDateInizio(),
+					s.getDateInizio().plusWeeks(s.getDurataSettimane()), tipologiaString));
+		}
+
+        listaSchede.getItems().setAll(obsList);      
 	}
 	
 }

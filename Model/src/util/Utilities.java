@@ -244,11 +244,10 @@ public class Utilities {
 								Integer.parseInt(utente[13]), LocalDateTime.parse(utente[14], formatterDataOra)), utente[3]);
 		}
 		reader.close();
+
 		return cliente;
 
-
 	}
-
 
 	/**
 	 * 
@@ -258,6 +257,7 @@ public class Utilities {
 	 * @return Personal Trainer
 	 * @throws NumberFormatException
 	 * @throws IOException
+<<<<<<< HEAD
 	 */
 
 	public static PersonalTrainer getPersonalTrainer(String username) throws NumberFormatException, IOException {
@@ -278,8 +278,6 @@ public class Utilities {
 
 
 	}
-
-
 
 	public static boolean eliminazione(int riga) {
 		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");

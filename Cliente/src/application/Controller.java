@@ -85,6 +85,14 @@ public class Controller {
 	}
 	
 	@FXML
+	public void viewAcquisto(ActionEvent e) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Acquisto.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+
+	}
+	
+	@FXML
 	public void gestioneAccount(ActionEvent event) throws IOException {
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/GestioneAccount.fxml"));
@@ -111,6 +119,13 @@ public class Controller {
 	public void viewLogin (ActionEvent event) throws IOException {
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
+	@FXML
+	public void viewRichiesta(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/RichiestaSchedaCliente.fxml"));
 		Main.stage.setScene(new Scene(root,900,600));
 	}
 	

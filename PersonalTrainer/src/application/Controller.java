@@ -195,7 +195,7 @@ public class Controller {
 
 	
 	private void fill (ObservableRichiesta observableRichiesta) throws NumberFormatException, IOException {
-		String idRichiesta = observableRichiesta.getId();
+		
 		RichiesteController rc = new RichiesteController();
 		Richiesta richiesta = null;
 		
@@ -206,7 +206,13 @@ public class Controller {
 		boolean found = false;
 		
 		for (int i = 0; i<richieste.size() && !found; i++) {
-			if (richieste.get(i).getId().equals(observableRichiesta.getId())) {
+/*			if(richieste.get(i) == null) {
+				System.out.println("richieste.get(i) " +i );
+			}
+			if(observableRichiesta == null) {
+				System.out.println("observableRichiesta");
+			}
+*/			if (richieste.get(i).getId().equals(observableRichiesta.getId())) {
 				richiesta = richieste.get(i);
 				found = true;
 			}

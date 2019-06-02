@@ -48,6 +48,14 @@ public class ProdottoSelezionato implements Comparable<ProdottoSelezionato> {
 	}
 	
 	@Override
+	public boolean equals(Object that) {
+		if(!(that instanceof ProdottoSelezionato))
+			return false;
+		int code = ((ProdottoSelezionato) that).getCodice();
+		return (this.getCodice() - code) == 0;
+	}
+	
+	@Override
 	public int compareTo(ProdottoSelezionato that) {
 		return this.getCodice() - that.getCodice();
 	}

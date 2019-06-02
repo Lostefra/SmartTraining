@@ -4,11 +4,14 @@ package acquisto;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.regex.Pattern;
+
 import model.Acquisto;
 import model.Cliente;
 import model.Prodotto;
@@ -72,7 +75,7 @@ public class AcquistoController {
 			//valore in euro|punti richiesti|spesa minima
 			while((line = bf_sconti.readLine()) != null) {
 				String[] campi = new String[100];
-				campi = line.split("|");
+				campi = line.split(Pattern.quote("|"));
 				
 				float prezzo = Float.parseFloat(campi[0]);
 				int puntiRichiesti = Integer.parseInt(campi[1]);
@@ -106,16 +109,16 @@ public class AcquistoController {
 	 * @return prodottiFiltrati
 	 */
 	public List<Prodotto> applicaFiltro(List<Prodotto> prodotti, OptionalInt codice, String nomeProdotto, 
-										Optional<Float> prezzoMin, Optional<Float> prezzoMax) {
-		List<Prodotto> prodottiFiltrati = new ArrayList<Prodotto>();
-		for (Prodotto prodotto : prodotti)
-			if((!codice.isPresent() || prodotto.getCodice() == codice.getAsInt()) &&
-					(nomeProdotto == null || prodotto.getNome().contains(nomeProdotto)) &&
+			Optional<Float> prezzoMin, Optional<Float> prezzoMax) {
+			List<Prodotto> prodottiFiltrati = new ArrayList<Prodotto>();
+			for (Prodotto prodotto : prodotti)
+				if((!codice.isPresent() || codice.getAsInt() ==-1 || prodotto.getCodice() == codice.getAsInt()) &&
+					(nomeProdotto == null|| nomeProdotto.contentEquals("")|| prodotto.getNome().contains(nomeProdotto)) &&
 					(!prezzoMin.isPresent() || prodotto.getPrezzo() > prezzoMin.get()) &&
 					(!prezzoMax.isPresent() || prodotto.getPrezzo() < prezzoMax.get()))
-				prodottiFiltrati.add(prodotto);
-		
-		return prodottiFiltrati;
+						prodottiFiltrati.add(prodotto);	
+			return prodottiFiltrati;
+
 	}
 	
 	/**
@@ -185,7 +188,7 @@ public class AcquistoController {
 	 * @return List<ProdottoSelezionato> aggiornata
 	 */
 	public List<ProdottoSelezionato> eliminaProdotto(ProdottoSelezionato p, int qty) {
-		List<ProdottoSelezionato> prodottiSelezionati = new ArrayList<ProdottoSelezionato>();
+		
 		aumentaDisponibilita(p, qty);
 		prodottiSelezionati.remove(p);
 		return prodottiSelezionati;
@@ -204,7 +207,7 @@ public class AcquistoController {
 			BufferedReader bf_prodotti = Utilities.apriFile("prodotti.txt");
 			StringBuffer inputBuffer = new StringBuffer();
 	        String line;
-	        int disp = -1;
+	        int disp;
 
 	        while ((line = bf_prodotti.readLine()) != null) {
 	            String[] res = new String[100];
@@ -251,11 +254,12 @@ public class AcquistoController {
 	/**
 	 * Viene confermato l'acquisto. Il sistema esterno procede a validare il pagamento, in caso di esito positivo viene aggiornato
 	 * il saldo punti e viene mandata la ricevuta via email.
+	 * @param idCliente 
 	 * 
 	 * @param Sconto selezionato
 	 * @return Esito operazione
 	 */
-	public boolean conferma(Sconto s) {
+	public boolean conferma(Sconto s, String idCliente) {
 		if(effettuaPagamento() == false) return false;
 		//Non c'è un while perché la conferma è manuale. Se il pagamento va male, si può anche decidere
 		//di tornare indietro
@@ -263,7 +267,8 @@ public class AcquistoController {
 		else {
 			Acquisto a = creaAcquisto();
 			aggiornaSaldoPunti(s);
-			mandaMail(a);
+			aggiungiPunti(a);
+			mandaMail(a, idCliente);
 			return true;
 		}
 	}
@@ -274,34 +279,38 @@ public class AcquistoController {
 	 */
 	private Acquisto creaAcquisto() {
 		int codice = Utilities.generaIntero(99999);
-		int puntiGuadagnati = (int) Math.floor(calcolaSommaSpesa() / 10);
+		int puntiGuadagnati = (int) Math.floor(calcolaSommaSpesa() / 5);
 		return new Acquisto(codice, LocalDateTime.now().format(Utilities.formatterDataOra), puntiGuadagnati);
 	}
 	
 	/**
 	 * Manda via mail la ricevuta dell'acquisto appena effettuato
+	 * @param idCliente 
 	 * @param acquisto
 	 */
-	private void mandaMail(Acquisto a) {
+	private void mandaMail(Acquisto a, String idCliente) {
 		/*Formato: Quantità acquistata nome, prezzo euro (volendo si possono aggiungere anche codice e prezzo per singolo prodotto)
 		 *  2 Integratori, 30 euro
 		 *  1 Integratore, 15 euro
 		 *  3 SteroidiSuperPower 150 euro
 		*/
-		
+		StringBuilder sa = new StringBuilder();
 		StringBuilder sb = new StringBuilder();
-		
+		sa.append("Ciao gentilissimo " + Utilities.leggiCliente(idCliente).getNome() +" "+
+				Utilities.leggiCliente(idCliente).getCognome()+", ecco il resoconto del tuo acquisto che ne attesta la validità.\n"
+						+ "Grazie per aver scelto Smart Training!\n\n");
+		sa.append(a.toString());
 		for (ProdottoSelezionato prodottoSel : prodottiSelezionati)
 			sb.append(prodottoSel.getQuantita() + " " + prodottoSel.getNome() + ", " +
-						prodottoSel.getPrezzo()*prodottoSel.getQuantita() + 
-						" € (prezzo singolo articolo: " + prodottoSel.getPrezzo() +" )\n");
+						prodottoSel.getPrezzo() + 
+						" € (prezzo singolo articolo: " + prodottoSel.getPrezzo()/(prodottoSel.getQuantita()*1.0) +" )\n");
 		
-		mail.Main.mandaMail("aaabbbccc@gmail.com", a.toString(), sb.toString());
+		mail.Main.mandaMail("lorenzomario.amorosa@gmail.com", sa.toString(), sb.toString());
 		//Indirizzo, header (Codice, DataOra, PuntiGuadagnati), listaArticoliAcquistati
 	}
 	
 	private boolean effettuaPagamento() {
-		if(Utilities.generaIntero(100) == 50) //Se l'intero generato è 50, fallisce (una possibilità su 100 di fallimento)
+		if(Utilities.generaIntero(100) > 50) //Se l'intero generato è 50, fallisce (una possibilità su 100 di fallimento)
 			return false;
 		return true;
 	}
@@ -322,12 +331,52 @@ public class AcquistoController {
 	}
 	
 	/**
-	 * Vengono scalati i se è stato selezionato uno sconto
+	 * Vengono scalati i punti se è stato selezionato uno sconto
 	 * 
 	 * @param sconto
 	 */
 	public void aggiornaSaldoPunti(Sconto s) {
-		cli.getTes().setSaldoPunti(getSaldoPunti() - s.getPuntiRichiesti()); 
+		if(s != null) {
+			cli.getTes().setSaldoPunti(getSaldoPunti() - s.getPuntiRichiesti());
+			boolean found = false;
+			StringBuilder sb = new StringBuilder();
+			BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
+			String line;
+			String[] utente = new String[100];
+			int i = 0;
+			try {
+				while((line = bf_utenti.readLine()) != null && !found) {
+					
+					utente = line.split(Pattern.quote("|"));
+					if(cli.getId().equals(utente[3])) 
+						found = true;
+					i++;	
+				}
+				if(!found)
+					return;
+				//se sei qui hai trovato l'utente di cui aggiornare i dati,
+				//in String[] utente ci sono i suoi vecchi dati
+				bf_utenti.close();
+				if(!Utilities.riscriviTranneRiga("utenti.txt", i))
+					return;
+				//ora bisogna aggiungere nuovamente nel file utenti.txt l'utente con dati nuovi
+				
+				PrintWriter pw = Utilities.apriFileAppend("utenti.txt");
+				
+				sb.append(utente[0]+"|"+utente[1]+"|"+utente[2]+"|"+utente[3]+"|"+utente[4]+"|"+
+						utente[5]+"|");
+				sb.append(utente[6]+"|");		
+				sb.append(utente[7]+"|"+utente[8]+"|"+utente[9]+"|");
+				sb.append(utente[10]+"|");
+				sb.append(utente[11]+"|");
+				sb.append(utente[12]+"|"+cli.getTes().getSaldoPunti()+"|"+utente[14]+"|"+utente[15]+"\n");
+				
+				pw.write(sb.toString());
+				pw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}
 	}
 	
 	/**
@@ -336,14 +385,58 @@ public class AcquistoController {
 	 * @param acquisto
 	 */
 	public void aggiungiPunti(Acquisto a) {
-		cli.getTes().setSaldoPunti(getSaldoPunti() + a.getPuntiGuadagnati()); 
+		cli.getTes().setSaldoPunti(getSaldoPunti() + a.getPuntiGuadagnati());
+		boolean found = false;
+		StringBuilder sb = new StringBuilder();
+		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
+		String line;
+		String[] utente = new String[100];
+		int i = 0;
+		try {
+			while((line = bf_utenti.readLine()) != null && !found) {
+				
+				utente = line.split(Pattern.quote("|"));
+				if(cli.getId().equals(utente[3])) 
+					found = true;
+				i++;	
+			}
+			if(!found)
+				return;
+			//se sei qui hai trovato l'utente di cui aggiornare i dati,
+			//in String[] utente ci sono i suoi vecchi dati
+			bf_utenti.close();
+			if(!Utilities.riscriviTranneRiga("utenti.txt", i))
+				return;
+			//ora bisogna aggiungere nuovamente nel file utenti.txt l'utente con dati nuovi
+			
+			PrintWriter pw = Utilities.apriFileAppend("utenti.txt");
+			
+			sb.append(utente[0]+"|"+utente[1]+"|"+utente[2]+"|"+utente[3]+"|"+utente[4]+"|"+
+					utente[5]+"|");
+			sb.append(utente[6]+"|");		
+			sb.append(utente[7]+"|"+utente[8]+"|"+utente[9]+"|");
+			sb.append(utente[10]+"|");
+			sb.append(utente[11]+"|");
+			sb.append(utente[12]+"|"+cli.getTes().getSaldoPunti()+"|"+utente[14]+"|"+utente[15]+"\n");
+			
+			pw.write(sb.toString());
+			pw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}			
 	}
 	
+	/**
+	 * 
+	 * @return somma totale da pagare
+	 */
 	public float calcolaSommaSpesa() {
-		float sommaSpesa = (float) 1.0;
+		float sommaSpesa = (float) 0.0;
 		for (ProdottoSelezionato prodotto : prodottiSelezionati) {
-			sommaSpesa += (prodotto.getPrezzo() * prodotto.getQuantita());
+			System.out.println(prodotto.getNome() +" "+prodotto.getPrezzo());
+			sommaSpesa += (prodotto.getPrezzo());
 		}
+		System.out.println("totale "+sommaSpesa);
 		return sommaSpesa;
 	}
 	

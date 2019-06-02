@@ -2,3 +2,6 @@
 12345|EMMEDDI'|5489.9|giu|9
 978|Pasticche|455|YdDIY|30
 391827|Integratori|2|vuy|10
+18723|integratoriTop|34.75|Madonna mo diventi un armadio|28
+18003|Maltodestrine|20|Salutari|30
+1003|Proteine|200|Le migliori|9

@@ -9,6 +9,7 @@ public class Acquisto {
 	public Acquisto(int codice, String dataOra, int puntiGuadagnati) {
 		this.codice = codice;
 		this.dataOra = dataOra;
+		this.puntiGuadagnati = puntiGuadagnati;
 	}
 	
 	public int getCodice() {

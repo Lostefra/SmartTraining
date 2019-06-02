@@ -6,6 +6,9 @@ public class Prodotto implements Comparable<Prodotto> {
 	private float prezzo;
 	private String descrizione;
 	private int disponibilita;
+	private Integer codiceInteger;
+	private Float prezzoFloat;
+	private Integer disponibilitaInteger;
 	
 	
 	public Prodotto(int codice, String nome, float prezzo,
@@ -15,6 +18,25 @@ public class Prodotto implements Comparable<Prodotto> {
 		this.prezzo = prezzo;
 		this.descrizione = descrizione;
 		this.disponibilita = disponibilita;
+		codiceInteger = new Integer(codice);
+		disponibilitaInteger = new Integer(disponibilita);
+		prezzoFloat = new Float(prezzo);
+
+	}
+
+
+	public Integer getCodiceInteger() {
+		return codiceInteger;
+	}
+
+
+	public Float getPrezzoFloat() {
+		return prezzoFloat;
+	}
+
+
+	public Integer getDisponibilitaInteger() {
+		return disponibilitaInteger;
 	}
 
 

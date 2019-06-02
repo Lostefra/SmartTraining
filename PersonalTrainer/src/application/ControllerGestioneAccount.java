@@ -27,7 +27,6 @@ public class ControllerGestioneAccount {
     @FXML private TextField luogoNascita;
     @FXML private TextField dataNascita;
     @FXML private TextField codiceFiscale;
-    @FXML private TextField tessera;
     @FXML private TextField email;
     @FXML private Button annulla;
     @FXML private Button conferma;
@@ -38,17 +37,16 @@ public class ControllerGestioneAccount {
     private String vecchiaEmail, vecchioNumero, vecchioIndirizzo;
     
   //questa funzione e' invocata automaticamente dal controller ad ogni caricamenti di file fxml
-  	@FXML private void initialize() {
+  	@FXML private void initialize() throws NumberFormatException, IOException {
   		getDatiUtente();
   	}
 
-	private void getDatiUtente() {
+	private void getDatiUtente() throws NumberFormatException, IOException {
 		GestioneAccountController gac = new GestioneAccountController();
 		PersonalTrainer c = Utilities.getPersonalTrainer(Main.usernamePT);
- 		tipologia.setText("Cliente");
+ 		tipologia.setText("Personal Trainer");
 		nome.setText(c.getNome());
 		cognome.setText(c.getCognome());
-		tessera.setText(c.getTes().getNumero() + "");
 		numero.setText(c.getNumTelefono());
 		indirizzo.setText(c.getIndirizzoResidenza());
 		luogoNascita.setText(c.getLuogoNascita());
@@ -59,7 +57,6 @@ public class ControllerGestioneAccount {
 		tipologia.setEditable(false);
 		nome.setEditable(false);
 		cognome.setEditable(false);
-		tessera.setEditable(false);
 		numero.setEditable(false);
 		indirizzo.setEditable(false);
 		luogoNascita.setEditable(false);
@@ -75,7 +72,7 @@ public class ControllerGestioneAccount {
 	}
 	
 	@FXML
-	public void eliminaAccount(ActionEvent event)
+	public void eliminaAccount(ActionEvent event) throws NumberFormatException, IOException
     {
 		GestioneAccountController gac = new GestioneAccountController();
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -93,7 +90,7 @@ public class ControllerGestioneAccount {
 		
 		if (result.get() == ButtonType.OK){
 
-			if(gac.eliminaAccount(Main.idCliente)) {
+			if(gac.eliminaAccount(Utilities.getPersonalTrainer(Main.usernamePT).getId())) {
 				inform("Eliminazione Account", "", "Eliminazione account effettuata con successo");
 				//se sei qui l'account e' stato eliminato correttamente
 				// da qui bisogna caricare fxml del
@@ -133,7 +130,6 @@ public class ControllerGestioneAccount {
 		tipologia.setDisable(true);
 		nome.setDisable(true);
 		cognome.setDisable(true);
-		tessera.setDisable(true);
 		luogoNascita.setDisable(true);
 		dataNascita.setDisable(true);
 		codiceFiscale.setDisable(true);
@@ -146,7 +142,7 @@ public class ControllerGestioneAccount {
     } 
 	
 	@FXML
-	public void conferma(ActionEvent event)
+	public void conferma(ActionEvent event) throws NumberFormatException, IOException
     {
 		GestioneAccountController gac = new GestioneAccountController();
 		String numeroParametro = null, indirizzoParametro =  null, emailParametro = null;
@@ -165,7 +161,7 @@ public class ControllerGestioneAccount {
 		emailParametro = email.getText();
 		numeroParametro = numero.getText();
 		indirizzoParametro = indirizzo.getText();
-		if(gac.modificaDati(Main.idCliente, emailParametro, indirizzoParametro, numeroParametro)) {
+		if(gac.modificaDati(Utilities.getPersonalTrainer(Main.usernamePT).getId(), emailParametro, indirizzoParametro, numeroParametro)) {
 			inform("Modifica dati", "", "Modifica effettuata con successo");
 			numero.setEditable(false);
 			indirizzo.setEditable(false);
@@ -174,7 +170,6 @@ public class ControllerGestioneAccount {
 			tipologia.setDisable(false);
 			nome.setDisable(false);
 			cognome.setDisable(false);
-			tessera.setDisable(false);
 			luogoNascita.setDisable(false);
 			dataNascita.setDisable(false);
 			codiceFiscale.setDisable(false);
@@ -203,7 +198,6 @@ public class ControllerGestioneAccount {
 		tipologia.setDisable(false);
 		nome.setDisable(false);
 		cognome.setDisable(false);
-		tessera.setDisable(false);
 		luogoNascita.setDisable(false);
 		dataNascita.setDisable(false);
 		codiceFiscale.setDisable(false);
@@ -218,7 +212,7 @@ public class ControllerGestioneAccount {
 	@FXML
 	public void indietro(ActionEvent event) throws IOException {
 		root = null;
-		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeCliente.fxml"));
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomePersonalTrainer.fxml"));
 		Main.stage.setScene(new Scene(root,900,600));
 	}
 	

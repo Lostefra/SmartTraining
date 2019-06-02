@@ -100,6 +100,13 @@ public class Controller {
 		
 	}
 	
+	@FXML
+	public void viewGestioneAccount (ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/Gestione Account.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
 	@FXML 
 	private void initialize() throws NumberFormatException, IOException {
 		getRichieste();
@@ -110,10 +117,6 @@ public class Controller {
 		
 		if(homeTab != null) {
 			pt = Utilities.getPersonalTrainer(Main.usernamePT);
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 
 			List<Richiesta> richieste = new ArrayList<>(rc.visualizzaRichieste(pt));
 			List<ObservableRichiesta> observableRichieste = new ArrayList<>();
@@ -136,20 +139,6 @@ public class Controller {
 					
 			});
 
-<<<<<<< HEAD
-=======
-		richieste = new ArrayList<>(rc.visualizzaRichieste(pt));
-		observableRichieste = new ArrayList<>();
-		for(Richiesta r : richieste)
-			observableRichieste.add(new ObservableRichiesta(r.getId(), r.getCliente().getNome(), r.getCliente().getCognome(), r, r.getDataOra(), r.getDataOra().format(Utilities.formatterDataOra)));
-		
-		idNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		idCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
-		idTipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-		idDataOra.setCellValueFactory(new PropertyValueFactory<>("dataOraStringa"));
-		homeTab.getItems().setAll(observableRichieste);
-
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 		}
 	}
 	
@@ -197,12 +186,7 @@ public class Controller {
 		viewLogin(event);
 		inform("Smart Training", "Registrazione avvenuta con successo!", "Benvenuto in Smart Training");
 	}
-<<<<<<< HEAD
-	
-=======
-	
 
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 	
 	private void fill (ObservableRichiesta observableRichiesta) throws NumberFormatException, IOException {
 		
@@ -275,12 +259,7 @@ public class Controller {
 		
 		
 	}
-<<<<<<< HEAD
-	
-=======
-	
 
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 	private boolean checkValuesRegistrazione() {
 		if (regUsername == null || regUsername.getText().length() < 5 || !isAlphaNumeric(regUsername.getText())) {
 			alert("Errore", "Errore username", "Lo username deve avere minimo 5 caratteri ed essere composto solo da lettere e numeri.");
@@ -294,13 +273,8 @@ public class Controller {
 			alert("Errore", "Errore nome", "Inserire il proprio nome");
 			return false;
 		}
-<<<<<<< HEAD
 
 		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regCognome.getText())) {
-=======
-		if (regCognome == null || regCognome.getText().length() < 1 || !isAlphabetic(regCognome.getText())) {
-
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 			alert("Errore", "Errore cognome", "Inserire il proprio cognome");
 			return false;
 		}

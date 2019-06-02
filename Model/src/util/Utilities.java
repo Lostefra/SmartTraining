@@ -244,20 +244,11 @@ public class Utilities {
 								Integer.parseInt(utente[13]), LocalDateTime.parse(utente[14], formatterDataOra)), utente[3]);
 		}
 		reader.close();
-<<<<<<< HEAD
-		return cliente;
-=======
-		return cliente;
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 
-<<<<<<< HEAD
-	}
-=======
+		return cliente;
 
 	}
 
-
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 	/**
 	 * 
 	 * Ritorna il Personal trainer dallo username dato
@@ -268,10 +259,7 @@ public class Utilities {
 	 * @throws IOException
 <<<<<<< HEAD
 	 */
-=======
-	 */
 
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 	public static PersonalTrainer getPersonalTrainer(String username) throws NumberFormatException, IOException {
 		BufferedReader reader = apriFile("utenti.txt");
 		PersonalTrainer personalTrainer = null;
@@ -287,18 +275,10 @@ public class Utilities {
 		}
 		reader.close();
 		return personalTrainer;
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 
 	}
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> branch 'master' of https://github.com/Lostefra/SmartTraining
 	public static boolean eliminazione(int riga) {
 		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
 		String line = null;

@@ -10,12 +10,12 @@
 
 <AnchorPane fx:controller="application.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="344.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciao MARIO!">
+      <Text fx:id="welcome" layoutX="344.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" >
          <font>
             <Font name="Verdana" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="326.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hai la bellezza di 1000 punti!">
+      <Text fx:id="welcome2" layoutX="326.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font name="Verdana" size="18.0" />
          </font>

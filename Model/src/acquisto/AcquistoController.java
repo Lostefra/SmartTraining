@@ -90,6 +90,9 @@ public class AcquistoController {
 		return scontiDisp;
 	}
 	
+	public List<ProdottoSelezionato> getSelezionati() {
+		return prodottiSelezionati;
+	}
 	
 	/**
 	 * I parametri in input messi a null (Optional)  => non si filtra per quel paramentro 

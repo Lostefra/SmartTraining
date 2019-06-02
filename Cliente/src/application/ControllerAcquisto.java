@@ -220,9 +220,11 @@ public class ControllerAcquisto {
 	public void indietro(ActionEvent e) {
 		root = null;
 		try {
-			for (int i = 0; i < tabellaSelezionati.getItems().size(); i++) {
-				ProdottoSelezionato current = tabellaSelezionati.getItems().get(i);
-				ac.aumentaDisponibilita(current, current.getQuantita());
+			if(tabellaSelezionati != null) {
+				for (int i = 0; i < tabellaSelezionati.getItems().size(); i++) {
+					ProdottoSelezionato current = tabellaSelezionati.getItems().get(i);
+					ac.aumentaDisponibilita(current, current.getQuantita());
+				}
 			}
 			
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeCliente.fxml"));

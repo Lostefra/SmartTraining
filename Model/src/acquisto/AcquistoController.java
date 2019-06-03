@@ -113,9 +113,9 @@ public class AcquistoController {
 			List<Prodotto> prodottiFiltrati = new ArrayList<Prodotto>();
 			for (Prodotto prodotto : prodotti)
 				if((!codice.isPresent() || codice.getAsInt() ==-1 || prodotto.getCodice() == codice.getAsInt()) &&
-					(nomeProdotto == null|| nomeProdotto.contentEquals("")|| prodotto.getNome().contains(nomeProdotto)) &&
-					(!prezzoMin.isPresent() || prodotto.getPrezzo() > prezzoMin.get()) &&
-					(!prezzoMax.isPresent() || prodotto.getPrezzo() < prezzoMax.get()))
+					(nomeProdotto == null|| nomeProdotto.contentEquals("")|| prodotto.getNome().toLowerCase().contains(nomeProdotto.toLowerCase())) &&
+					(!prezzoMin.isPresent() || prodotto.getPrezzo() >= prezzoMin.get()) &&
+					(!prezzoMax.isPresent() || prodotto.getPrezzo() <= prezzoMax.get()))
 						prodottiFiltrati.add(prodotto);	
 			return prodottiFiltrati;
 
@@ -305,7 +305,7 @@ public class AcquistoController {
 						prodottoSel.getPrezzo() + 
 						" € (prezzo singolo articolo: " + prodottoSel.getPrezzo()/(prodottoSel.getQuantita()*1.0) +" )\n");
 		
-		mail.Main.mandaMail("lorenzomario.amorosa@gmail.com", sa.toString(), sb.toString());
+		mail.Main.mandaMail("davidedambrix@gmail.com", sa.toString(), sb.toString());
 		//Indirizzo, header (Codice, DataOra, PuntiGuadagnati), listaArticoliAcquistati
 	}
 	

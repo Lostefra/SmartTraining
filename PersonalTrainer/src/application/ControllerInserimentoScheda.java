@@ -247,7 +247,7 @@ public class ControllerInserimentoScheda {
 			sun.getEsercizi().add(new Esercizio(esercizio.getText(), Integer.parseInt(serie.getText()), 
 					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue())));
 		
-		
+		\\
 		fillTable();
 		
 	}

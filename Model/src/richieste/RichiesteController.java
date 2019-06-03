@@ -100,11 +100,19 @@ public class RichiesteController {
 			//CODICE OK
 			PrintWriter pw_richieste = Utilities.apriFileAppend("richieste.txt");
 			StringBuilder richiesta = new StringBuilder(codice+ "|"+ c.getId()+ "|"+p.getId()+ "|");
-			richiesta.append(LocalDateTime.now().format(formatterDataOra)+ "|"+ dataInizio.format(formatterData)+ "|"+durataSettimane);
-			if(note== null)
-				richiesta.append("|null|A|" + numeroAllenamentiSettimanali +"|null|null|null\n");
+			richiesta.append(LocalDateTime.now().format(formatterDataOra)+ "|");
+			if(dataInizio== null)
+				richiesta.append("null|");
 			else
-				richiesta.append("|"+ note+ "|A|" + numeroAllenamentiSettimanali+"|null|null|null\n");
+				richiesta.append(dataInizio.format(formatterData)+ "|");
+			if(durataSettimane< 0)
+				richiesta.append("null|");
+			else
+				richiesta.append(durataSettimane + "|");			
+			if(note == null|| note.equals(""))
+				richiesta.append("null|A|" + numeroAllenamentiSettimanali +"|null|null|null\n");
+			else
+				richiesta.append(note+ "|A|" + numeroAllenamentiSettimanali+"|null|null|null\n");
 			pw_richieste.write(richiesta.toString());
 			pw_richieste.close();
 			res = true;
@@ -146,16 +154,23 @@ public class RichiesteController {
 			//CODICE OK
 			PrintWriter pw_richieste = Utilities.apriFileAppend("richieste.txt");
 			StringBuilder richiesta = new StringBuilder(codice+ "|"+ c.getId()+ "|"+p.getId()+ "|");
-			richiesta.append(LocalDateTime.now().format(formatterDataOra)+ "|"+ dataInizio.format(formatterData)+ "|"+durataSettimane);
-			if(note == null)
-				richiesta.append("|null|P|null|" + altezza +"|"+ peso+"|");
+			richiesta.append(LocalDateTime.now().format(formatterDataOra)+ "|");
+			if(dataInizio== null)
+				richiesta.append("null|");
 			else
-				richiesta.append("|"+ note+ "|P|null|" + altezza +"|"+ peso+"|");
-			if(elencoAllergeni == null)
+				richiesta.append(dataInizio.format(formatterData)+ "|");
+			if(durataSettimane< 0)
+				richiesta.append("null|");
+			else
+				richiesta.append(durataSettimane + "|");	
+			if(note == null|| note.equals(""))
+				richiesta.append("null|P|null|" + altezza +"|"+ peso+"|");
+			else
+				richiesta.append(note+ "|P|null|" + altezza +"|"+ peso+"|");
+			if(elencoAllergeni == null || elencoAllergeni.equals(""))
 				richiesta.append("null\n");
 			else
-				richiesta.append(elencoAllergeni + '\n');
-			
+				richiesta.append(elencoAllergeni + '\n');		
 			pw_richieste.write(richiesta.toString());
 			pw_richieste.close();
 			res = true;
@@ -246,8 +261,37 @@ public class RichiesteController {
 			while((line = bf_utenti.readLine()) != null) {		
 				String[] richiesta = new String[100];
 				richiesta = line.split(Pattern.quote("|"));
-				if(richiesta[2].equals("P")) {	//utente e' PersonalTrainer 
+				if(!richiesta[0].equals("null") && !richiesta[0].equals("deleted") && richiesta[2].equals("P")) {	//utente e' PersonalTrainer 
 					PersonalTrainer p = Utilities.leggiPersonalTrainer(richiesta[3]);
+					lista.add(p);
+				}		
+				
+			}
+			bf_utenti.close();
+		} catch (IOException e) {
+		
+		}
+		return lista;
+	}
+	
+	/**
+	 * 
+	 * @param nome
+	 * @param cognome
+	 * @return lista personal trainer filtrata per nome e cognome
+	 */
+	public List<PersonalTrainer> getElencoPersonalTrainerFiltro(String nome, String cognome){
+		List<PersonalTrainer> lista = new ArrayList<PersonalTrainer>();	
+		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
+		String line;
+		try {	
+			while((line = bf_utenti.readLine()) != null) {		
+				String[] richiesta = new String[100];
+				richiesta = line.split(Pattern.quote("|"));
+				if(!richiesta[0].equals("null") && !richiesta[0].equals("deleted") && richiesta[2].equals("P")) {	//utente e' PersonalTrainer 
+					PersonalTrainer p = Utilities.leggiPersonalTrainer(richiesta[3]);
+					if((nome == null || nome.equals("")|| p.getNome().contains(nome)) &&
+							(cognome == null || cognome.equals("")|| p.getCognome().contains(cognome))) 
 					lista.add(p);
 				}		
 				

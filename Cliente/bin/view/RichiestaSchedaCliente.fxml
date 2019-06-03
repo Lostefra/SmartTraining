@@ -8,16 +8,19 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.sc"src/view/RichiestaSchedaCliente.fxml"ene.layout.AnchorPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections ?>
+<?import java.lang.String?>
+
 
 <AnchorPane fx:controller="application.ControllerRichiesta" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff; -fx-font-family: Verdana;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ComboBox fx:id="NONLOSO" layoutX="345.0" layoutY="769.0" prefWidth="150.0" promptText="-Scegli-" />
       <TableView fx:id="tablePT" layoutX="207.0" layoutY="244.0" prefHeight="270.0" prefWidth="246.0" stylesheets="@AAAAAA.css">
         <columns>
-          <TableColumn fx:id="colNome" prefWidth="115.20002746582031" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Nome" />
-          <TableColumn fx:id="colCognome" prefWidth="128.79998779296875" style="-fx-font-family: Verdana; -fx-background-color: #039be5;" text="Cognome" />
+          <TableColumn fx:id="colNome" prefWidth="115.20002746582031" style="-fx-font-family: Verdana;" text="Nome" />
+          <TableColumn fx:id="colCognome" prefWidth="126.79998779296875" style="-fx-font-family: Verdana;" text="Cognome" />
         </columns>
       </TableView>
       <TextField fx:id="nomeText" layoutX="207.0" layoutY="141.0" promptText="Nome" style="-fx-background-color: #eeeeee;" />
@@ -35,7 +38,14 @@
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <ComboBox fx:id="tipologia" layoutX="92.0" layoutY="35.0" prefHeight="23.0" prefWidth="150.0" promptText="Piano Nutrizionale" />
+            <ComboBox onAction="#selezioneTipologia" fx:id="tipologia" layoutX="92.0" layoutY="35.0" prefHeight="23.0" prefWidth="150.0" value="Nutrizionale">
+	 		<items>
+	       		<FXCollections fx:factory="observableArrayList">
+	     		 <String fx:value="Allenamento" />
+	     		 <String fx:value="Nutrizionale" />  
+	       		</FXCollections>
+	    	</items>
+	   </ComboBox>
             <Label layoutX="24.0" layoutY="70.0" text="Data Inizio:">
                <font>
                   <Font name="Verdana" size="12.0" />
@@ -48,7 +58,7 @@
             </Label>
             <DatePicker fx:id="dataInizio" layoutX="102.0" layoutY="66.0" style="-fx-background-color: #eeeeee;" />
             <TextField fx:id="durataSettimane" layoutX="180.0" layoutY="94.0" prefHeight="23.0" prefWidth="50.0" style="-fx-background-color: #eeeeee;" />
-            <Label layoutX="240.0" layoutY="98.0" style="-fx-font-weight: Italic;" text="Opzionale">
+            <Label fx:id="labelOpzionale" layoutX="240.0" layoutY="98.0"  text="Opzionale">
                <font>
                   <Font name="Verdana Italic" size="11.0" />
                </font>
@@ -65,33 +75,33 @@
                </font>
             </Label>
             <TextField fx:id="altezza" layoutX="111.0" layoutY="148.0" prefHeight="23.0" prefWidth="63.0" style="-fx-background-color: #eeeeee;" />
-            <TextArea layoutX="70.0" layoutY="288.0" prefHeight="139.0" prefWidth="246.0" promptText="Opzionale" style="-fx-background-color: #eeeeee;" />
-            <Label layoutX="24.0" layoutY="288.0" text="Note:">
+            <TextArea fx:id="note" layoutX="70.0" layoutY="288.0" prefHeight="139.0" prefWidth="246.0" promptText="Opzionale" style="-fx-background-color: #eeeeee;" />
+            <Label  layoutX="24.0" layoutY="288.0" text="Note:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
             <Label layoutX="25.0" layoutY="218.0" text="Allergeni:" />
-            <TextArea layoutX="88.0" layoutY="217.0" prefHeight="64.0" prefWidth="229.0" style="-fx-background-color: #eeeeee;" />
+            <TextArea fx:id="allergeni" layoutX="88.0" layoutY="217.0" prefHeight="64.0" prefWidth="229.0" style="-fx-background-color: #eeeeee;" />
             <Label disable="true" layoutX="24.0" layoutY="185.0" text="N allenamenti settiamanali:">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextField disable="true" layoutX="198.0" layoutY="181.0" prefHeight="23.0" prefWidth="63.0" style="-fx-background-color: #eeeeee;" />
+            <TextField fx:id="numeroAllenamenti" disable="true" layoutX="198.0" layoutY="181.0" prefHeight="23.0" prefWidth="63.0" style="-fx-background-color: #eeeeee;" />
          </children>
       </AnchorPane>
-      <Button layoutX="379.0" layoutY="173.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Cerca" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+      <Button onAction="#cerca" layoutX="379.0" layoutY="173.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Cerca" textAlignment="CENTER" textFill="WHITE" wrapText="false">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="41.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #eeeeee;" text="Indietro" textAlignment="CENTER" textFill="#090909" wrapText="false">
+      <Button onAction="#indietro" layoutX="41.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #eeeeee;" text="Indietro" textAlignment="CENTER" textFill="#090909" wrapText="false">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="779.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Inserisci" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+      <Button onAction="#inserisci" layoutX="779.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Inserisci" textAlignment="CENTER" textFill="WHITE" wrapText="false">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

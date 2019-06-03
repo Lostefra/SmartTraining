@@ -16,6 +16,8 @@ public class ObservableScheda implements ObservableValue<ObservableScheda>{
 	private String dataFine;
 	private String tipologia;
 	private String id;
+	private String cliente;
+	private String pt;
 	
 	public ObservableScheda(String id,String nomeCliente, String cognomeCliente, String nomePT, String cognomePT,
 			LocalDate dataInizio, LocalDate dataFine, String tipologia) {
@@ -28,6 +30,16 @@ public class ObservableScheda implements ObservableValue<ObservableScheda>{
 		this.dataFine = dataFine.format(Utilities.formatterData);
 		this.tipologia = tipologia;
 		this.id = id;
+		this.cliente = nomeCliente + " " + cognomeCliente;
+		this.pt = nomePT + " " + cognomePT;
+	}
+
+	public String getCliente() {
+		return cliente;
+	}
+
+	public String getPt() {
+		return pt;
 	}
 
 	public String getNomeCliente() {

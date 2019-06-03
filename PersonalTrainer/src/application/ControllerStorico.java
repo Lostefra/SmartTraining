@@ -32,16 +32,13 @@ import model.Scheda;
 import model.SchedaAllenamento;
 import model.Sessione;
 import schede.SchedeController;
-import util.Utilities;
 
 public class ControllerStorico {
 
 	AnchorPane root;
 	@FXML private TableView<ObservableScheda> listaSchede;
-	@FXML private TableColumn<ObservableScheda, String> nomePT;
-	@FXML private TableColumn<ObservableScheda, String> cognomePT;
-	@FXML private TableColumn<ObservableScheda, String> nomeCliente;
-	@FXML private TableColumn<ObservableScheda, String> cognomeCliente;
+	@FXML private TableColumn<ObservableScheda, String> cliente;
+	@FXML private TableColumn<ObservableScheda, String> pt;
 	@FXML private TableColumn<ObservableScheda, String> dataInizio;
 	@FXML private TableColumn<ObservableScheda, String> dataFine;
 	@FXML private TableColumn<ObservableScheda, String> tipologia;
@@ -121,10 +118,8 @@ public class ControllerStorico {
 					s.getPersonalTrainer().getNome(), s.getPersonalTrainer().getCognome(), s.getDateInizio(),
 					s.getDateInizio().plusWeeks(s.getDurataSettimane()), tipologiaString));
 		}
-		nomePT.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("nomePT"));
-        cognomePT.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("cognomePT"));
-        nomeCliente.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("nomeCliente"));
-        cognomeCliente.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("cognomeCliente"));
+		cliente.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("cliente"));
+        pt.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("pt"));
         dataInizio.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("dataInizio"));
         dataFine.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("dataFine"));
         tipologia.setCellValueFactory(new PropertyValueFactory<ObservableScheda, String>("tipologia"));  

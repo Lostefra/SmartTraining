@@ -19,7 +19,7 @@
           <TableColumn prefWidth="105.79998779296875" text="Data" fx:id="idDataOra"/>
         </columns>
       </TableView>
-      <Button layoutX="796.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: #006db3;" text="Rispondi" textFill="WHITE">
+      <Button onAction="#viewInserimento" layoutX="796.0" layoutY="550.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: #006db3;" text="Rispondi" textFill="WHITE">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

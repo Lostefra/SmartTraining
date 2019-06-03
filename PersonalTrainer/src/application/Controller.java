@@ -101,6 +101,19 @@ public class Controller {
 	}
 	
 	@FXML
+	public void viewInserimento(ActionEvent event) throws IOException {
+		root = null;
+		
+		if (Main.tipologiaScheda.equals("Piano Nutrizionale")) {
+			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/InserimentoPiano.fxml"));
+			Main.stage.setScene(new Scene(root,900,600));
+		}else if (Main.tipologiaScheda.equals("Scheda di Allenamento")) {
+			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/InserimentoScheda.fxml"));
+			Main.stage.setScene(new Scene(root,900,600));
+		}
+		
+	}
+	@FXML
 	public void viewStoricoSchede(ActionEvent event) throws IOException {
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/StoricoSchede PersonalTrainer.fxml"));
@@ -139,6 +152,7 @@ public class Controller {
 			homeTab.setOnMouseClicked(e -> {
 						try {
 							fill(homeTab.getSelectionModel().getSelectedItem());
+							Main.tipologiaScheda = homeTab.getSelectionModel().getSelectedItem().getTipologia();
 						} catch (NumberFormatException | IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

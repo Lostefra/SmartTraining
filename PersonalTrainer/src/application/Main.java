@@ -12,6 +12,8 @@ public class Main extends Application {
 	static public Stage stage;
 	static public String usernamePT;
 	static public String idPT;
+	static public String usernameC;
+	static public String tipologiaScheda;
 
 	@Override
 	public void start(Stage primaryStage) {

@@ -81,6 +81,7 @@ public class Controller {
 			
 			
 			Main.usernamePT = username.getText();
+			Main.idPT = Utilities.getPersonalTrainer(Main.usernamePT).getId();
 			
 			Main.stage.setTitle("Smart Training - PersonalTrainer");
 			viewHomePersonalTrainer(event);
@@ -103,7 +104,8 @@ public class Controller {
 	@FXML
 	public void viewInserimento(ActionEvent event) throws IOException {
 		root = null;
-		
+		if (Main.tipologiaScheda == null )
+			return;
 		if (Main.tipologiaScheda.equals("Piano Nutrizionale")) {
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/InserimentoPiano.fxml"));
 			Main.stage.setScene(new Scene(root,900,600));
@@ -153,8 +155,10 @@ public class Controller {
 						try {
 							fill(homeTab.getSelectionModel().getSelectedItem());
 							Main.tipologiaScheda = homeTab.getSelectionModel().getSelectedItem().getTipologia();
+							Main.idC = homeTab.getSelectionModel().getSelectedItem().getIdCliente();
+							Main.idRichiesta = homeTab.getSelectionModel().getSelectedItem().getId();
 						} catch (NumberFormatException | IOException e1) {
-							// TODO Auto-generated catch block
+							
 							e1.printStackTrace();
 						}
 					
@@ -171,13 +175,6 @@ public class Controller {
 		
 		Main.stage.setScene(new Scene(root,900,600));
 		
-		/*regDataNascita.setDayCellFactory(d -> new DateCell() {
-            @Override 
-            public void updateItem(LocalDate item, boolean empty) {
-                super.updateItem(item, empty);
-                setDisable(empty || item.isAfter(LocalDate.now().minusYears(14)) || item.isBefore(LocalDate.now().minusYears(90)));
-            }});
-		*/
     }
 	 
 	@FXML
@@ -221,13 +218,7 @@ public class Controller {
 		boolean found = false;
 		
 		for (int i = 0; i<richieste.size() && !found; i++) {
-/*			if(richieste.get(i) == null) {
-				System.out.println("richieste.get(i) " +i );
-			}
-			if(observableRichiesta == null) {
-				System.out.println("observableRichiesta");
-			}
-*/			if (richieste.get(i).getId().equals(observableRichiesta.getId())) {
+			if (richieste.get(i).getId().equals(observableRichiesta.getId())) {
 				richiesta = richieste.get(i);
 				found = true;
 			}

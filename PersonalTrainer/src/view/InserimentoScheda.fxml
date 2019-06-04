@@ -104,7 +104,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="330.0">
                      <children>
-                        <TableView fx:id="lunTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@SmartTraining/PersonalTrainer/src/view/AAAAAA.css">
+                        <TableView fx:id="lunTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                            <columns>
                               <TableColumn fx:id="colAlun" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
                               <TableColumn fx:id="colBlun" prefWidth="81.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
@@ -119,7 +119,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="marTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@SmartTraining/PersonalTrainer/src/view/AAAAAA.css">
+                        <TableView fx:id="marTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                            <columns>
                               <TableColumn fx:id="colAmar" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
                               <TableColumn fx:id="colBmar" prefWidth="81.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
@@ -134,7 +134,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="merTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@SmartTraining/PersonalTrainer/src/view/AAAAAA.css">
+                        <TableView fx:id="merTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                            <columns>
                               <TableColumn fx:id="colAmer" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
                               <TableColumn fx:id="colBmer" prefWidth="81.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
@@ -149,7 +149,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="gioTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@SmartTraining/PersonalTrainer/src/view/AAAAAA.css">
+                        <TableView fx:id="gioTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                            <columns>
                               <TableColumn fx:id="colAgio" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
                               <TableColumn fx:id="colBgio" prefWidth="81.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
@@ -164,7 +164,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="venTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@SmartTraining/PersonalTrainer/src/view/AAAAAA.css">
+                        <TableView fx:id="venTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                            <columns>
                               <TableColumn fx:id="colAven" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
                               <TableColumn fx:id="colBven" prefWidth="81.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
@@ -179,7 +179,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="330.0">
                      <children>
-                        <TableView fx:id="sabTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@SmartTraining/PersonalTrainer/src/view/AAAAAA.css">
+                        <TableView fx:id="sabTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                            <columns>
                               <TableColumn fx:id="colAsab" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
                               <TableColumn fx:id="colBsab" prefWidth="81.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />
@@ -194,7 +194,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="330.0">
                      <children>
-                        <TableView fx:id="domTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@SmartTraining/PersonalTrainer/src/view/AAAAAA.css">
+                        <TableView fx:id="domTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
                            <columns>
                               <TableColumn fx:id="colAdom" prefWidth="178.0" style="-fx-font-family: Verdana;" text="Esercizio" />
                               <TableColumn fx:id="colBdom" prefWidth="81.0" style="-fx-font-family: Verdana;" text="Ripetizioni" />

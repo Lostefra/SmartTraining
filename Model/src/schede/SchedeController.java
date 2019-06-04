@@ -331,12 +331,12 @@ public class SchedeController {
 			bf_schede.close();
 			PrintWriter pw_schede = Utilities.apriFileAppend("schede.txt");
 			String scheda; 
-			if(note != null)
+			if(note != null && !note.equals(""))
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
-						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|P\n";
+						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|A\n";
 			else
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
-						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|P\n";
+						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|A\n";
 		
 			pw_schede.write(scheda);
 			pw_schede.close();
@@ -350,7 +350,7 @@ public class SchedeController {
 				res=true; //la scheda contiene almeno un esercizio
 			}
 			pw_esercizi.close();
-			
+
 		} catch(Exception e) {
 			
 		}
@@ -386,12 +386,12 @@ public class SchedeController {
 			bf_schede.close();
 			PrintWriter pw_schede = Utilities.apriFileAppend("schede.txt");
 			String scheda;
-			if(note != null)
+			if(note != null && !note.equals(""))
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
-						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|A";
+						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|P";
 			else
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
-						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|A\n";
+						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|P\n";
 		
 			pw_schede.write(scheda);
 			pw_schede.close();

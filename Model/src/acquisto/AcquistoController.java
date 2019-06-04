@@ -305,7 +305,7 @@ public class AcquistoController {
 						prodottoSel.getPrezzo() + 
 						" € (prezzo singolo articolo: " + prodottoSel.getPrezzo()/(prodottoSel.getQuantita()*1.0) +" )\n");
 		
-		mail.Main.mandaMail("davidedambrix@gmail.com", sa.toString(), sb.toString());
+		mail.Main.mandaMail(Utilities.leggiCliente(idCliente).getEmail(), sa.toString(), sb.toString());
 		//Indirizzo, header (Codice, DataOra, PuntiGuadagnati), listaArticoliAcquistati
 	}
 	

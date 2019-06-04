@@ -42,7 +42,6 @@ public class ControllerGestioneAccount {
   	}
 
 	private void getDatiUtente() throws NumberFormatException, IOException {
-		GestioneAccountController gac = new GestioneAccountController();
 		PersonalTrainer c = Utilities.getPersonalTrainer(Main.usernamePT);
  		tipologia.setText("Personal Trainer");
 		nome.setText(c.getNome());

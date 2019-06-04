@@ -1,10 +1,13 @@
 package application;
 	
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.EsercizioAlimento;
 
 
 public class Main extends Application {
@@ -14,6 +17,7 @@ public class Main extends Application {
 	static public String idPT;
 	static public String usernameC;
 	static public String tipologiaScheda;
+	static public List<EsercizioAlimento> esercizi;
 
 	@Override
 	public void start(Stage primaryStage) {

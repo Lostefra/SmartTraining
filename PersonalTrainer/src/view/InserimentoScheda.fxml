@@ -40,8 +40,8 @@
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <ComboBox fx:id="min" layoutX="311.0" layoutY="42.0" prefHeight="23.0" prefWidth="66.0" promptText="Min" />
-            <ComboBox fx:id="sec" layoutX="383.0" layoutY="42.0" prefHeight="23.0" prefWidth="66.0" promptText="Sec" />
+            <ComboBox fx:id="min" layoutX="300.0" layoutY="42.0" prefHeight="23.0" prefWidth="75.0" promptText="Min" />
+            <ComboBox fx:id="sec" layoutX="383.0" layoutY="42.0" prefHeight="23.0" prefWidth="75.0" promptText="Sec" />
             <Button onAction="#aggiungi" layoutX="378.0" layoutY="73.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Aggiungi" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                <font>
                   <Font name="Verdana" size="12.0" />
@@ -49,13 +49,12 @@
             </Button>
          </children>
       </AnchorPane>
-      <ComboBox fx:id="giornoSettimana" layoutX="345.0" layoutY="769.0" prefWidth="150.0" promptText="-Scegli-" />
-      <Button layoutX="41.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #eeeeee;" text="Indietro" textAlignment="CENTER" textFill="#090909" wrapText="false">
+      <Button onAction="#indietro" layoutX="41.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #eeeeee;" text="Indietro" textAlignment="CENTER" textFill="#090909" wrapText="false">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="779.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Conferma" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+      <Button onAction="#conferma" layoutX="779.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Conferma" textAlignment="CENTER" textFill="WHITE" wrapText="false">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
@@ -80,9 +79,9 @@
             <Font name="Verdana" size="12.0" />
          </font>
       </Label>
-      <DatePicker layoutX="156.0" layoutY="149.0" style="-fx-background-color: #eeeeee;" />
-      <TextField layoutX="234.0" layoutY="177.0" prefHeight="23.0" prefWidth="50.0" style="-fx-background-color: #eeeeee;" />
-      <TextArea layoutX="124.0" layoutY="360.0" prefHeight="164.0" prefWidth="246.0" promptText="Opzionale" style="-fx-background-color: #eeeeee;" />
+      <DatePicker fx:id="dataInizio" layoutX="156.0" layoutY="149.0" style="-fx-background-color: #eeeeee;" />
+      <TextField fx:id="durata" layoutX="234.0" layoutY="177.0" prefHeight="23.0" prefWidth="50.0" style="-fx-background-color: #eeeeee;" />
+      <TextArea fx:id="note" layoutX="124.0" layoutY="360.0" prefHeight="164.0" prefWidth="246.0" promptText="Opzionale" style="-fx-background-color: #eeeeee;" />
       <Label layoutX="78.0" layoutY="361.0" text="Note:">
          <font>
             <Font name="Verdana" size="12.0" />
@@ -93,8 +92,8 @@
             <Font name="Verdana" size="12.0" />
          </font>
       </Label>
-      <ComboBox layoutX="226.0" layoutY="206.0" prefHeight="23.0" prefWidth="150.0" promptText="- Seleziona -" />
-      <Button layoutX="794.0" layoutY="512.0" mnemonicParsing="false" style="-fx-background-color: #f44336;" text="Elimina" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+      <ComboBox fx:id="giornoSettimana" layoutX="226.0" layoutY="206.0" prefHeight="23.0" prefWidth="150.0" promptText="- Seleziona -" />
+      <Button onAction="#elimina" layoutX="794.0" layoutY="512.0" mnemonicParsing="false" style="-fx-background-color: #f44336;" text="Elimina" textAlignment="CENTER" textFill="WHITE" wrapText="false">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

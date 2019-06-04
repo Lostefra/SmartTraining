@@ -16,7 +16,7 @@ public class EsercizioAlimento {
 	}
 	
 	public EsercizioAlimento(String nome, int numeroSerie, int numeroRipetizioni, 
-			LocalTime tempoRecupero, DayOfWeek giorno, LocalTime ora) {
+			LocalTime tempoRecupero, DayOfWeek giorno) {
 		esercizio = new Esercizio(nome, numeroSerie, numeroRipetizioni, tempoRecupero);
 		this.giorno = giorno;
 	}

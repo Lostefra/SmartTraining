@@ -1,6 +1,8 @@
 package application;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,19 +11,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.Esercizio;
+import javafx.scene.layout.AnchorPane;
+import model.EsercizioAlimento;
 import model.ObservableSchedaContenuto;
 import model.SchedaAllenamento;
 import model.Sessione;
+import schede.SchedeController;
 import util.Utilities;
 
 public class ControllerInserimentoScheda {
@@ -69,6 +77,9 @@ public class ControllerInserimentoScheda {
 	@FXML ComboBox<Integer> min;
 	@FXML ComboBox<Integer> sec;
 	@FXML ComboBox<String> giornoSettimana;
+	@FXML DatePicker dataInizio;
+	@FXML TextField durata;
+	@FXML TextArea note;
 	
 	private Sessione mon;
 	private Sessione tue;
@@ -78,14 +89,19 @@ public class ControllerInserimentoScheda {
 	private Sessione sat;
 	private Sessione sun;
 	
-	private SchedaAllenamento scheda;
+	private List<EsercizioAlimento> esercizi;
 	private List<ObservableSchedaContenuto> observableSchedaContenuto;
+	private SchedaAllenamento scheda;
+	
+	private AnchorPane root;
 	
 	
 	@FXML 
 	private void initialize()  {
 		initTab();
 		observableSchedaContenuto = new ArrayList<>();
+		esercizi = new ArrayList<>();
+		note.setWrapText(true);
 		
 		ObservableList<String> itemsSettimana = FXCollections.observableArrayList();
 		itemsSettimana.add("Lunedì"); itemsSettimana.add("Martedì"); itemsSettimana.add("Mercoledì");
@@ -221,102 +237,205 @@ public class ControllerInserimentoScheda {
 		
 		//int s = 0;
 		if(giornoSettimana.getValue().equals("Lunedì"))
-			mon.getEsercizi().add(new Esercizio(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue())));
+			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					DayOfWeek.MONDAY));
 		else if(giornoSettimana.getValue().equals("Martedì"))
-			tue.getEsercizi().add(new Esercizio(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue())));
+			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					DayOfWeek.TUESDAY));
 		else 
 		if(giornoSettimana.getValue().equals("Mercoledì"))
-			wed.getEsercizi().add(new Esercizio(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue())));
+			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					DayOfWeek.WEDNESDAY));
 		else 
 		if(giornoSettimana.getValue().equals("Giovedì"))
-			thu.getEsercizi().add(new Esercizio(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue())));
+			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					DayOfWeek.THURSDAY));
 		else 
 		if(giornoSettimana.getValue().equals("Venerdì"))
-			fri.getEsercizi().add(new Esercizio(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue())));
+			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					DayOfWeek.FRIDAY));
 		else 	
 		if(giornoSettimana.getValue().equals("Sabato"))
-			sat.getEsercizi().add(new Esercizio(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue())));
+			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					DayOfWeek.SATURDAY));
 		else 
 		if(giornoSettimana.getValue().equals("Domenica"))
-			sun.getEsercizi().add(new Esercizio(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue())));
+			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					DayOfWeek.SUNDAY));
 		
-		\\
+		
 		fillTable();
 		
 	}
 	
 	private void fillTable() {
 		List<ObservableSchedaContenuto> listEsercizi = new ArrayList<>();		
-		for(Sessione s: ((SchedaAllenamento) scheda).getSessioni()) {
-			if(s.getGiorno().getValue() == 1) {
-				for(Esercizio e : s.getEsercizi()) {
-					listEsercizi.add(new ObservableSchedaContenuto(e.getNome(), e.getNumeroSerie(), e.getNumeroRipetizioni(), e.getTempoRecupero()));
-				}
+		for(EsercizioAlimento e: esercizi) {
+			if(e.getGiorno().compareTo(DayOfWeek.MONDAY) == 0) {
+				listEsercizi.add(new ObservableSchedaContenuto(e.getEsercizio().getNome(), e.getEsercizio().getNumeroSerie(), 
+						e.getEsercizio().getNumeroRipetizioni(), e.getEsercizio().getTempoRecupero()));
 			}
 		}
 		lunTable.getItems().setAll(listEsercizi);
+		
 		listEsercizi = new ArrayList<>();		
-		for(Sessione s: ((SchedaAllenamento) scheda).getSessioni()) {
-			if(s.getGiorno().getValue() == 2) {
-				for(Esercizio e : s.getEsercizi()) {
-					listEsercizi.add(new ObservableSchedaContenuto(e.getNome(), e.getNumeroSerie(), e.getNumeroRipetizioni(), e.getTempoRecupero()));
-				}
+		for(EsercizioAlimento e: esercizi) {
+			if(e.getGiorno().compareTo(DayOfWeek.TUESDAY) == 0) {
+				listEsercizi.add(new ObservableSchedaContenuto(e.getEsercizio().getNome(), e.getEsercizio().getNumeroSerie(), 
+						e.getEsercizio().getNumeroRipetizioni(), e.getEsercizio().getTempoRecupero()));
 			}
 		}
 		marTable.getItems().setAll(listEsercizi);
 		listEsercizi = new ArrayList<>();		
-		for(Sessione s: ((SchedaAllenamento) scheda).getSessioni()) {
-			if(s.getGiorno().getValue() == 3) {
-				for(Esercizio e : s.getEsercizi()) {
-					listEsercizi.add(new ObservableSchedaContenuto(e.getNome(), e.getNumeroSerie(), e.getNumeroRipetizioni(), e.getTempoRecupero()));
-				}
+		for(EsercizioAlimento e: esercizi) {
+			if(e.getGiorno().compareTo(DayOfWeek.WEDNESDAY) == 0) {
+				listEsercizi.add(new ObservableSchedaContenuto(e.getEsercizio().getNome(), e.getEsercizio().getNumeroSerie(), 
+						e.getEsercizio().getNumeroRipetizioni(), e.getEsercizio().getTempoRecupero()));
 			}
 		}
 		merTable.getItems().setAll(listEsercizi);
 		listEsercizi = new ArrayList<>();		
-		for(Sessione s: ((SchedaAllenamento) scheda).getSessioni()) {
-			if(s.getGiorno().getValue() == 4) {
-				for(Esercizio e : s.getEsercizi()) {
-					listEsercizi.add(new ObservableSchedaContenuto(e.getNome(), e.getNumeroSerie(), e.getNumeroRipetizioni(), e.getTempoRecupero()));
-				}
+		for(EsercizioAlimento e: esercizi) {
+			if(e.getGiorno().compareTo(DayOfWeek.THURSDAY) == 0) {
+				listEsercizi.add(new ObservableSchedaContenuto(e.getEsercizio().getNome(), e.getEsercizio().getNumeroSerie(), 
+						e.getEsercizio().getNumeroRipetizioni(), e.getEsercizio().getTempoRecupero()));
 			}
 		}
 		gioTable.getItems().setAll(listEsercizi);
 		listEsercizi = new ArrayList<>();		
-		for(Sessione s: ((SchedaAllenamento) scheda).getSessioni()) {
-			if(s.getGiorno().getValue() == 5) {
-				for(Esercizio e : s.getEsercizi()) {
-					listEsercizi.add(new ObservableSchedaContenuto(e.getNome(), e.getNumeroSerie(), e.getNumeroRipetizioni(), e.getTempoRecupero()));
-				}
+		for(EsercizioAlimento e: esercizi) {
+			if(e.getGiorno().compareTo(DayOfWeek.FRIDAY) == 0) {
+				listEsercizi.add(new ObservableSchedaContenuto(e.getEsercizio().getNome(), e.getEsercizio().getNumeroSerie(), 
+						e.getEsercizio().getNumeroRipetizioni(), e.getEsercizio().getTempoRecupero()));
 			}
 		}
 		venTable.getItems().setAll(listEsercizi);
 		listEsercizi = new ArrayList<>();		
-		for(Sessione s: ((SchedaAllenamento) scheda).getSessioni()) {
-			if(s.getGiorno().getValue() == 6) {
-				for(Esercizio e : s.getEsercizi()) {
-					listEsercizi.add(new ObservableSchedaContenuto(e.getNome(), e.getNumeroSerie(), e.getNumeroRipetizioni(), e.getTempoRecupero()));
-				}
+		for(EsercizioAlimento e: esercizi) {
+			if(e.getGiorno().compareTo(DayOfWeek.SATURDAY) == 0) {
+				listEsercizi.add(new ObservableSchedaContenuto(e.getEsercizio().getNome(), e.getEsercizio().getNumeroSerie(), 
+						e.getEsercizio().getNumeroRipetizioni(), e.getEsercizio().getTempoRecupero()));
 			}
 		}
 		sabTable.getItems().setAll(listEsercizi);
 		listEsercizi = new ArrayList<>();		
-		for(Sessione s: ((SchedaAllenamento) scheda).getSessioni()) {
-			if(s.getGiorno().getValue() == 7) {
-				for(Esercizio e : s.getEsercizi()) {
-					listEsercizi.add(new ObservableSchedaContenuto(e.getNome(), e.getNumeroSerie(), e.getNumeroRipetizioni(), e.getTempoRecupero()));
-				}
+		for(EsercizioAlimento e: esercizi) {
+			if(e.getGiorno().compareTo(DayOfWeek.SUNDAY) == 0) {
+				listEsercizi.add(new ObservableSchedaContenuto(e.getEsercizio().getNome(), e.getEsercizio().getNumeroSerie(), 
+						e.getEsercizio().getNumeroRipetizioni(), e.getEsercizio().getTempoRecupero()));
 			}
 		}
 		domTable.getItems().setAll(listEsercizi);
 			
+	}
+	
+	@FXML
+	public void indietro(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomePersonalTrainer.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
+	public void conferma(ActionEvent event) throws NumberFormatException, IOException {
+		SchedeController controller = new SchedeController();
+		
+		if (dataInizio.getValue().isBefore(LocalDate.now()) || dataInizio.getValue() == null) {
+			alert ("Errore", "Errore data inizio", "Inserire una data valida");
+			return;
+		}
+		
+		try {
+			int t = Integer.parseInt(durata.getText());
+		} catch (Exception e) {
+			alert ("Errore", "Errore durata", "Inserire una durata in settimane valida");
+		}
+		
+		controller.inserisciSchedaAllenamento(Utilities.getCliente(Main.usernameC), Utilities.getPersonalTrainer(Main.usernamePT),
+				dataInizio.getValue(), Integer.parseInt(durata.getText()), note.getText(), esercizi);
+		
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomePersonalTrainer.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+		
+	}
+	
+	@FXML
+	public void elimina (ActionEvent event) {
+		String t = tabPane.getSelectionModel().getSelectedItem().getText();
+		EsercizioAlimento es = null;
+		if(t.equals("Lun")){
+			ObservableSchedaContenuto c = lunTable.getSelectionModel().getSelectedItem();
+			for (EsercizioAlimento e : esercizi) {
+				if (e.getGiorno().compareTo(DayOfWeek.MONDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+					es = e;
+				}
+			}
+		}
+		
+		if(t.equals("Mar")){
+			ObservableSchedaContenuto c = marTable.getSelectionModel().getSelectedItem();
+			for (EsercizioAlimento e : esercizi) {
+				if (e.getGiorno().compareTo(DayOfWeek.TUESDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+					es = e;
+				}
+			}
+		}
+		
+		if(t.equals("Mer")){
+			ObservableSchedaContenuto c = merTable.getSelectionModel().getSelectedItem();
+			for (EsercizioAlimento e : esercizi) {
+				if (e.getGiorno().compareTo(DayOfWeek.WEDNESDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+					es = e;
+				}
+			}
+		}
+		
+		if(t.equals("Gio")){
+			ObservableSchedaContenuto c = gioTable.getSelectionModel().getSelectedItem();
+			for (EsercizioAlimento e : esercizi) {
+				if (e.getGiorno().compareTo(DayOfWeek.THURSDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+					es = e;
+				}
+			}
+		}
+		
+		if(t.equals("Ven")){
+			ObservableSchedaContenuto c = venTable.getSelectionModel().getSelectedItem();
+			for (EsercizioAlimento e : esercizi) {
+				if (e.getGiorno().compareTo(DayOfWeek.FRIDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+					es = e;
+				}
+			}
+		}
+		
+		if(t.equals("Sab")){
+			ObservableSchedaContenuto c = sabTable.getSelectionModel().getSelectedItem();
+			for (EsercizioAlimento e : esercizi) {
+				if (e.getGiorno().compareTo(DayOfWeek.SATURDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+					es = e;
+				}
+			}
+		}
+		
+		if(t.equals("Dom")){
+			ObservableSchedaContenuto c = domTable.getSelectionModel().getSelectedItem();
+			for (EsercizioAlimento e : esercizi) {
+				if (e.getGiorno().compareTo(DayOfWeek.SUNDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+					es = e;
+				}
+			}
+		}
+		
+		esercizi.remove(es);
+		
+		fillTable();
 	}
 	
 	private static void alert(String title, String headerMessage, String contentMessage) {

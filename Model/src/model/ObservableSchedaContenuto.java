@@ -20,7 +20,7 @@ public class ObservableSchedaContenuto {
 	}
 	
 	public ObservableSchedaContenuto(String nome, int serie, int ripetizioni, LocalTime recupero) {
-		this.recupero = recupero.format(Utilities.formatterOra);
+		this.recupero = recupero.format(Utilities.formatterRecupero);
 		esercizio = nome;
 		this.ripetizioni = serie + "x"+ ripetizioni;
 	}

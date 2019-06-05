@@ -91,7 +91,7 @@ public class Controller {
 			e.printStackTrace();
 		}
     }
-	//cc
+	
 	@FXML
 	public void sistema(ActionEvent event) throws IOException {
 		root = null;

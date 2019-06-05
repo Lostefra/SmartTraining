@@ -27,8 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.EsercizioAlimento;
 import model.ObservableSchedaContenuto;
-import model.SchedaAllenamento;
-import model.Sessione;
+import richieste.RichiesteController;
 import schede.SchedeController;
 import util.Utilities;
 
@@ -80,26 +79,16 @@ public class ControllerInserimentoScheda {
 	@FXML DatePicker dataInizio;
 	@FXML TextField durata;
 	@FXML TextArea note;
+
 	
-	private Sessione mon;
-	private Sessione tue;
-	private Sessione wed;
-	private Sessione thu;
-	private Sessione fri;
-	private Sessione sat;
-	private Sessione sun;
-	
-	private List<EsercizioAlimento> esercizi;
-	private List<ObservableSchedaContenuto> observableSchedaContenuto;
-	private SchedaAllenamento scheda;
-	
+	private List<EsercizioAlimento> esercizi;	
 	private AnchorPane root;
 	
 	
 	@FXML 
 	private void initialize()  {
 		initTab();
-		observableSchedaContenuto = new ArrayList<>();
+		
 		esercizi = new ArrayList<>();
 		note.setWrapText(true);
 		
@@ -114,64 +103,13 @@ public class ControllerInserimentoScheda {
 		min.setItems(itemsMin);
 		
 		ObservableList<Integer> itemsSec =  FXCollections.observableArrayList();
-		itemsSec.addAll(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30);
+		itemsSec.addAll(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59);
 		sec.setItems(itemsSec);
 		
-		mon = new Sessione(DayOfWeek.MONDAY);
-		tue = new Sessione(DayOfWeek.TUESDAY);
-		wed = new Sessione(DayOfWeek.WEDNESDAY);
-		thu = new Sessione(DayOfWeek.THURSDAY);
-		fri = new Sessione(DayOfWeek.FRIDAY);
-		sat = new Sessione(DayOfWeek.SATURDAY);
-		sun = new Sessione(DayOfWeek.SUNDAY);
-
 	}
 	
 	private void initTab() {
-		colAlun.setText("Esercizio");
-		colBlun.setText("Ripetizioni");
-		colClun.setText("Recupero");
-		colAmar.setText("Esercizio");
-		colBmar.setText("Ripetizioni");
-		colCmar.setText("Recupero");
-		colAmer.setText("Esercizio");
-		colBmer.setText("Ripetizioni");
-		colCmer.setText("Recupero");
-		colAgio.setText("Esercizio");
-		colBgio.setText("Ripetizioni");
-		colCgio.setText("Recupero");
-		colAven.setText("Esercizio");
-		colBven.setText("Ripetizioni");
-		colCven.setText("Recupero");
-		colAsab.setText("Esercizio");
-		colBsab.setText("Ripetizioni");
-		colCsab.setText("Recupero");
-		colAdom.setText("Esercizio");
-		colBdom.setText("Ripetizioni");
-		colCdom.setText("Recupero");
-		
-		colAlun.setPrefWidth(178.0);
-		colBlun.setPrefWidth(79.0);
-		colClun.setPrefWidth(70.0);
-		colAmar.setPrefWidth(178.0);
-		colBmar.setPrefWidth(79.0);
-		colCmar.setPrefWidth(70.0);
-		colAmer.setPrefWidth(178.0);
-		colBmer.setPrefWidth(79.0);
-		colCmer.setPrefWidth(70.0);
-		colAgio.setPrefWidth(178.0);
-		colBgio.setPrefWidth(79.0);
-		colCgio.setPrefWidth(70.0);
-		colAven.setPrefWidth(178.0);
-		colBven.setPrefWidth(79.0);
-		colCven.setPrefWidth(70.0);
-		colAsab.setPrefWidth(178.0);
-		colBsab.setPrefWidth(79.0);
-		colCsab.setPrefWidth(70.0);
-		colAdom.setPrefWidth(178.0);
-		colBdom.setPrefWidth(79.0);
-		colCdom.setPrefWidth(70.0);
-		
+
 		colAlun.setCellValueFactory(new PropertyValueFactory<ObservableSchedaContenuto, String>("esercizio"));
 		colBlun.setCellValueFactory(new PropertyValueFactory<ObservableSchedaContenuto, String>("ripetizioni"));
 		colClun.setCellValueFactory(new PropertyValueFactory<ObservableSchedaContenuto, String>("recupero"));
@@ -204,13 +142,13 @@ public class ControllerInserimentoScheda {
 	@FXML
 	public void aggiungi(ActionEvent event) {
 		try {
-			int t = Integer.parseInt(serie.getText());
+			Integer.parseInt(serie.getText());
 		} catch (Exception e) {
 			alert("Errore", "Errore numero di serie", "Il valore inserito non è valido");
 			return;
 		}
 		try {
-			int t = Integer.parseInt(ripetizioni.getText());
+			Integer.parseInt(ripetizioni.getText());
 		} catch (Exception e) {
 			alert("Errore", "Errore numero di ripetizioni", "Il valore inserito non è valido");
 			return;
@@ -346,19 +284,33 @@ public class ControllerInserimentoScheda {
 	public void conferma(ActionEvent event) throws NumberFormatException, IOException {
 		SchedeController controller = new SchedeController();
 		
-		if (dataInizio.getValue().isBefore(LocalDate.now()) || dataInizio.getValue() == null) {
+		if (dataInizio.getValue() == null || dataInizio.getValue().isBefore(LocalDate.now())) {
 			alert ("Errore", "Errore data inizio", "Inserire una data valida");
 			return;
 		}
 		
 		try {
-			int t = Integer.parseInt(durata.getText());
+			Integer.parseInt(durata.getText());
 		} catch (Exception e) {
 			alert ("Errore", "Errore durata", "Inserire una durata in settimane valida");
+			return;
+		}
+		if(esercizi.isEmpty()) {
+			alert ("Errore", "Errore esercizi", "Non sono presenti esercizi nella scheda");
+			return;
 		}
 		
-		controller.inserisciSchedaAllenamento(Utilities.getCliente(Main.usernameC), Utilities.getPersonalTrainer(Main.usernamePT),
-				dataInizio.getValue(), Integer.parseInt(durata.getText()), note.getText(), esercizi);
+		if(controller.inserisciSchedaAllenamento(Utilities.leggiCliente(Main.idC), Utilities.leggiPersonalTrainer(Main.idPT),
+				dataInizio.getValue(), Integer.parseInt(durata.getText()), note.getText(), esercizi)) {
+			inform("Inserimento scheda", "Operazione completata con successo", "La scheda e' stata correttamente inserita nel profilo del cliente");
+			RichiesteController rc = new RichiesteController();
+			if(!rc.eliminaRichiesta(Main.idRichiesta))
+				alert("Inserimento scheda", "Operazione fallita", "Siamo spiacenti, la scheda e' stata inserita ma si e' verificato un errore nella rimozione della richiesta");
+			
+		}
+		else {
+			alert("Inserimento scheda", "Operazione fallita", "Siamo spiacenti, l'inserimento della scheda non e' andato a buon fine");
+		}
 		
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomePersonalTrainer.fxml"));
@@ -373,7 +325,7 @@ public class ControllerInserimentoScheda {
 		if(t.equals("Lun")){
 			ObservableSchedaContenuto c = lunTable.getSelectionModel().getSelectedItem();
 			for (EsercizioAlimento e : esercizi) {
-				if (e.getGiorno().compareTo(DayOfWeek.MONDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+				if (c != null && e.getGiorno().compareTo(DayOfWeek.MONDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
 					es = e;
 				}
 			}
@@ -382,7 +334,7 @@ public class ControllerInserimentoScheda {
 		if(t.equals("Mar")){
 			ObservableSchedaContenuto c = marTable.getSelectionModel().getSelectedItem();
 			for (EsercizioAlimento e : esercizi) {
-				if (e.getGiorno().compareTo(DayOfWeek.TUESDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+				if (c != null && e.getGiorno().compareTo(DayOfWeek.TUESDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
 					es = e;
 				}
 			}
@@ -391,7 +343,7 @@ public class ControllerInserimentoScheda {
 		if(t.equals("Mer")){
 			ObservableSchedaContenuto c = merTable.getSelectionModel().getSelectedItem();
 			for (EsercizioAlimento e : esercizi) {
-				if (e.getGiorno().compareTo(DayOfWeek.WEDNESDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+				if (c != null && e.getGiorno().compareTo(DayOfWeek.WEDNESDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
 					es = e;
 				}
 			}
@@ -400,7 +352,7 @@ public class ControllerInserimentoScheda {
 		if(t.equals("Gio")){
 			ObservableSchedaContenuto c = gioTable.getSelectionModel().getSelectedItem();
 			for (EsercizioAlimento e : esercizi) {
-				if (e.getGiorno().compareTo(DayOfWeek.THURSDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+				if (c != null && e.getGiorno().compareTo(DayOfWeek.THURSDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
 					es = e;
 				}
 			}
@@ -409,7 +361,7 @@ public class ControllerInserimentoScheda {
 		if(t.equals("Ven")){
 			ObservableSchedaContenuto c = venTable.getSelectionModel().getSelectedItem();
 			for (EsercizioAlimento e : esercizi) {
-				if (e.getGiorno().compareTo(DayOfWeek.FRIDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+				if (c != null && e.getGiorno().compareTo(DayOfWeek.FRIDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
 					es = e;
 				}
 			}
@@ -418,7 +370,7 @@ public class ControllerInserimentoScheda {
 		if(t.equals("Sab")){
 			ObservableSchedaContenuto c = sabTable.getSelectionModel().getSelectedItem();
 			for (EsercizioAlimento e : esercizi) {
-				if (e.getGiorno().compareTo(DayOfWeek.SATURDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+				if (c != null && e.getGiorno().compareTo(DayOfWeek.SATURDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
 					es = e;
 				}
 			}
@@ -427,13 +379,14 @@ public class ControllerInserimentoScheda {
 		if(t.equals("Dom")){
 			ObservableSchedaContenuto c = domTable.getSelectionModel().getSelectedItem();
 			for (EsercizioAlimento e : esercizi) {
-				if (e.getGiorno().compareTo(DayOfWeek.SUNDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
+				if (c != null && e.getGiorno().compareTo(DayOfWeek.SUNDAY)==0 && e.getEsercizio().getNome().equals(c.getEsercizio())) {
 					es = e;
 				}
 			}
 		}
 		
-		esercizi.remove(es);
+		if(es != null)
+			esercizi.remove(es);
 		
 		fillTable();
 	}

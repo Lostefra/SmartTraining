@@ -15,9 +15,10 @@ public class Main extends Application {
 	static public Stage stage;
 	static public String usernamePT;
 	static public String idPT;
-	static public String usernameC;
+	static public String idC;
 	static public String tipologiaScheda;
 	static public List<EsercizioAlimento> esercizi;
+	public static String idRichiesta;
 
 	@Override
 	public void start(Stage primaryStage) {

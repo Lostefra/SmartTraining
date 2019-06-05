@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import log.LogController;
 import model.ObservableRichiesta;
 import model.PersonalTrainer;
 import model.Richiesta;
@@ -64,6 +66,8 @@ public class Controller {
 	public PersonalTrainer pt;
 	
 	private AnchorPane root;
+
+	LogController log = new LogController();
 	
 	@FXML
     public void loginPersonalTrainer(ActionEvent event)
@@ -76,12 +80,14 @@ public class Controller {
 			result = lc.verificaCredenziali(username.getText(), password.getText());
 			if (result == null || !result.equals(UserType.PersonalTrainer)) {
 				alert("Errore","", "Le credenziali inserite non sono valide o l'utente inserito non ha può accedere da questo Client");
+				log.scriviMessaggio(LocalDateTime.now(), "Tentativo di login fallito (Personal Trainer)");
 				return;
 			}
 			
 			
 			Main.usernamePT = username.getText();
-			
+			Main.idPT = Utilities.getPersonalTrainer(Main.usernamePT).getId();
+			log.scriviOperazione(LocalDateTime.now(), "Autenticazione effettuata con successo (Personal Trainer)", Main.idPT);
 			Main.stage.setTitle("Smart Training - PersonalTrainer");
 			viewHomePersonalTrainer(event);
 			Main.stage.show();
@@ -110,7 +116,8 @@ public class Controller {
 	@FXML
 	public void viewInserimento(ActionEvent event) throws IOException {
 		root = null;
-		
+		if (Main.tipologiaScheda == null )
+			return;
 		if (Main.tipologiaScheda.equals("Piano Nutrizionale")) {
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/InserimentoPiano.fxml"));
 			Main.stage.setScene(new Scene(root,900,600));
@@ -124,6 +131,7 @@ public class Controller {
 	public void viewStoricoSchede(ActionEvent event) throws IOException {
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/StoricoSchede PersonalTrainer.fxml"));
+		log.scriviOperazione(LocalDateTime.now(), "Richiesta visualizzazione dello storico schede", Main.idPT);
 		Main.stage.setScene(new Scene(root,900,600));
 	}
 	
@@ -160,8 +168,10 @@ public class Controller {
 						try {
 							fill(homeTab.getSelectionModel().getSelectedItem());
 							Main.tipologiaScheda = homeTab.getSelectionModel().getSelectedItem().getTipologia();
+							Main.idC = homeTab.getSelectionModel().getSelectedItem().getIdCliente();
+							Main.idRichiesta = homeTab.getSelectionModel().getSelectedItem().getId();
 						} catch (NumberFormatException | IOException e1) {
-							// TODO Auto-generated catch block
+							
 							e1.printStackTrace();
 						}
 					
@@ -178,13 +188,6 @@ public class Controller {
 		
 		Main.stage.setScene(new Scene(root,900,600));
 		
-		/*regDataNascita.setDayCellFactory(d -> new DateCell() {
-            @Override 
-            public void updateItem(LocalDate item, boolean empty) {
-                super.updateItem(item, empty);
-                setDisable(empty || item.isAfter(LocalDate.now().minusYears(14)) || item.isBefore(LocalDate.now().minusYears(90)));
-            }});
-		*/
     }
 	 
 	@FXML
@@ -228,13 +231,7 @@ public class Controller {
 		boolean found = false;
 		
 		for (int i = 0; i<richieste.size() && !found; i++) {
-/*			if(richieste.get(i) == null) {
-				System.out.println("richieste.get(i) " +i );
-			}
-			if(observableRichiesta == null) {
-				System.out.println("observableRichiesta");
-			}
-*/			if (richieste.get(i).getId().equals(observableRichiesta.getId())) {
+			if (richieste.get(i).getId().equals(observableRichiesta.getId())) {
 				richiesta = richieste.get(i);
 				found = true;
 			}

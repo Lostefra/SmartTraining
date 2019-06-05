@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import accesso.LoginController;
 import accesso.RegistrazioneController;
@@ -15,6 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import log.LogController;
 import model.UserType;
 import util.Utilities;
 
@@ -37,6 +39,7 @@ public class Controller {
 	@FXML private TextField regResidenza;
 	@FXML private Text welcome;
 	@FXML private Text welcome2;
+	LogController log = new LogController();
 	
 	@FXML
     public void loginCliente(ActionEvent event)
@@ -50,13 +53,14 @@ public class Controller {
 			//System.out.println(username.getText() + " " + password.getText() + " " + result);
 			if (result == null || !result.equals(UserType.Cliente)) {
 				alert("Errore","", "Le credenziali inserite non sono valide");
+				log.scriviMessaggio(LocalDateTime.now(), "Tentativo di login fallito (Cliente)");
 				return;
 			}
 			//se sei qui il cliente è autenticato
 			// da qui bisogna caricare fxml della home
 			Main.usernameCliente = username.getText();
 			Main.idCliente = Utilities.getCliente(Main.usernameCliente).getId();
-			
+			log.scriviOperazione(LocalDateTime.now(), "Autenticazione effettuata con successo (Cliente)", Main.idCliente);
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeCliente.fxml"));
 			Scene scene = new Scene(root,900,600);
 			Main.stage.setScene(scene);		
@@ -111,6 +115,7 @@ public class Controller {
 	public void viewSchedeAttuali(ActionEvent event) throws IOException {
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/SchedeAttuali.fxml"));
+		log.scriviOperazione(LocalDateTime.now(), "Richiesta visualizzazione di schede attuali", Main.idCliente);
 		Main.stage.setScene(new Scene(root,900,600));
 	}
 	
@@ -118,6 +123,7 @@ public class Controller {
 	public void storicoSchede(ActionEvent event) throws IOException {
 		root = null;
 		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/StoricoSchedeCliente.fxml"));
+		log.scriviOperazione(LocalDateTime.now(), "Richiesta visualizzazione dello storico schede", Main.idCliente);
 		Main.stage.setScene(new Scene(root,900,600));
 	}
 	

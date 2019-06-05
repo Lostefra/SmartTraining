@@ -3,8 +3,10 @@ package creazioneID;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
+import log.LogController;
 import util.Utilities;
 
 public class CreazioneIDController {
@@ -49,6 +51,8 @@ public class CreazioneIDController {
 				e.printStackTrace();
 			}		
 		}
+		LogController lc = new LogController();
+		lc.scriviMessaggio(LocalDateTime.now() ,"Generato correttamente l'id: "+ id);
 		return id;
 	}
 	

@@ -10,10 +10,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
+import log.LogController;
 import util.Utilities;
 
 public class RegistrazioneController {
 
+	LogController lc = new LogController();
 	/**
 	 * Possibili return:
 	 * "Errore: username già presente nel sistema"
@@ -42,6 +44,9 @@ public class RegistrazioneController {
 	public String registrazione(String username, String password, String nome, 
 		String cognome, String email, String codiceFiscale, LocalDate dataNascita,
 		String luogoNascita, String indirizzoResidenza, String numeroTelefono, String codiceID) throws IOException {
+		
+		if(username.equals("deleted") || username.equals("null"))
+			return "Errore: username non valido, sceglierne un altro";
 		
 		File inputFile = new File("C:/SmartTrainingFiles/utenti.txt");
 		
@@ -106,7 +111,7 @@ public class RegistrazioneController {
 					+codiceFiscale+"|"+dataNascita.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"|"+luogoNascita
 					+"|"+indirizzoResidenza+"|"+numeroTelefono+"|null|null|null|"+codiceID+"\n");
 			writer.close();
-			
+			lc.scriviOperazione(LocalDateTime.now(),"Registrazione completata (Personal Trainer)",idPT);
 			return "T";
 			
 		}
@@ -137,6 +142,7 @@ public class RegistrazioneController {
 				+"|"+indirizzoResidenza+"|"+numeroTelefono+"|"+codice+"|0|" + 
 				LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))+ "|null\n");	
 		writer.close();
+		lc.scriviOperazione(LocalDateTime.now(),"Registrazione completata (Cliente)",idCliente);
 		return "T";
 	}
 	
@@ -154,6 +160,7 @@ public class RegistrazioneController {
 					ok = false;
 			}
 		} while (!ok);
+		
 		return id;
 	}
 }

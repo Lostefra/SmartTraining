@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import log.LogController;
 import model.Alimento;
 import model.Esercizio;
 import model.ObservableScheda;
@@ -499,6 +501,10 @@ public class ControllerStorico {
 		}
 
         listaSchede.getItems().setAll(obsList);      
+
+    	LogController log = new LogController();
+        log.scriviOperazione(LocalDateTime.now(), "Richiesta applicazione di filtro di ricerca nello storico delle schede", Main.idPT);
+
 	}
 	
 }

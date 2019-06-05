@@ -51,7 +51,8 @@ public class Controller {
     @FXML private DatePicker dataInizio;
     @FXML private DatePicker dataFine;
 	AnchorPane root;
-    
+	LogController log = new LogController();
+	
 	List<Entry> entries = new ArrayList<Entry>();
 	
 	@FXML
@@ -60,15 +61,18 @@ public class Controller {
 		if(username == null || username.getText().length() == 0 || password == null || password.getText().length() == 0)
 			return;
 		LoginController lc = new LoginController();
+		
 		UserType result;
 		try {
 			result = lc.verificaCredenziali(username.getText(), password.getText());
 			if (result == null || !result.equals(UserType.Amministratore)) {
-				alert("Errore","", "Le credenziali inserite non sono valide");
+				alert("Errore","", "Le credenziali inserite non sono valide");			
+				log.scriviMessaggio(LocalDateTime.now(), "Tentativo di login fallito (Addetto alla Sicurezza)");
 				return;
 			}
 			//se sei qui l'addetto alla sicurezza è autenticato
 			// da qui bisogna caricare fxml della home
+			log.scriviMessaggio(LocalDateTime.now(), "Autenticazione effettuata con successo (Addetto alla Sicurezza)");
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/HomeAddettoSicurezza.fxml"));
 			Scene scene = new Scene(root,900,600);
 			Main.stage.setScene(scene);		
@@ -103,6 +107,7 @@ public class Controller {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		log.scriviMessaggio(LocalDateTime.now(), "Logout effettuato con successo (Addetto alla Sicurezza)");
 		Scene scene = new Scene(root,900,600);
 		Main.stage.setScene(scene);		
 	}
@@ -127,14 +132,17 @@ public class Controller {
 	
 	private void getLogFile() {
 		LogController lc = new LogController();
-		entries = lc.getLog();
+		
 		//la tabella sara' non nulla quando sara' caricato il file VisualizzaLog.fxml
 		if(tabella != null) {
+			lc.scriviMessaggio(LocalDateTime.now() ,"Richiesta la visualizzazione dei log di sistema");
+			entries = lc.getLog();
 			dataOraCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("stringDataOra"));
 	        idCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("idUtente"));
 	        descCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("descrizione"));
 	        Collections.sort(entries);
 	        tabella.getItems().setAll(entries);
+			
 		}
 	}
 	
@@ -208,14 +216,4 @@ public class Controller {
 	}
 	
 
-	@SuppressWarnings("unused")
-	private static void inform(String title, String headerMessage, String contentMessage) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle(title);
-		alert.setHeaderText(headerMessage);
-		alert.setContentText(contentMessage);
-		alert.showAndWait();
-	}
-
-	
 }

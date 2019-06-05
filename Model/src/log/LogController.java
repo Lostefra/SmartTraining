@@ -44,7 +44,8 @@ public class LogController {
 			bf_log.close();
 		} catch (IOException e) {
 		
-		}		
+		}	
+		
 		return entries;
 	}
 	
@@ -66,6 +67,8 @@ public class LogController {
 				res.add(e);
 			}			
 		}
+		LogController lc = new LogController();
+		lc.scriviMessaggio(LocalDateTime.now() ,"Effettuata una ricerca sui log di sistema");
 		return res;
 	}
 	

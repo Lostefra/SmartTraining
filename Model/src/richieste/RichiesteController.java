@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import log.LogController;
 import model.Cliente;
 import model.PersonalTrainer;
 import model.Richiesta;
@@ -64,9 +65,11 @@ public class RichiesteController {
 					}
 				}		
 			}
+			bf_richieste.close();
 		} catch (IOException e) {
 		
 		}
+
 		return richieste;
 
 	}
@@ -116,10 +119,12 @@ public class RichiesteController {
 			pw_richieste.write(richiesta.toString());
 			pw_richieste.close();
 			res = true;
-		
+			LogController lc = new LogController();
+			lc.scriviOperazione(LocalDateTime.now(), "Inserimento della richiesta con codice: " + codice, c.getId());
 		} catch(Exception e) {
 			
 		}
+		
 		return res;
 	}
 	
@@ -174,7 +179,9 @@ public class RichiesteController {
 			pw_richieste.write(richiesta.toString());
 			pw_richieste.close();
 			res = true;
-		
+			LogController lc = new LogController();
+			lc.scriviOperazione(LocalDateTime.now(), "Inserimento della richiesta con codice: " + codice, c.getId());
+	
 		} catch(Exception e) {
 			
 		}
@@ -198,19 +205,18 @@ public class RichiesteController {
 				
 				String[] richiesta = new String[100];
 				richiesta = line.split(Pattern.quote("|"));
+				index++;
 				if(richiesta[0].equals(id)) {	//idRichiesta individuato
-					bf_richieste.close();
-					Utilities.riscriviTranneRiga("richieste.txt", index);
+					bf_richieste.close();				
 					res = true;
 					break;
-				}
-				index++;
-					
+				}							
 			}
 			bf_richieste.close();
+			Utilities.riscriviTranneRiga("richieste.txt", index);
 			
 		} catch (IOException e) {
-		
+			e.printStackTrace();
 		}		
 		return res;
 	}
@@ -220,6 +226,7 @@ public class RichiesteController {
 	 * @param r richiesta
 	 * @return esito rimozione
 	 */
+	@Deprecated
 	public boolean eliminaRichiesta(Richiesta r) {
 		boolean res = false;
 		

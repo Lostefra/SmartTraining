@@ -38,4 +38,8 @@ public class Acquisto {
 		return "Codice Acquisto: " + codice + "\nData e Ora: " + dataOra +
 				"\nHai guadagnato " + puntiGuadagnati + " punti";
 	}
+	
+	public String toStringPalestra() {
+		return "Codice Acquisto: " + codice + "\nData e Ora: " + dataOra;
+	}
 }

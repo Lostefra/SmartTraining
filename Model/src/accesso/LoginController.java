@@ -13,6 +13,7 @@ import model.OrarioIngressoUscita;
 import model.UserType;
 import util.Utilities;
 
+//log in view
 public class LoginController {
 
 	private int aumentoPunti;
@@ -23,8 +24,11 @@ public class LoginController {
 	 * @param password
 	 * @return UserType
 	 * @throws IOException
-	 */
+	 */				
 	public UserType verificaCredenziali(String username, String password) throws IOException {
+		
+		if(username.equals("deleted") || username.equals("null"))
+			return null;
 		
 		if (username.equals("amministratore") && password.equals("password")) {
 			return UserType.Amministratore;

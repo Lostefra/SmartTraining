@@ -216,7 +216,7 @@ public class ControllerAcquisto {
 	public void aggiungi(ActionEvent event) {
 		Prodotto prodotto = tabellaProdotti.getSelectionModel().getSelectedItem();
 		
-		if(quantita.getValue() != null) {
+		if(quantita.getValue() != null && prodotto != null) {
 			ProdottoSelezionato pSelected = new ProdottoSelezionato();
 			pSelected.setCodice(prodotto.getCodice());
 			pSelected.setNome(prodotto.getNome());

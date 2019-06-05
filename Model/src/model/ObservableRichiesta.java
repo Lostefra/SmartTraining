@@ -10,7 +10,7 @@ public class ObservableRichiesta {
 	private String tipologia;
 	private LocalDateTime dataOra;
 	private String dataOraStringa;
-	
+	private String idCliente;
 	
 	public ObservableRichiesta(String id, String nome, String cognome, Richiesta richiesta, LocalDateTime dataOra, String dataOraStringa) {
 		this.id = id;
@@ -22,7 +22,12 @@ public class ObservableRichiesta {
 		else
 			this.tipologia = "Scheda di Allenamento";
 		this.dataOra = dataOra;
-		
+		this.idCliente = richiesta.getCliente().getId();
+	}
+
+
+	public String getIdCliente() {
+		return idCliente;
 	}
 
 

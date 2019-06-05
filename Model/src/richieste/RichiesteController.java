@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import log.LogController;
 import model.Cliente;
 import model.PersonalTrainer;
 import model.Richiesta;
@@ -68,6 +69,7 @@ public class RichiesteController {
 		} catch (IOException e) {
 		
 		}
+
 		return richieste;
 
 	}
@@ -117,10 +119,12 @@ public class RichiesteController {
 			pw_richieste.write(richiesta.toString());
 			pw_richieste.close();
 			res = true;
-		
+			LogController lc = new LogController();
+			lc.scriviOperazione(LocalDateTime.now(), c.getId(), "Inserimento della richiesta con codice: " + codice);
 		} catch(Exception e) {
 			
 		}
+		
 		return res;
 	}
 	
@@ -175,7 +179,9 @@ public class RichiesteController {
 			pw_richieste.write(richiesta.toString());
 			pw_richieste.close();
 			res = true;
-		
+			LogController lc = new LogController();
+			lc.scriviOperazione(LocalDateTime.now(), c.getId(), "Inserimento della richiesta con codice: " + codice);
+	
 		} catch(Exception e) {
 			
 		}

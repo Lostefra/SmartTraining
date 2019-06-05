@@ -109,50 +109,7 @@ public class ControllerInserimentoScheda {
 	}
 	
 	private void initTab() {
-		colAlun.setText("Esercizio");
-		colBlun.setText("Ripetizioni");
-		colClun.setText("Recupero");
-		colAmar.setText("Esercizio");
-		colBmar.setText("Ripetizioni");
-		colCmar.setText("Recupero");
-		colAmer.setText("Esercizio");
-		colBmer.setText("Ripetizioni");
-		colCmer.setText("Recupero");
-		colAgio.setText("Esercizio");
-		colBgio.setText("Ripetizioni");
-		colCgio.setText("Recupero");
-		colAven.setText("Esercizio");
-		colBven.setText("Ripetizioni");
-		colCven.setText("Recupero");
-		colAsab.setText("Esercizio");
-		colBsab.setText("Ripetizioni");
-		colCsab.setText("Recupero");
-		colAdom.setText("Esercizio");
-		colBdom.setText("Ripetizioni");
-		colCdom.setText("Recupero");
-		
-		colAlun.setPrefWidth(178.0);
-		colBlun.setPrefWidth(79.0);
-		colClun.setPrefWidth(70.0);
-		colAmar.setPrefWidth(178.0);
-		colBmar.setPrefWidth(79.0);
-		colCmar.setPrefWidth(70.0);
-		colAmer.setPrefWidth(178.0);
-		colBmer.setPrefWidth(79.0);
-		colCmer.setPrefWidth(70.0);
-		colAgio.setPrefWidth(178.0);
-		colBgio.setPrefWidth(79.0);
-		colCgio.setPrefWidth(70.0);
-		colAven.setPrefWidth(178.0);
-		colBven.setPrefWidth(79.0);
-		colCven.setPrefWidth(70.0);
-		colAsab.setPrefWidth(178.0);
-		colBsab.setPrefWidth(79.0);
-		colCsab.setPrefWidth(70.0);
-		colAdom.setPrefWidth(178.0);
-		colBdom.setPrefWidth(79.0);
-		colCdom.setPrefWidth(70.0);
-		
+
 		colAlun.setCellValueFactory(new PropertyValueFactory<ObservableSchedaContenuto, String>("esercizio"));
 		colBlun.setCellValueFactory(new PropertyValueFactory<ObservableSchedaContenuto, String>("ripetizioni"));
 		colClun.setCellValueFactory(new PropertyValueFactory<ObservableSchedaContenuto, String>("recupero"));
@@ -428,7 +385,8 @@ public class ControllerInserimentoScheda {
 			}
 		}
 		
-		esercizi.remove(es);
+		if(es != null)
+			esercizi.remove(es);
 		
 		fillTable();
 	}

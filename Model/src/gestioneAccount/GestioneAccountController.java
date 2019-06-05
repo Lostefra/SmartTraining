@@ -3,8 +3,10 @@ package gestioneAccount;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
+import log.LogController;
 import model.Cliente;
 import model.PersonalTrainer;
 import util.Utilities;
@@ -87,6 +89,8 @@ public class GestioneAccountController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		LogController lc = new LogController();
+		lc.scriviOperazione(LocalDateTime.now() ,"Aggiornamento dei dati personali completato con successo",id);
 		return res;
 	}
 	
@@ -96,6 +100,7 @@ public class GestioneAccountController {
 	 * @return risultato eliminazione
 	 */
 	public boolean eliminaAccount(String id) {
+		LogController lc = new LogController();
 		boolean found = false;
 		BufferedReader bf_utenti = Utilities.apriFile("utenti.txt");
 		String line;
@@ -115,10 +120,14 @@ public class GestioneAccountController {
 			//se sei qui hai trovato l'utente da eliminare,
 			bf_utenti.close();
 			//eliminazione
-			return Utilities.eliminazione(i);
+			if(Utilities.eliminazione(i)) {
+				lc.scriviOperazione(LocalDateTime.now() ,"Eliminazione account completata con successo",id);
+				return true;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		lc.scriviOperazione(LocalDateTime.now(),"Eliminazione account fallita",id );
 		return false;
 	}
 	

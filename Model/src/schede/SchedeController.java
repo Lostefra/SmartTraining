@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import log.LogController;
 import model.Alimento;
 import model.Cliente;
 import model.Esercizio;
@@ -24,6 +25,7 @@ import model.SchedaAllenamento;
 import model.Sessione;
 import util.Utilities;
 
+//log in view per visualizzazione schede
 public class SchedeController {
 	
 	private DateTimeFormatter formatterDataOra = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -350,7 +352,9 @@ public class SchedeController {
 				res=true; //la scheda contiene almeno un esercizio
 			}
 			pw_esercizi.close();
-
+			LogController lc = new LogController();
+			lc.scriviOperazione(LocalDateTime.now(), p.getId(), "Inserimento della scheda con codice: " + codice);
+			
 		} catch(Exception e) {
 			
 		}
@@ -388,7 +392,7 @@ public class SchedeController {
 			String scheda;
 			if(note != null && !note.equals(""))
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
-						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|P";
+						dataInizio.format(formatterData) +"|"+ durataSettimane +"|"+ note + "|P\n";
 			else
 				scheda = codice+"|"+c.getId()+"|"+p.getId()+"|"+ LocalDateTime.now().format(formatterDataOra) + "|"+
 						dataInizio.format(formatterData) +"|"+ durataSettimane+"|null|P\n";
@@ -402,6 +406,9 @@ public class SchedeController {
 				pw_alimenti.write(esercizio);
 				
 				res=true; //la scheda contiene almeno un alimento
+				LogController lc = new LogController();
+				lc.scriviOperazione(LocalDateTime.now(), p.getId(), "Inserimento della scheda con codice: " + codice);
+				
 			}
 			pw_alimenti.close();
 			

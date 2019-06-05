@@ -258,9 +258,7 @@ public class Utilities {
 	 * @return Personal Trainer
 	 * @throws NumberFormatException
 	 * @throws IOException
-<<<<<<< HEAD
 	 */
-
 	public static PersonalTrainer getPersonalTrainer(String username) throws NumberFormatException, IOException {
 		BufferedReader reader = apriFile("utenti.txt");
 		PersonalTrainer personalTrainer = null;

@@ -36,7 +36,7 @@ public class Entry implements Comparable<Entry> {
 	}
 
 	public int compareTo(Entry that) {
-		return - (int) Duration.between(dataOra, that.getDataOra()).toMinutes();
+		return (int) Duration.between(dataOra, that.getDataOra()).toMinutes();
 	}
 	
 }

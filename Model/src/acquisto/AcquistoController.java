@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.regex.Pattern;
 
+import log.LogController;
 import model.Acquisto;
 import model.Cliente;
 import model.Prodotto;
@@ -23,6 +24,7 @@ public class AcquistoController {
 	
 	private Cliente cli;
 	private List<ProdottoSelezionato> prodottiSelezionati;
+	private LogController lc = new LogController();
 	
 	public AcquistoController(Cliente c) {
 		this.cli = c;
@@ -58,7 +60,7 @@ public class AcquistoController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		lc.scriviMessaggio(LocalDateTime.now(),"Download informazioni sui prodotti acquistabili completato con successo");
 		return prodotti;
 	}
 	
@@ -89,7 +91,7 @@ public class AcquistoController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		lc.scriviMessaggio(LocalDateTime.now(),"Download informazioni sugli sconti disponibili compleato con successo");
 		return scontiDisp;
 	}
 	
@@ -117,6 +119,7 @@ public class AcquistoController {
 					(!prezzoMin.isPresent() || prodotto.getPrezzo() >= prezzoMin.get()) &&
 					(!prezzoMax.isPresent() || prodotto.getPrezzo() <= prezzoMax.get()))
 						prodottiFiltrati.add(prodotto);	
+			lc.scriviMessaggio(LocalDateTime.now(),"Filtro sui prodotti applicato con successo");
 			return prodottiFiltrati;
 
 	}
@@ -176,8 +179,10 @@ public class AcquistoController {
 	        FileOutputStream fileOut = new FileOutputStream("C:\\SmartTrainingFiles\\prodotti.txt");
 	        fileOut.write(inputBuffer.toString().getBytes());
 	        fileOut.close();
+	        lc.scriviMessaggio(LocalDateTime.now(),"Disponibilita' del prodotto con codice "+ psel.getCodice()+ " decrementata correttamente");
 	    } catch (Exception e) {
 	        System.out.println("Problem reading file.");
+	        e.printStackTrace();
 	    }
 	}
 	
@@ -231,7 +236,8 @@ public class AcquistoController {
 	        FileOutputStream fileOut = new FileOutputStream("C:\\SmartTrainingFiles\\prodotti.txt");
 	        fileOut.write(inputBuffer.toString().getBytes());
 	        fileOut.close();
-
+	        lc.scriviMessaggio(LocalDateTime.now(),"Disponibilita' del prodotto con codice "+ prodotto.getCodice()+ " ripristinata correttamente");
+	  	  
 	    } catch (Exception e) {
 	        System.out.println("Problem reading file.");
 	    }
@@ -269,6 +275,7 @@ public class AcquistoController {
 			aggiornaSaldoPunti(s);
 			aggiungiPunti(a);
 			mandaMail(a, idCliente);
+			lc.scriviOperazione(LocalDateTime.now() ,"Acquisto con codice "+ a.getCodice()+ " effettuato correttamente",idCliente);			  
 			return true;
 		}
 	}
@@ -307,10 +314,21 @@ public class AcquistoController {
 		
 		mail.Main.mandaMail(Utilities.leggiCliente(idCliente).getEmail(), sa.toString(), sb.toString());
 		//Indirizzo, header (Codice, DataOra, PuntiGuadagnati), listaArticoliAcquistati
+		
+		//si manda email a indirizzo della palestra
+		sa = new StringBuilder();
+		sa.append("Salve, la informiamo che il cliente della sua palestra, "+ Utilities.leggiCliente(idCliente).getNome() +" "+
+				Utilities.leggiCliente(idCliente).getCognome()+", ha completato con successo un acquisto tramite l'applicazione"
+				+ " Smart Training! Ecco i dettagli dell'operazione:\n\n");
+		sa.append(a.toStringPalestra());
+		
+		mail.Main.mandaMail("lorenzomario.amorosa@studio.unibo.it", sa.toString(), sb.toString());
+		//Indirizzo, header (Codice, DataOra, PuntiGuadagnati), listaArticoliAcquistati
+		
 	}
 	
 	private boolean effettuaPagamento() {
-		if(Utilities.generaIntero(100) > 50) //Se l'intero generato è 50, fallisce (una possibilità su 100 di fallimento)
+		if(Utilities.generaIntero(100) == 50) //Se l'intero generato è 50, fallisce (una possibilità su 100 di fallimento)
 			return false;
 		return true;
 	}
@@ -421,6 +439,7 @@ public class AcquistoController {
 			
 			pw.write(sb.toString());
 			pw.close();
+			lc.scriviMessaggio(LocalDateTime.now() ,"Aggiornati correttamente i punti del cliente con id "+ utente[3]+ " dopo l'acquisto con codice "+ a.getCodice());			  
 		} catch (IOException e) {
 			e.printStackTrace();
 		}			

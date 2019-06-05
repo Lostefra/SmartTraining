@@ -37,7 +37,7 @@ public class LogController {
 				}
 				//se entry operazione
 				else {
-					entry = new Entry(LocalDateTime.parse(campi[0], formatterDataOra), campi[1], campi[2]);
+					entry = new Entry(LocalDateTime.parse(campi[0], formatterDataOra), campi[2], campi[1]);
 					entries.add(entry);
 				}			
 			}
@@ -45,8 +45,7 @@ public class LogController {
 		} catch (IOException e) {
 		
 		}	
-		LogController lc = new LogController();
-		lc.scriviMessaggio(LocalDateTime.now() ,"Richiesta la visualizzazione dei log di sistema");
+		
 		return entries;
 	}
 	

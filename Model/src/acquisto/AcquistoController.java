@@ -451,11 +451,9 @@ public class AcquistoController {
 	 */
 	public float calcolaSommaSpesa() {
 		float sommaSpesa = (float) 0.0;
-		for (ProdottoSelezionato prodotto : prodottiSelezionati) {
-			System.out.println(prodotto.getNome() +" "+prodotto.getPrezzo());
+		for (ProdottoSelezionato prodotto : prodottiSelezionati) {			
 			sommaSpesa += (prodotto.getPrezzo());
-		}
-		System.out.println("totale "+sommaSpesa);
+		}		
 		return sommaSpesa;
 	}
 	

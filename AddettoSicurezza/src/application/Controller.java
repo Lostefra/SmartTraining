@@ -124,14 +124,17 @@ public class Controller {
 	
 	private void getLogFile() {
 		LogController lc = new LogController();
-		entries = lc.getLog();
+		
 		//la tabella sara' non nulla quando sara' caricato il file VisualizzaLog.fxml
 		if(tabella != null) {
+			lc.scriviMessaggio(LocalDateTime.now() ,"Richiesta la visualizzazione dei log di sistema");
+			entries = lc.getLog();
 			dataOraCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("stringDataOra"));
 	        idCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("idUtente"));
 	        descCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("descrizione"));
 	        Collections.sort(entries);
 	        tabella.getItems().setAll(entries);
+			
 		}
 	}
 	

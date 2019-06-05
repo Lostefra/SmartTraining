@@ -250,8 +250,8 @@
       <TableView fx:id="tabella" layoutX="37.0" layoutY="198.0" prefHeight="335.0" prefWidth="817.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
          <columns>
             <TableColumn fx:id="dataOraCol" prefWidth="107.0" text="Data e ora" />
-            <TableColumn fx:id="idCol" prefWidth="118.0" text="ID Utente" />
-            <TableColumn fx:id="descCol" prefWidth="591.0" text="Descrizione" />
+            <TableColumn fx:id="idCol" prefWidth="101.0" text="ID Utente" />
+            <TableColumn fx:id="descCol" prefWidth="587.0" text="Descrizione" />
          </columns>
       </TableView>
       <Label layoutX="57.0" layoutY="150.0" text="Ora inizio:">

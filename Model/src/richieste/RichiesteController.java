@@ -120,7 +120,7 @@ public class RichiesteController {
 			pw_richieste.close();
 			res = true;
 			LogController lc = new LogController();
-			lc.scriviOperazione(LocalDateTime.now(), c.getId(), "Inserimento della richiesta con codice: " + codice);
+			lc.scriviOperazione(LocalDateTime.now(), "Inserimento della richiesta con codice: " + codice, c.getId());
 		} catch(Exception e) {
 			
 		}
@@ -180,7 +180,7 @@ public class RichiesteController {
 			pw_richieste.close();
 			res = true;
 			LogController lc = new LogController();
-			lc.scriviOperazione(LocalDateTime.now(), c.getId(), "Inserimento della richiesta con codice: " + codice);
+			lc.scriviOperazione(LocalDateTime.now(), "Inserimento della richiesta con codice: " + codice, c.getId());
 	
 		} catch(Exception e) {
 			

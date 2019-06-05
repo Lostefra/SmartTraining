@@ -68,6 +68,13 @@ public class Controller {
     }
 	
 	@FXML
+	public void sistema(ActionEvent event) throws IOException {
+		root = null;
+		root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/GestioneSoftware.fxml"));
+		Main.stage.setScene(new Scene(root,900,600));
+	}
+	
+	@FXML
     private void initialize()
     {
 		if(welcome != null)

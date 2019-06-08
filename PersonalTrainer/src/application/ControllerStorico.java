@@ -111,7 +111,6 @@ public class ControllerStorico {
 		List<ObservableScheda> obsList = new ArrayList<>();
 		String tipologiaString;
 		for(Scheda s: schede) {
-			System.out.println(s.getId());
 			if(s instanceof SchedaAllenamento)
 				tipologiaString = "Scheda di Allenamento";
 			else

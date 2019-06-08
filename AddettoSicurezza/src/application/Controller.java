@@ -134,7 +134,12 @@ public class Controller {
 		LogController lc = new LogController();
 		
 		//la tabella sara' non nulla quando sara' caricato il file VisualizzaLog.fxml
+		//di conseguenza anche le combobox
 		if(tabella != null) {
+		    oraInizio.setValue("00");
+		    oraFine.setValue("23");
+		    minInizio.setValue("00");
+		    minFine.setValue("59");
 			lc.scriviMessaggio(LocalDateTime.now() ,"Richiesta la visualizzazione dei log di sistema");
 			entries = lc.getLog();
 			dataOraCol.setCellValueFactory(new PropertyValueFactory<Entry, String>("stringDataOra"));

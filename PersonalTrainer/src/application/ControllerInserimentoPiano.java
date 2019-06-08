@@ -72,8 +72,8 @@ public class ControllerInserimentoPiano {
 	
 	@FXML private TextField alimento;
 	@FXML private TextField peso;
-	@FXML ComboBox<Integer> min;
-	@FXML ComboBox<Integer> ora;
+	@FXML ComboBox<String> min;
+	@FXML ComboBox<String> ora;
 	@FXML ComboBox<String> giornoSettimana;
 	@FXML DatePicker dataInizio;
 	@FXML TextField durata;
@@ -97,12 +97,12 @@ public class ControllerInserimentoPiano {
 		itemsSettimana.add("Domenica");
 		giornoSettimana.setItems(itemsSettimana);
 		
-		ObservableList<Integer> itemsOra =  FXCollections.observableArrayList();
-		itemsOra.addAll(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
+		ObservableList<String> itemsOra =  FXCollections.observableArrayList();
+		itemsOra.addAll("00","01","02","03","04","05","06", "07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23");
 		ora.setItems(itemsOra);
 		
-		ObservableList<Integer> itemsMin =  FXCollections.observableArrayList();
-		itemsMin.addAll(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59);
+		ObservableList<String> itemsMin =  FXCollections.observableArrayList();
+		itemsMin.addAll("00","01","02","03","04","05","06", "07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59");
 		min.setItems(itemsMin);
 		
 	}
@@ -169,30 +169,30 @@ public class ControllerInserimentoPiano {
 		//int s = 0;
 		if(giornoSettimana.getValue().equals("Lunedì"))
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
-					DayOfWeek.MONDAY, LocalTime.of(ora.getValue(), min.getValue(), 0)));
+					DayOfWeek.MONDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
 		else if(giornoSettimana.getValue().equals("Martedì"))
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
-					DayOfWeek.TUESDAY, LocalTime.of(ora.getValue(), min.getValue(), 0)));
+					DayOfWeek.TUESDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
 		else 
 		if(giornoSettimana.getValue().equals("Mercoledì"))
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
-					DayOfWeek.WEDNESDAY, LocalTime.of(ora.getValue(), min.getValue(), 0)));
+					DayOfWeek.WEDNESDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
 		else 
 		if(giornoSettimana.getValue().equals("Giovedì"))
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
-					DayOfWeek.THURSDAY, LocalTime.of(ora.getValue(), min.getValue(), 0)));
+					DayOfWeek.THURSDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
 		else 
 		if(giornoSettimana.getValue().equals("Venerdì"))
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
-					DayOfWeek.FRIDAY, LocalTime.of(ora.getValue(), min.getValue(), 0)));
+					DayOfWeek.FRIDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
 		else 	
 		if(giornoSettimana.getValue().equals("Sabato"))
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
-					DayOfWeek.SATURDAY, LocalTime.of(ora.getValue(), min.getValue(), 0)));
+					DayOfWeek.SATURDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
 		else 
 		if(giornoSettimana.getValue().equals("Domenica"))
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
-					DayOfWeek.SUNDAY, LocalTime.of(ora.getValue(), min.getValue(), 0)));
+					DayOfWeek.SUNDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
 		
 		fillTable();
 		

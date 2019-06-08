@@ -73,8 +73,8 @@ public class ControllerInserimentoScheda {
 	@FXML private TextField esercizio;
 	@FXML private TextField ripetizioni;
 	@FXML private TextField serie;
-	@FXML ComboBox<Integer> min;
-	@FXML ComboBox<Integer> sec;
+	@FXML ComboBox<String> min;
+	@FXML ComboBox<String> sec;
 	@FXML ComboBox<String> giornoSettimana;
 	@FXML DatePicker dataInizio;
 	@FXML TextField durata;
@@ -98,12 +98,12 @@ public class ControllerInserimentoScheda {
 		itemsSettimana.add("Domenica");
 		giornoSettimana.setItems(itemsSettimana);
 		
-		ObservableList<Integer> itemsMin =  FXCollections.observableArrayList();
-		itemsMin.addAll(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
+		ObservableList<String> itemsMin =  FXCollections.observableArrayList();
+		itemsMin.addAll("00","01","02","03","04","05","06", "07","08","09","10","11","12","13","14","15","16","17","18","19","20");
 		min.setItems(itemsMin);
 		
-		ObservableList<Integer> itemsSec =  FXCollections.observableArrayList();
-		itemsSec.addAll(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59);
+		ObservableList<String> itemsSec =  FXCollections.observableArrayList();
+		itemsSec.addAll("00","01","02","03","04","05","06", "07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59");
 		sec.setItems(itemsSec);
 		
 	}
@@ -176,36 +176,36 @@ public class ControllerInserimentoScheda {
 		//int s = 0;
 		if(giornoSettimana.getValue().equals("Lunedì"))
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.MONDAY));
 		else if(giornoSettimana.getValue().equals("Martedì"))
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.TUESDAY));
 		else 
 		if(giornoSettimana.getValue().equals("Mercoledì"))
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.WEDNESDAY));
 		else 
 		if(giornoSettimana.getValue().equals("Giovedì"))
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.THURSDAY));
 		else 
 		if(giornoSettimana.getValue().equals("Venerdì"))
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.FRIDAY));
 		else 	
 		if(giornoSettimana.getValue().equals("Sabato"))
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.SATURDAY));
 		else 
 		if(giornoSettimana.getValue().equals("Domenica"))
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
-					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, min.getValue(), sec.getValue()),
+					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.SUNDAY));
 		
 		

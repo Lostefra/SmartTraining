@@ -201,9 +201,10 @@ public class SchedeController {
 				String temp;
 				
 				LocalDate dataFineValidita = LocalDate.parse(campi[4], formatterData).plusWeeks(Integer.parseInt(campi[5]));
+				LocalDate dataInizioValidita = LocalDate.parse(campi[4], formatterData);
 				
-				//facendo così le schede che terminano la validita' oggi compaiono tra le attualiS
-				boolean dataNONok = dataFineValidita.isBefore(LocalDate.now());
+				//facendo così le schede che terminano la validita' oggi compaiono tra le attuali
+				boolean dataNONok = dataFineValidita.isBefore(LocalDate.now()) || dataInizioValidita.isAfter(LocalDate.now());
 				
 				PersonalTrainer p = Utilities.leggiPersonalTrainer(campi[2]);
 				
@@ -353,7 +354,7 @@ public class SchedeController {
 			}
 			pw_esercizi.close();
 			LogController lc = new LogController();
-			lc.scriviOperazione(LocalDateTime.now(), p.getId(), "Inserimento della scheda con codice: " + codice);
+			lc.scriviOperazione(LocalDateTime.now(), "Inserimento della scheda con codice: " + codice, p.getId());
 			
 		} catch(Exception e) {
 			
@@ -407,7 +408,7 @@ public class SchedeController {
 				
 				res=true; //la scheda contiene almeno un alimento
 				LogController lc = new LogController();
-				lc.scriviOperazione(LocalDateTime.now(), p.getId(), "Inserimento della scheda con codice: " + codice);
+				lc.scriviOperazione(LocalDateTime.now(), "Inserimento della scheda con codice: " + codice, p.getId());
 				
 			}
 			pw_alimenti.close();

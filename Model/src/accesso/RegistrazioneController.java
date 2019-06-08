@@ -125,7 +125,7 @@ public class RegistrazioneController {
 			while((currentLine = reader.readLine()) != null && !codiceEsiste) {
 				String[] campi = new String[100];
 				campi = currentLine.split(Pattern.quote("|"));
-				if(campi[2].equals("C") && Integer.parseInt(campi[12]) == (codice))
+				if(campi[2].equals("C") && !campi[12].contentEquals("null") && Integer.parseInt(campi[12]) == (codice))
 					codiceEsiste = true;
 			}
 		}while(codiceEsiste == true);

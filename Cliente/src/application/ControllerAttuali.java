@@ -114,6 +114,7 @@ public class ControllerAttuali {
 	            	String id = listaSchede.getSelectionModel().getSelectedItem().getId();
 	            	Scheda toInit = sc.applicaFiltro(schede, null, null, null, null, null, null, null, id).get(0);
 	            	initTab(toInit);  
+  
             	}
             }
 

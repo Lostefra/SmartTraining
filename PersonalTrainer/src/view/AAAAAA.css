@@ -2,6 +2,10 @@
     -fx-background-color: #039be5;
 }
 
+/* .table-view .table-cell{
+    -fx-font-size:12px;           
+}
+*/
 .tree-table-view .column-header {
     -fx-background-color: #039be5;
 }

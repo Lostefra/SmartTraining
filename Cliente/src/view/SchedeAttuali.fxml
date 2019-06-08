@@ -194,15 +194,12 @@
       </AnchorPane>
       <TableView fx:id="listaSchede" layoutX="33.0" layoutY="126.0" prefHeight="403.0" prefWidth="464.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
          <columns>
-            <TableColumn fx:id="nome" prefWidth="76.0" text="Nome P.T." />
-            <TableColumn fx:id="cognome" prefWidth="74.0" text="Cognome P.T." />
-            <TableColumn fx:id="tipologia" prefWidth="83.0" text="Tipologia" />
-            <TableColumn fx:id="dataInizio" prefWidth="75.0" text="DataInizio" />
-            <TableColumn fx:id="dataFine" prefWidth="77.0" text="DataFine" />
+            <TableColumn fx:id="nome" prefWidth="97.0" text="Nome P.T." />
+            <TableColumn fx:id="cognome" prefWidth="97.0" text="Cognome P.T." />
+            <TableColumn fx:id="tipologia" prefWidth="129.0" text="Tipologia" />
+            <TableColumn fx:id="dataInizio" prefWidth="69.0" text="DataInizio" />
+            <TableColumn fx:id="dataFine" prefWidth="69.0" text="DataFine" />
          </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
       </TableView>
    </children>
 </AnchorPane>

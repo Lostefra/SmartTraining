@@ -28,11 +28,11 @@
       </AnchorPane>
       <TableView fx:id="listaSchede" layoutX="27.0" layoutY="188.0" prefHeight="348.0" prefWidth="513.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
         <columns>
-         <TableColumn fx:id="nome" prefWidth="107.0" text="Nome P.T." />
-            <TableColumn fx:id="cognome" prefWidth="111.0" text="Cognome P.T." />
-            <TableColumn fx:id="tipologia" prefWidth="140.0" text="Tipologia" />
-            <TableColumn fx:id="dataInizio" prefWidth="75.0" text="DataInizio" />
-            <TableColumn fx:id="dataFine" prefWidth="77.0" text="DataFine" />
+         <TableColumn fx:id="nome" prefWidth="115.0" text="Nome P.T." />
+            <TableColumn fx:id="cognome" prefWidth="115.0" text="Cognome P.T." />
+            <TableColumn fx:id="tipologia" prefWidth="129.0" text="Tipologia" />
+            <TableColumn fx:id="dataInizio" prefWidth="69.0" text="DataInizio" />
+            <TableColumn fx:id="dataFine" prefWidth="69.0" text="DataFine" />
         </columns>
       </TableView>
       <TextField fx:id="nomeFiltro" layoutX="38.0" layoutY="105.0" prefHeight="25.0" prefWidth="118.0" promptText="Nome" style="-fx-background-color: #eeeeee;" />

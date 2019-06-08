@@ -25,14 +25,15 @@
                   <Font name="Verdana" size="12.0" />
                </font>
             </Button>
-         </children></AnchorPane>
+         </children>
+       </AnchorPane>
       <TableView fx:id="listaSchede" layoutX="27.0" layoutY="188.0" prefHeight="352.0" prefWidth="513.0" stylesheets="@AAAAAA.css">
         <columns>
-          <TableColumn fx:id="cliente" prefWidth="119" style="-fx-font-family: Verdana; -fx-font-size: 12px;" text="Cliente" />
-           <TableColumn fx:id="tipologia" prefWidth="72.0" style="-fx-font-family: Verdana; -fx-font-size: 12px;" text="Tipologia" />
-           <TableColumn fx:id="dataInizio" prefWidth="77.60003662109375" style="-fx-font-family: Verdana; -fx-font-size: 12px;" text="DataInizio" />
-           <TableColumn fx:id="dataFine" prefWidth="79.5999755859375" style="-fx-font-family: Verdana; -fx-font-size: 12px;" text="DataFine" />
-           <TableColumn fx:id="pt" prefWidth="161" style="-fx-font-family: Verdana; -fx-font-size: 12px;" text="Personal Trainer" />
+          <TableColumn fx:id="cliente" prefWidth="115" text="Cliente" />
+           <TableColumn fx:id="tipologia" prefWidth="129.0"  text="Tipologia" />
+           <TableColumn fx:id="dataInizio" prefWidth="69.0"  text="DataInizio" />
+           <TableColumn fx:id="dataFine" prefWidth="69.0"  text="DataFine" />
+           <TableColumn fx:id="pt" prefWidth="115" text="Personal Trainer" />
         </columns>
       </TableView>
       <TextField fx:id="nomeClienteFiltro" layoutX="38.0" layoutY="106.0" prefHeight="25.0" prefWidth="118.0" promptText="Nome" style="-fx-background-color: #eeeeee;" />

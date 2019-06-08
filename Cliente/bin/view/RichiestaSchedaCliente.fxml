@@ -16,7 +16,6 @@
 
 <AnchorPane fx:controller="application.ControllerRichiesta" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff; -fx-font-family: Verdana;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ComboBox fx:id="NONLOSO" layoutX="345.0" layoutY="769.0" prefWidth="150.0" promptText="-Scegli-" />
       <TableView fx:id="tablePT" layoutX="207.0" layoutY="244.0" prefHeight="270.0" prefWidth="246.0" stylesheets="@AAAAAA.css">
         <columns>
           <TableColumn fx:id="colNome" prefWidth="115.20002746582031" style="-fx-font-family: Verdana;" text="Nome" />

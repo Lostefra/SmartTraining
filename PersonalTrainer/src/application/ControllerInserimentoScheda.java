@@ -174,40 +174,53 @@ public class ControllerInserimentoScheda {
 		}
 		
 		//int s = 0;
-		if(giornoSettimana.getValue().equals("Lunedì"))
+		if(giornoSettimana.getValue().equals("Lunedì")) {
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
 					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.MONDAY));
-		else if(giornoSettimana.getValue().equals("Martedì"))
+			tabPane.getSelectionModel().select(lun);
+		}
+		else if(giornoSettimana.getValue().equals("Martedì")) {
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
 					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.TUESDAY));
+			tabPane.getSelectionModel().select(mar);
+		}
 		else 
-		if(giornoSettimana.getValue().equals("Mercoledì"))
+		if(giornoSettimana.getValue().equals("Mercoledì")) {
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
 					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.WEDNESDAY));
+			tabPane.getSelectionModel().select(mer);
+		}
 		else 
-		if(giornoSettimana.getValue().equals("Giovedì"))
+		if(giornoSettimana.getValue().equals("Giovedì")) {
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
 					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.THURSDAY));
+			tabPane.getSelectionModel().select(gio);
+		}
 		else 
-		if(giornoSettimana.getValue().equals("Venerdì"))
+		if(giornoSettimana.getValue().equals("Venerdì")) {
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
 					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.FRIDAY));
+			tabPane.getSelectionModel().select(ven);
+		}
 		else 	
-		if(giornoSettimana.getValue().equals("Sabato"))
+		if(giornoSettimana.getValue().equals("Sabato")) {
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
 					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.SATURDAY));
+			tabPane.getSelectionModel().select(sab);
+		}
 		else 
-		if(giornoSettimana.getValue().equals("Domenica"))
+		if(giornoSettimana.getValue().equals("Domenica")) {
 			esercizi.add(new EsercizioAlimento(esercizio.getText(), Integer.parseInt(serie.getText()), 
 					Integer.parseInt(ripetizioni.getText()), LocalTime.of(0, Integer.parseInt(min.getValue()), Integer.parseInt(sec.getValue())),
 					DayOfWeek.SUNDAY));
-		
+			tabPane.getSelectionModel().select(dom);
+		}
 		
 		fillTable();
 		

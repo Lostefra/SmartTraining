@@ -167,33 +167,46 @@ public class ControllerInserimentoPiano {
 		}
 		
 		//int s = 0;
-		if(giornoSettimana.getValue().equals("Lunedì"))
+		if(giornoSettimana.getValue().equals("Lunedì")) {
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
 					DayOfWeek.MONDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
-		else if(giornoSettimana.getValue().equals("Martedì"))
+			tabPane.getSelectionModel().select(lun);
+		}
+		else if(giornoSettimana.getValue().equals("Martedì")) {
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
 					DayOfWeek.TUESDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
+			tabPane.getSelectionModel().select(mar);
+		}
 		else 
-		if(giornoSettimana.getValue().equals("Mercoledì"))
+		if(giornoSettimana.getValue().equals("Mercoledì")) {
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
 					DayOfWeek.WEDNESDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
+			tabPane.getSelectionModel().select(mer);
+		}
 		else 
-		if(giornoSettimana.getValue().equals("Giovedì"))
+		if(giornoSettimana.getValue().equals("Giovedì")) {
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
 					DayOfWeek.THURSDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
+			tabPane.getSelectionModel().select(gio);
+		}
 		else 
-		if(giornoSettimana.getValue().equals("Venerdì"))
+		if(giornoSettimana.getValue().equals("Venerdì")) {
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
 					DayOfWeek.FRIDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
+			tabPane.getSelectionModel().select(ven);
+		}
 		else 	
-		if(giornoSettimana.getValue().equals("Sabato"))
+		if(giornoSettimana.getValue().equals("Sabato")) {
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
 					DayOfWeek.SATURDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
+			tabPane.getSelectionModel().select(sab);
+		}
 		else 
-		if(giornoSettimana.getValue().equals("Domenica"))
+		if(giornoSettimana.getValue().equals("Domenica")) {
 			alimenti.add(new EsercizioAlimento(alimento.getText(), Integer.parseInt(peso.getText()), 
 					DayOfWeek.SUNDAY, LocalTime.of(Integer.parseInt(ora.getValue()), Integer.parseInt(min.getValue()), 0)));
-		
+			tabPane.getSelectionModel().select(dom);
+		}
 		fillTable();
 		
 	}

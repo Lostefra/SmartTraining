@@ -1,7 +1,9 @@
 package application;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 import accesso.LoginController;
 import accesso.RegistrazioneController;
@@ -191,11 +193,11 @@ public class Controller {
 			alert("Errore", "Errore cognome", "Inserire il proprio cognome");
 			return false;
 		}
-		if ( regEmail == null || regEmail.getText().length() < 1 || !isEmail()) {
+		if ( regEmail == null || regEmail.getText().length() < 1 || !isEmail(regEmail.getText())) {
 			alert("Errore", "Errore email", "Inserire un email valido");
 			return false;
 		}
-		if (regCodFisc == null || regCodFisc.getText().length() != 16 || !isAlphaNumeric(regCodFisc.getText())) {
+		if (regCodFisc == null || regCodFisc.getText().length() != 16 || !isAlphaNumeric(regCodFisc.getText()) || !isCodiceFiscale(regCodFisc.getText())) {
 			alert("Errore", "Errore codice fiscale", "Inserire un codice fiscale valido");
 			return false;
 		}
@@ -211,8 +213,8 @@ public class Controller {
 			alert("Errore", "Errore conferma password", "Inserire la password di conferma non è uguale alla password inserita");
 			return false;
 		}
-		if (regDataNascita == null || regDataNascita.getValue() == null) {
-			alert("Errore", "Errore data di nascita", "Inserire data di nascita");
+		if (regDataNascita == null || regDataNascita.getValue() == null || regDataNascita.getValue().compareTo(LocalDate.now().minusYears(14)) > 0) {
+			alert("Errore", "Errore data di nascita", "Attenzione, devi aver compiuto 14 anni per registrarti all'applicazione");
 			return false;
 		}
 		if (regResidenza == null || regTel.getText().length() < 1 || containsSplit(regResidenza.getText())) {
@@ -253,14 +255,12 @@ public class Controller {
 		return true;
 	}
 	
-	private boolean isEmail() {
-		char[] seq = regEmail.getText().toCharArray();
-		
-		for (int i = 0; i<seq.length; i++)
-			if (seq[i]=='@' && i>0 && i<seq.length-2)
-				return true;
-		
-		return false;
+	private boolean isEmail(String mail) {
+		return Pattern.matches("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", mail);
+	}
+	
+	private boolean isCodiceFiscale(String cf) {
+		return Pattern.matches("^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$", cf);
 	}
 	
 	private boolean containsUpperCase() {

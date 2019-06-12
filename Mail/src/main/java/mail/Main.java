@@ -11,7 +11,7 @@ public class Main {
 
 	public static void mandaMail(String indirizzoMail, String header, String prodotti) {
 		Email email = EmailBuilder.startingBlank()
-						.from("provamailz25@gmail.com")
+						.from("smart.training.noreply@gmail.com")
 						.to(indirizzoMail)
 						.withSubject("Ricevuta acquisto del " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
 						.withPlainText(header + "\n\n" + prodotti)
@@ -19,7 +19,7 @@ public class Main {
 						.buildEmail();
 		
 		MailerBuilder
-		  .withSMTPServer("smtp.gmail.com", 587, "provamailz25@gmail.com", "lorenzomario")
+		  .withSMTPServer("smtp.gmail.com", 587, "smart.training.noreply@gmail.com", "lorenzomario")
 		  .withTransportStrategy(TransportStrategy.SMTP_TLS)
 		  .buildMailer()
 		  .sendMail(email);

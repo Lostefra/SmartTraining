@@ -321,15 +321,20 @@ public class AcquistoController {
 				Utilities.leggiCliente(idCliente).getCognome()+", ha completato con successo un acquisto tramite l'applicazione"
 				+ " Smart Training! Ecco i dettagli dell'operazione:\n\n");
 		sa.append(a.toStringPalestra());
+		sb = new StringBuilder();
+		for (ProdottoSelezionato prodottoSel : prodottiSelezionati)
+			sb.append(prodottoSel.getQuantita() + " " + prodottoSel.getNome() + ", " +
+						prodottoSel.getPrezzo() + 
+						" € (prezzo singolo articolo: " + prodottoSel.getPrezzo()/(prodottoSel.getQuantita()*1.0) +" )\n");
 		
-		mail.Main.mandaMail("lorenzomario.amorosa@studio.unibo.it", sa.toString(), sb.toString());
+		
+		
+		mail.Main.mandaMail("lorenzomario.amorosa@gmail.com", sa.toString(), sb.toString());
 		//Indirizzo, header (Codice, DataOra, PuntiGuadagnati), listaArticoliAcquistati
 		
 	}
 	
 	private boolean effettuaPagamento() {
-		if(Utilities.generaIntero(100) == 50) //Se l'intero generato è 50, fallisce (una possibilità su 100 di fallimento)
-			return false;
 		return true;
 	}
 	

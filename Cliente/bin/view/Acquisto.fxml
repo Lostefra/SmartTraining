@@ -26,7 +26,7 @@
             <Font name="Verdana" size="65.0" />
          </font>
       </Label>
-      <TableView fx:id="tabellaProdotti" layoutX="33.0" layoutY="249.0" prefHeight="242.0" prefWidth="480.0">
+      <TableView fx:id="tabellaProdotti" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css" layoutX="33.0" layoutY="249.0" prefHeight="242.0" prefWidth="480.0">
         <columns>
           <TableColumn fx:id="codiceCol" prefWidth="59.19997787475586" style="-fx-font-family: Verdana;" text="Codice" />
           <TableColumn fx:id="prodottoCol" prefWidth="92.79998779296875" style="-fx-font-family: Verdana;" text="Prodotto" />
@@ -35,7 +35,7 @@
             <TableColumn fx:id="disponibilitaCol"  minWidth="0.0" prefWidth="60.00006103515625" style="-fx-font-family: Verdana;" text="Disp." />
         </columns>
       </TableView>
-      <TableView fx:id="tabellaSelezionati" layoutX="535.0" layoutY="101.0" prefHeight="180.0" prefWidth="323.0">
+      <TableView fx:id="tabellaSelezionati" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css" layoutX="535.0" layoutY="101.0" prefHeight="180.0" prefWidth="323.0">
         <columns>
           <TableColumn fx:id="codiceSelezionatiCol" prefWidth="52.0" style="-fx-font-family: Verdana;" text="Codice" />
           <TableColumn fx:id="prodottoSelezionatiCol" prefWidth="144.0" style="-fx-font-family: Verdana;" text="Prodotto" />
@@ -69,7 +69,7 @@
             <Font name="Verdana" size="12.0" />
          </font>
       </Label>
-      <TableView fx:id="tabellaSconti" layoutX="535.0" layoutY="341.0" prefHeight="150.0" prefWidth="323.0">
+      <TableView fx:id="tabellaSconti" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css" layoutX="535.0" layoutY="341.0" prefHeight="150.0" prefWidth="323.0">
          <columns>
             <TableColumn fx:id="valoreScontiCol" prefWidth="52.0" style="-fx-font-family: Verdana;" text="Sconto" />
             <TableColumn fx:id="puntiRichiestiCol" prefWidth="100.0" style="-fx-font-family: Verdana;" text="Punti richiesti" />

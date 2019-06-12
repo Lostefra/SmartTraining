@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:controller="application.ControllerInserimentoPiano" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #63ccff; -fx-font-family: Verdana;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="59.0" layoutY="231.0" prefHeight="93.0" prefWidth="462.0" style="-fx-background-color: #5ac0fd;">
+         <children>
+            <Label layoutX="19.0" layoutY="47.0" text="Alimento:">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="alimento" layoutX="77.0" layoutY="43.0" prefHeight="23.0" prefWidth="137.0" style="-fx-background-color: #eeeeee;" />
+            <Label layoutX="224.0" layoutY="47.0" text="Peso(gr.):">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="peso" layoutX="296.0" layoutY="43.0" prefHeight="23.0" prefWidth="50.0" style="-fx-background-color: #eeeeee;" />
+            <Label layoutX="19.0" layoutY="13.0" text="Orario:">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="ora" layoutX="70.0" layoutY="9.0" prefHeight="23.0" prefWidth="66.0" promptText="Ora" />
+            <ComboBox fx:id="min" layoutX="142.0" layoutY="9.0" prefHeight="23.0" prefWidth="66.0" promptText="Min" />
+            <Button onAction="#aggiungi" layoutX="379.0" layoutY="43.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Aggiungi" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <ComboBox fx:id="giornoSettimana" layoutX="345.0" layoutY="769.0" prefWidth="150.0" promptText="-Scegli-" />
+      <Button onAction="#indietro" layoutX="41.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #eeeeee;" text="Indietro" textAlignment="CENTER" textFill="#090909" wrapText="false">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Button>
+      <Button onAction="#conferma" layoutX="779.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: #006db3;&#10;" text="Conferma" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="327.0" layoutY="28.0" prefHeight="40.0" prefWidth="246.0" style="-fx-font-size: 24;" text="Inserimento Scheda">
+         <font>
+            <Font name="Verdana" size="65.0" />
+         </font>
+      </Label>
+      <Label layoutX="78.0" layoutY="122.0" text="Tipologia:">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="78.0" layoutY="153.0" text="Data Inizio:">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="78.0" layoutY="181.0" text="Durata (in settimane):">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dataInizio" layoutX="156.0" layoutY="149.0" style="-fx-background-color: #eeeeee;" />
+      <TextField fx:id="durata" layoutX="234.0" layoutY="177.0" prefHeight="23.0" prefWidth="50.0" style="-fx-background-color: #eeeeee;" />
+      <TextArea fx:id="note" layoutX="124.0" layoutY="346.0" prefHeight="178.0" prefWidth="246.0" promptText="Opzionale" style="-fx-background-color: #eeeeee;" />
+      <Label layoutX="78.0" layoutY="346.0" text="Note:">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="78.0" layoutY="210.0" text="Giorno della settimana:">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="giornoSettimana" layoutX="226.0" layoutY="206.0" prefHeight="23.0" prefWidth="150.0" promptText="- Seleziona -" />
+      <Button onAction="#elimina" layoutX="794.0" layoutY="512.0" mnemonicParsing="false" style="-fx-background-color: #f44336;" text="Elimina" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Button>
+      <TabPane fx:id="tabPane" layoutX="524.0" layoutY="80.0" prefHeight="421.0" prefWidth="330.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="31.5">
+         <tabs>
+            <Tab fx:id="lun" style="-fx-font-family: Verdana;" text="Lun">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="330.0">
+                     <children>
+                        <TableView fx:id="lunTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
+                           <columns>
+                              <TableColumn fx:id="colAlun" prefWidth="58.0" style="-fx-font-family: Verdana;" text="Orario" />
+                              <TableColumn fx:id="colBlun" prefWidth="186.0" style="-fx-font-family: Verdana;" text="Alimento" />
+                              <TableColumn fx:id="colClun" prefWidth="83.0" style="-fx-font-family: Verdana;" text="Peso (gr.)" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="mar" style="-fx-font-family: Verdana;" text="Mar">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="marTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
+                           <columns>
+                              <TableColumn fx:id="colAmar" prefWidth="58.0" style="-fx-font-family: Verdana;" text="Orario" />
+                              <TableColumn fx:id="colBmar" prefWidth="186.0" style="-fx-font-family: Verdana;" text="Alimento" />
+                              <TableColumn fx:id="colCmar" prefWidth="83.0" style="-fx-font-family: Verdana;" text="Peso (gr.)" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="mer" style="-fx-font-family: Verdana;" text="Mer">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="merTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
+                           <columns>
+                               <TableColumn fx:id="colAmer" prefWidth="58.0" style="-fx-font-family: Verdana;" text="Orario" />
+                              <TableColumn fx:id="colBmer" prefWidth="186.0" style="-fx-font-family: Verdana;" text="Alimento" />
+                              <TableColumn fx:id="colCmer" prefWidth="83.0" style="-fx-font-family: Verdana;" text="Peso (gr.)" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="gio" style="-fx-font-family: Verdana;" text="Gio">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="gioTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
+                           <columns>
+                               <TableColumn fx:id="colAgio" prefWidth="58.0" style="-fx-font-family: Verdana;" text="Orario" />
+                              <TableColumn fx:id="colBgio" prefWidth="186.0" style="-fx-font-family: Verdana;" text="Alimento" />
+                              <TableColumn fx:id="colCgio" prefWidth="83.0" style="-fx-font-family: Verdana;" text="Peso (gr.)" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="ven" style="-fx-font-family: Verdana;" text="Ven">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="venTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
+                           <columns>
+                               <TableColumn fx:id="colAven" prefWidth="58.0" style="-fx-font-family: Verdana;" text="Orario" />
+                              <TableColumn fx:id="colBven" prefWidth="186.0" style="-fx-font-family: Verdana;" text="Alimento" />
+                              <TableColumn fx:id="colCven" prefWidth="83.0" style="-fx-font-family: Verdana;" text="Peso (gr.)" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="sab" style="-fx-font-family: Verdana;" text="Sab">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="330.0">
+                     <children>
+                        <TableView fx:id="sabTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
+                           <columns>
+                             <TableColumn fx:id="colAsab" prefWidth="58.0" style="-fx-font-family: Verdana;" text="Orario" />
+                              <TableColumn fx:id="colBsab" prefWidth="186.0" style="-fx-font-family: Verdana;" text="Alimento" />
+                              <TableColumn fx:id="colCsab" prefWidth="83.0" style="-fx-font-family: Verdana;" text="Peso (gr.)" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="dom" style="-fx-font-family: Verdana;" text="Dom">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="330.0">
+                     <children>
+                        <TableView fx:id="domTable" prefHeight="390.0" prefWidth="330.0" style="-fx-background-color: #eeeeee;" stylesheets="@AAAAAA.css">
+                           <columns>
+                              <TableColumn fx:id="colAdom" prefWidth="58.0" style="-fx-font-family: Verdana;" text="Orario" />
+                              <TableColumn fx:id="colBdom" prefWidth="186.0" style="-fx-font-family: Verdana;" text="Alimento" />
+                              <TableColumn fx:id="colCdom" prefWidth="83.0" style="-fx-font-family: Verdana;" text="Peso (gr.)" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <TextField editable="false" layoutX="146.0" layoutY="118.0" prefHeight="23.0" prefWidth="137.0" style="-fx-background-color: #eeeeee;" text="Piano Nutrizionale" />
+   </children>
+</AnchorPane>

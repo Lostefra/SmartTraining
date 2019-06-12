@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import accesso.LoginController;
 import creazioneID.CreazioneIDController;
@@ -180,16 +181,29 @@ public class Controller {
 		CreazioneIDController idc = new CreazioneIDController();
 		if(codiceFiscale == null || codiceFiscale.getText().length() == 0)
 			return;
+		if(!isCodiceFiscale(codiceFiscale.getText())) {
+			alert("Attenzione","Errore: codice fiscale non valido", "Inserire un codice fiscale valido");
+			return;
+		}
 		String id = idc.generaCodiceID(codiceFiscale.getText());
 		if(id == null) {
-			alert("Errore","", "Impossibile generare il codice ID. Codice fiscale non valido");
+			alert("Errore","", "Impossibile generare il codice ID. Codice fiscale gia inserito nel sistema");
 			return;
 		}
 		codiceID.setText(id);	
 	}
 	
+	private boolean isCodiceFiscale(String cf) {
+		return Pattern.matches("^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$", cf);
+	}
+	
 	@FXML
 	public void applicaFiltro(ActionEvent event) {
+		if(dataInizio.getValue() != null && dataFine.getValue() != null && 
+				dataFine.getValue().compareTo(dataInizio.getValue()) < 0 ) {
+			alert("Errore ricerca","Filtri per data errati", "La data di inizio deve anticipare la data di fine validita");
+			return;
+		}
 		LogController lc = new LogController();
 		entries = lc.getLog();
 		LocalDateTime inizio = null, fine = null;

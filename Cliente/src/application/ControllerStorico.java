@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tab;
@@ -18,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -465,6 +467,11 @@ public class ControllerStorico {
 	
 	@FXML
 	public void applica(ActionEvent event) throws IOException {
+		if(dataInizioFiltro.getValue() != null && dataFineFiltro.getValue() != null && 
+				dataFineFiltro.getValue().compareTo(dataInizioFiltro.getValue()) < 0 ) {
+			alert("Errore ricerca","Filtri per data errati", "La data di inizio deve anticipare la data di fine validita");
+			return;
+		}
 		SchedeController sc = new SchedeController();
 		List<Scheda> schede = sc.visualizzaStoricoCliente(Utilities.leggiCliente(Main.idCliente));
 		schede = sc.applicaFiltro(schede, Utilities.leggiCliente(Main.idCliente).getNome(), 
@@ -487,5 +494,14 @@ public class ControllerStorico {
     	LogController log = new LogController();
         log.scriviOperazione(LocalDateTime.now(), "Richiesta applicazione di filtro di ricerca nello storico delle schede", Main.idCliente);
 	}
+	
+	private static void alert(String title, String headerMessage, String contentMessage) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(title);
+		alert.setHeaderText(headerMessage);
+		alert.setContentText(contentMessage);
+		alert.showAndWait();
+	}
+	
 	
 }

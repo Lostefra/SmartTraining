@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import gestioneAccount.GestioneAccountController;
 import javafx.event.ActionEvent;
@@ -154,7 +155,7 @@ public class ControllerGestioneAccount {
 			alert("Modifica dati", "", "Il numero inserito risulta scorretto");
 			return;		
 		}
-		if(email.getText().equals("") || !email.getText().contains("@") || !email.getText().contains(".")) {
+		if(email.getText().equals("") || !emailRegex(email.getText()) || !email.getText().contains("@") || !email.getText().contains(".")) {
 			alert("Modifica dati", "", "L'email inserita risulta scorretta");
 			return;
 		}
@@ -190,6 +191,10 @@ public class ControllerGestioneAccount {
 			
     } 
 	
+	private boolean emailRegex(String mail) {
+		return Pattern.matches("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", mail);
+	}
+
 	@FXML
 	public void annulla(ActionEvent event)
     {

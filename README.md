@@ -2,7 +2,7 @@
 
 **SmartTraining** is a Java based desktop application that provides useful interfaces to improve communication between personal trainers and customers.
 
-We provide an [extended documentation](https://github.com/Lostefra/SmartTraining/blob/master/res/Smart%20Training.pdf) of the project and a brief [introductory presentation](https://github.com/Lostefra/SmartTraining/blob/master/res/Smart%20training%20-%20Presentazione.pdf) as well.
+We provide an [extensive documentation](https://github.com/Lostefra/SmartTraining/blob/master/res/Smart%20Training.pdf) of the project and a brief [introductory presentation](https://github.com/Lostefra/SmartTraining/blob/master/res/Smart%20training%20-%20Presentazione.pdf) as well.
 
 This project was developed as part of the *Software Engineering* university course (Bachelor in Computer Engineering, Alma Mater Studiorum - University of Bologna).
 
